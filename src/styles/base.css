@@ -4,8 +4,8 @@ html {
 
 body {
   font-family: var(--font-pr);
-  color: var(--white-10);
-  background-color: #211a3f;
+  color: var(--white);
+  background-color: var(--violet-20);
   line-height: 1.5;
 }
 
