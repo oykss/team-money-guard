@@ -1,6 +1,11 @@
 # Prettierrc
 .prettierrc
 
+# Env
+.env
+
+hw.txt
+
 # Logs
 logs
 *.log
