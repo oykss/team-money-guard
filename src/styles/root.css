@@ -3,6 +3,14 @@
   --font-pr: 'Poppins', sans-serif;
   --font-sec: 'Circe', sans-serif;
 
-  /* Colors */
-  --white-10: #fbfbfb;
+  /* Color */
+  --yellow: #ffb627;
+  --violet-10: #734aef;
+  --violet-20: #211a3f;
+  --white: #fbfbfb;
+  --white-400: rgba(255, 255, 255, 0.4);
+  --white-600: rgba(255, 255, 255, 0.6);
+  --text-button: #623f8b;
+  --dashboard-text: #ff868d;
+  --form-color: rgba(255, 255, 255, 0.1);
 }
