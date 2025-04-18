@@ -6,4 +6,6 @@ export const ROUTES = {
   REGISTER: '/register',
 };
 
-export const API_PATHS = {};
+export const API_PATHS = {
+  AUTH: '/auth',
+};

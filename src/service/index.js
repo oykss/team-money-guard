@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { API_PATHS } from './../constants/api-paths';
+import { API_PATHS } from '../constants';
 
 export const baseURL = import.meta.env.VITE_API_BASE_URL;
 
