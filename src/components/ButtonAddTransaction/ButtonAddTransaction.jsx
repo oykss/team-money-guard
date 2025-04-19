@@ -1,9 +1,6 @@
 import { IoAddOutline } from "react-icons/io5";
 
-export default function ButtonAddTransaction() {
-  const handleAddTransaction = () => {
-    console.log("calling modal");
-  };
+export default function ButtonAddTransaction({ onClick }) {
   const style = {
     position: "fixed",
     bottom: "20px",
@@ -18,7 +15,7 @@ export default function ButtonAddTransaction() {
     alignItems: "center",
   };
   return (
-    <button type="button" style={style} onClick={handleAddTransaction}>
+    <button type="button" style={style} onClick={onClick}>
       <IoAddOutline size={24} color="#fff" />
     </button>
   );

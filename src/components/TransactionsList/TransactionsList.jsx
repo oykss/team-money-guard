@@ -8,7 +8,7 @@ export default function TransactionsList() {
   const transactions = useSelector(selectTransactions);
   return (
     <Container>
-      TransactionList
+      {transactions.length === 0 && <p>There is no transactions yet.</p>}
       <ul className={css["transactions-list"]}>
         {transactions.map((transaction) => (
           <li key={transaction.id}>

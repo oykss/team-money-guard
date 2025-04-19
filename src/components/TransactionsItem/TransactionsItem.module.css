@@ -1,14 +1,30 @@
 .item-card {
+  position: relative;
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+
+  @media (min-width: 768px) {
+    background-color: transparent;
+    border: none;
+    display: flex;
+  }
 }
 
 .item-card::before {
+  position: absolute;
   content: "";
-  width: 10px;
-  height: auto;
-  color: aqua;
+  width: 5px;
+  height: 100%;
+}
+
+.item-card.loss::before {
+  background-color: var(--dashboard-text);
+}
+
+.item-card.income::before {
+  background-color: var(--yellow);
 }
 
 .item-line {
@@ -24,6 +40,9 @@
 
 .bold-text {
   font-weight: 600;
+}
+.bold-text.hidden {
+  display: none;
 }
 
 .delete-btn {
@@ -41,7 +60,7 @@
   box-shadow: 1px 9px 15px 0 rgba(0, 0, 0, 0.2);
 }
 
-.edit-btn {
-  color: var(--white-600);
+.edit-btn span {
   margin-left: 4px;
+  color: var(--white-600);
 }
