@@ -1,4 +1,4 @@
-import monoApi from '../service/index.js';
+import { apiMono } from '../service/index.js';
 
 export async function getCurrency() {
   const ONE_HOUR = 60 * 60 * 1000;
@@ -12,10 +12,13 @@ export async function getCurrency() {
     }
   }
   try {
-    const res = monoApi.get();
-    const data = res.data;
+    const { data } = await apiMono.get();
 
-    //find appropriate currency rates
+    if (!data) {
+      throw new Error('No data received from API');
+    }
+
+    // find appropriate currency rates
     const usd = data.find(item => {
       return item.currencyCodeA === 840 && item.currencyCodeB === 980;
     });
@@ -33,6 +36,8 @@ export async function getCurrency() {
       'currencyInfo',
       JSON.stringify({ currency: currencyRates, time: Date.now() })
     );
+
+    console.log(currencyRates);
 
     return currencyRates;
   } catch (error) {

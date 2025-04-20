@@ -1,3 +1,38 @@
+import { useEffect, useState } from 'react';
+import { getCurrency } from '../../utils/monoApiFn';
+import css from './CurrencyTab.module.css';
+
 export default function CurrencyTab() {
-  return <div>CurrencyTab</div>;
+  const [currency, setCurrency] = useState(null);
+
+  useEffect(() => {
+    async function currency() {
+      const data = await getCurrency();
+      setCurrency(data);
+    }
+    currency();
+  }, []);
+
+  return (
+    <div className={css.mainCurrencyDiv}>
+      <table>
+        <tr className={css.headingTr}>
+          <th>Currency</th>
+          <th>Purchase</th>
+          <th>Sale</th>
+        </tr>
+        <tr>
+          <td>USD</td>
+          <td>{currency.usdBuy}</td>
+          <td>{currency.usdSell}</td>
+        </tr>
+        <tr>
+          <td>EURO</td>
+          <td>{currency.euroBuy}</td>
+          <td>{currency.euroSell}</td>
+        </tr>
+      </table>
+      <div className={css.chartDiv}></div>
+    </div>
+  );
 }
