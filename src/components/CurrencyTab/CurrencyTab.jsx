@@ -15,23 +15,30 @@ export default function CurrencyTab() {
 
   return (
     <div className={css.mainCurrencyDiv}>
-      <table>
-        <tr className={css.headingTr}>
-          <th>Currency</th>
-          <th>Purchase</th>
-          <th>Sale</th>
-        </tr>
-        <tr>
-          <td>USD</td>
-          <td>{currency.usdBuy}</td>
-          <td>{currency.usdSell}</td>
-        </tr>
-        <tr>
-          <td>EURO</td>
-          <td>{currency.euroBuy}</td>
-          <td>{currency.euroSell}</td>
-        </tr>
-      </table>
+      {currency && (
+        <table>
+          <thead className={css.tableHeading}>
+            <tr>
+              <th>Currency</th>
+              <th>Purchase</th>
+              <th>Sale</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>USD</td>
+              <td>{currency.usdBuy}</td>
+              <td>{currency.usdSell}</td>
+            </tr>
+            <tr>
+              <td>EURO</td>
+              <td>{currency.euroBuy}</td>
+              <td>{currency.euroSell}</td>
+            </tr>
+          </tbody>
+        </table>
+      )}
+
       <div className={css.chartDiv}></div>
     </div>
   );
