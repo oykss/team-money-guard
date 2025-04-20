@@ -2,9 +2,16 @@ import css from "./TransactionsItem.module.css";
 import { MdOutlineModeEditOutline } from "react-icons/md";
 import clsx from "clsx";
 import { useMediaPoints } from "../../hooks/useMediaPoints";
+import { useDispatch } from "react-redux";
+import { deleteTransaction } from "../../store/transactions/operations";
+
 export default function TransactionsItem({ transaction }) {
   const { date, type, category, comment, sum } = transaction;
   const { isMobile } = useMediaPoints();
+  const dispatch = useDispatch();
+  const handleDelete = () => {
+    dispatch(deleteTransaction(transaction.id));
+  };
 
   return (
     <ul
@@ -36,7 +43,11 @@ export default function TransactionsItem({ transaction }) {
         <span>{sum}</span>
       </li>
       <li className={css["item-line"]}>
-        <button type="button" className={css["delete-btn"]}>
+        <button
+          type="button"
+          className={css["delete-btn"]}
+          onClick={handleDelete}
+        >
           Delete
         </button>
         <button type="button" className={css["edit-btn"]}>
