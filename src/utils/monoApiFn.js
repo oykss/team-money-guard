@@ -23,10 +23,10 @@ export async function getCurrency() {
       return item.currencyCodeA === 978 && item.currencyCodeB === 980;
     });
     const currencyRates = {
-      usdSell: usd?.rateSell,
-      usdBuy: usd?.rateBuy,
-      euroSell: euro?.rateSell,
-      euroBuy: euro?.rateBuy,
+      usdBuy: usd?.rateBuy.toFixed(2),
+      usdSell: usd?.rateSell.toFixed(2),
+      euroBuy: euro?.rateBuy.toFixed(2),
+      euroSell: euro?.rateSell.toFixed(2),
     };
 
     localStorage.setItem(
