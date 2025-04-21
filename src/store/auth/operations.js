@@ -8,7 +8,7 @@ export const registerThunk = createAsyncThunk(
   'auth/register',
   async (credentials, thunkAPI) => {
     try {
-      const { data } = await api.post(`${API_PATHS.AUTH}/signup`, credentials);
+      const { data } = await api.post(`${API_PATHS.AUTH}/register`, credentials);
       setAuthToken(data.token);
       return data;
     } catch (error) {
