@@ -39,5 +39,5 @@ const createUpdateAuthInterceptor = (store, http) => async error => {
   return Promise.reject(error);
 };
 
-const updateAuthCb = createUpdateAuthInterceptor(store, axios);
+const updateAuthCb = createUpdateAuthInterceptor(store, apiAuth);
 api.interceptors.response.use(null, updateAuthCb);

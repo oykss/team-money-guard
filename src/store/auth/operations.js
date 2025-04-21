@@ -18,7 +18,7 @@ export const register = createAsyncThunk(
 export const login = createAsyncThunk('auth/login', async (credentials, thunkAPI) => {
   try {
     const { data } = await apiAuth.post(API_PATHS.LOGIN, credentials);
-    setAuthToken(data.token);
+    setAuthToken(data.data.accessToken);
     return data;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.message);
@@ -28,7 +28,7 @@ export const login = createAsyncThunk('auth/login', async (credentials, thunkAPI
 export const refresh = createAsyncThunk('auth/refresh', async (_, thunkAPI) => {
   try {
     const { data } = await apiAuth.post(API_PATHS.REFRESH);
-    setAuthToken(data.accessToken);
+    setAuthToken(data.data.accessToken);
     return data;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.message);
