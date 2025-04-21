@@ -19,7 +19,7 @@ const Navigation = () => {
   const { isMobile } = useMediaPoints();
 
   return (
-    <div>
+    <>
       <Container className={s.container}>
         <nav className={s.nav}>
           <NavLink to={ROUTES.HOME} className={buildLinkClass}>
@@ -37,7 +37,7 @@ const Navigation = () => {
           )}
         </nav>
       </Container>
-    </div>
+    </>
   );
 };
 
