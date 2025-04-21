@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { toast } from 'react-hot-toast';
-import { loginThunk, logoutThunk, refreshUserThunk, registerThunk } from './operations';
+import toast from 'react-hot-toast';
 
 const initialState = {
   user: {
@@ -18,63 +17,40 @@ const authSlice = createSlice({
   initialState,
   extraReducers: builder => {
     builder
-      .addCase(registerThunk.fulfilled, (state, action) => {
+      .addCase('auth/register/fulfilled', (state, action) => {
+        state.user = action.payload.user;
+      })
+      .addCase('auth/register/rejected', () => {
+        toast.error('Registration failed. Please try again.');
+      })
+      .addCase('auth/login/fulfilled', (state, action) => {
         state.user = action.payload.user;
         state.isLoggedIn = true;
         state.token = action.payload.token;
       })
-      .addCase(registerThunk.rejected, (state, action) => {
-        const message = action.payload?.toLowerCase() || '';
-
-        const isDuplicateUser =
-          message.includes('11000') ||
-          message.includes('409') ||
-          message.includes('exist');
-
-        if (isDuplicateUser) {
-          toast.error('Користувач з таким email вже існує!');
-        } else {
-          toast.error(action.payload || 'Помилка при реєстрації. Спробуйте ще раз.');
-        }
+      .addCase('auth/login/rejected', () => {
+        toast.error('Login failed. Please try again.');
       })
-
-      .addCase(loginThunk.fulfilled, (state, action) => {
-        state.user = action.payload.user;
-        state.isLoggedIn = true;
-        state.token = action.payload.token;
-      })
-      .addCase(loginThunk.rejected, (state, action) => {
-        if (action.payload === 'Invalid credentials') {
-          toast.error('Incorrect email or password. Please try again.');
-        } else {
-          toast.error(action.payload || 'Login failed. Please try again.');
-        }
-      })
-
-      .addCase(logoutThunk.fulfilled, state => {
-        state.user = { name: null, email: null, balance: 0 };
-        state.token = null;
-        state.isLoggedIn = false;
-        toast.success('Logged out successfully');
-      })
-      .addCase(logoutThunk.rejected, () => {
-        toast.error('Logout failed. Try again.');
-      })
-      .addCase(refreshUserThunk.pending, (state, action) => {
+      .addCase('auth/refresh/pending', state => {
         state.isRefreshing = true;
+        state.isLoggedIn = false;
       })
-      .addCase(refreshUserThunk.fulfilled, (state, action) => {
-        state.user.name = action.payload.name;
-        state.user.email = action.payload.email;
+      .addCase('auth/refresh/fulfilled', (state, action) => {
+        state.token = action.payload.accessToken;
+        state.isRefreshing = false;
         state.isLoggedIn = true;
-        state.isRefreshing = false;
       })
-
-      .addCase(refreshUserThunk.rejected, (state, action) => {
+      .addCase('auth/refresh/rejected', state => {
         state.isRefreshing = false;
-        toast.error(action.payload || 'Session expired. Please log in again.');
+        state.isLoggedIn = false;
+      })
+      .addCase('auth/logout/fulfilled', state => {
+        state.user = { ...initialState.user };
+        state.token = initialState.token;
+        state.isLoggedIn = initialState.isLoggedIn;
       });
   },
 });
 
+export const { setIsLoggedIn } = authSlice.actions;
 export default authSlice.reducer;
