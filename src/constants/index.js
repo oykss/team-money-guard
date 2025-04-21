@@ -8,6 +8,10 @@ export const ROUTES = {
 
 export const API_PATHS = {
   AUTH: '/auth',
+  LOGIN: '/login',
+  REGISTER: '/register',
+  REFRESH: '/refresh',
+  LOGOUT: '/logout',
 };
 
 export const CATEGORY = {
