@@ -7,7 +7,7 @@
 
   backdrop-filter: blur(100px);
   box-shadow: 0 4px 60px 0 rgba(0, 0, 0, 0.25);
-  background: var(--form-color);
+  background: linear-gradient(180deg, #4c059b 0%, #26004e 100%);
 }
 
 .formLogo {

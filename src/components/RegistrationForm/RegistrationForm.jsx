@@ -3,14 +3,15 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { registerThunk } from '../../store/auth/operations.js';
-import PasswordStrengthBar from 'react-password-strength-bar';
+import ConfirmPasswordMatchBar from '../ConfirmPasswordMatchBar./ConfirmPasswordMatchBar.jsx';
+
 import logoSvg from '../../assets/logo.svg';
 import { IoPerson } from 'react-icons/io5';
 import { MdOutlineMailOutline } from 'react-icons/md';
 import { IoMdLock } from 'react-icons/io';
 
 import * as Yup from 'yup';
-import { toast } from 'react-hot-toast';
+
 import css from './RegistrationForm.module.css';
 
 const validationSchema = Yup.object({
@@ -45,20 +46,21 @@ export default function RegistrationForm() {
   const password = watch('password');
   const confirmPassword = watch('confirmPassword');
 
-  const handleFormSubmit = async data => {
+  const handleFormSubmit = data => {
     const { confirmPassword, ...payload } = data;
-    try {
-      await dispatch(registerThunk(payload)).unwrap();
-      reset();
-      navigate('/dashboard');
-    } catch (error) {
-      toast.error('Registration failed.Please try again.');
-    }
+
+    dispatch(registerThunk(payload))
+      .unwrap()
+      .then(() => {
+        reset();
+        navigate('/dashboard');
+      });
   };
 
-  const getMatchProgress = () => {
+  const getMatchScore = () => {
     if (!confirmPassword) return 0;
-    return password === confirmPassword ? 100 : 50;
+    if (confirmPassword === password) return 4;
+    return 2;
   };
 
   return (
@@ -106,7 +108,6 @@ export default function RegistrationForm() {
             />
             {errors.password && <p className={css.error}>{errors.password.message}</p>}
           </label>
-          <PasswordStrengthBar password={password} className={css.strengthBar} />
         </div>
 
         <div className={css.formGroup}>
@@ -123,12 +124,10 @@ export default function RegistrationForm() {
               <p className={css.error}>{errors.confirmPassword.message}</p>
             )}
           </label>
-          <div className={css.progressBar}>
-            <div
-              className={css.progressFill}
-              style={{ width: `${getMatchProgress()}%` }}
-            ></div>
-          </div>
+          <ConfirmPasswordMatchBar
+            password={password}
+            confirmPassword={confirmPassword}
+          />
         </div>
 
         <button type="submit" className={css.registerBtn}>

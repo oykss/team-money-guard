@@ -35,18 +35,13 @@ export default function LoginForm() {
     mode: 'onSubmit',
   });
 
-  const handleFormSubmit = async data => {
-    try {
-      await dispatch(loginThunk(data)).unwrap();
-      reset();
-      navigate('/dashboard');
-    } catch (error) {
-      if (error.response?.data?.message === 'Invalid credentials') {
-        toast.error('Incorrect email or password. Please try again.');
-      } else {
-        toast.error('Login failed. Please try again later.');
-      }
-    }
+  const handleFormSubmit = data => {
+    dispatch(loginThunk(data))
+      .unwrap()
+      .then(() => {
+        reset();
+        navigate('/dashboard');
+      });
   };
 
   return (
