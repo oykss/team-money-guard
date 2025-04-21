@@ -24,12 +24,20 @@ const authSlice = createSlice({
         state.token = action.payload.token;
       })
       .addCase(registerThunk.rejected, (state, action) => {
-        if (action.payload?.includes('11000')) {
-          toast.error('User already exists');
+        const message = action.payload?.toLowerCase() || '';
+
+        const isDuplicateUser =
+          message.includes('11000') ||
+          message.includes('409') ||
+          message.includes('exist');
+
+        if (isDuplicateUser) {
+          toast.error('Користувач з таким email вже існує!');
         } else {
-          toast.error(action.payload || 'Registration failed. Please try again.');
+          toast.error(action.payload || 'Помилка при реєстрації. Спробуйте ще раз.');
         }
       })
+
       .addCase(loginThunk.fulfilled, (state, action) => {
         state.user = action.payload.user;
         state.isLoggedIn = true;
