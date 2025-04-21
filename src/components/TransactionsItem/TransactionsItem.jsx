@@ -1,9 +1,9 @@
-import css from "./TransactionsItem.module.css";
-import { MdOutlineModeEditOutline } from "react-icons/md";
-import clsx from "clsx";
-import { useMediaPoints } from "../../hooks/useMediaPoints";
-import { useDispatch } from "react-redux";
-import { deleteTransaction } from "../../store/transactions/operations";
+import css from './TransactionsItem.module.css';
+import { MdOutlineModeEditOutline } from 'react-icons/md';
+import clsx from 'clsx';
+import { useMediaPoints } from '../../hooks/useMediaPoints';
+import { useDispatch } from 'react-redux';
+import { deleteTransaction } from '../../store/transactions/operations';
 
 export default function TransactionsItem({ transaction }) {
   const { date, type, category, comment, sum } = transaction;
@@ -15,42 +15,36 @@ export default function TransactionsItem({ transaction }) {
 
   return (
     <ul
-      className={clsx(css["item-card"], {
-        [css.income]: type === "+",
-        [css.loss]: type === "-",
+      className={clsx(css['item-card'], {
+        [css.income]: type === '+',
+        [css.loss]: type === '-',
       })}
     >
-      <li className={css["item-line"]}>
-        <span className={clsx(css["bold-text"], { [css.hidden]: !isMobile })}>
-          Date
-        </span>
+      <li className={css['item-line']}>
+        <span className={clsx(css['bold-text'], { [css.hidden]: !isMobile })}>Date</span>
         <span>{date}</span>
       </li>
-      <li className={css["item-line"]}>
-        <span className={css["bold-text"]}>Type</span>
+      <li className={css['item-line']}>
+        <span className={css['bold-text']}>Type</span>
         <span>{type}</span>
       </li>
-      <li className={css["item-line"]}>
-        <span className={css["bold-text"]}>Category</span>
+      <li className={css['item-line']}>
+        <span className={css['bold-text']}>Category</span>
         <span>{category}</span>
       </li>
-      <li className={css["item-line"]}>
-        <span className={css["bold-text"]}>Comment</span>
+      <li className={css['item-line']}>
+        <span className={css['bold-text']}>Comment</span>
         <span>{comment}</span>
       </li>
-      <li className={css["item-line"]}>
-        <span className={css["bold-text"]}>Sum</span>
+      <li className={css['item-line']}>
+        <span className={css['bold-text']}>Sum</span>
         <span>{sum}</span>
       </li>
-      <li className={css["item-line"]}>
-        <button
-          type="button"
-          className={css["delete-btn"]}
-          onClick={handleDelete}
-        >
+      <li className={css['item-line']}>
+        <button type="button" className={css['delete-btn']} onClick={handleDelete}>
           Delete
         </button>
-        <button type="button" className={css["edit-btn"]}>
+        <button type="button" className={css['edit-btn']}>
           <MdOutlineModeEditOutline
             size={14}
             viewBox="0 0 22 22"

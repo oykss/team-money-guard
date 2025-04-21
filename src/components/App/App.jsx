@@ -13,31 +13,31 @@ import StatisticsTab from '../StatisticsTab/StatisticsTab';
 
 export default function App() {
   // const dispatch = useDispatch();
-  // const isRefreshing = useSelector(selectIsRefreshing);
+  const isRefreshing = false;
 
   // useEffect(() => {
   //   dispatch(refreshUser());
   // }, [dispatch]);
 
-  return (
-    <>
-      <Suspense fallback={<BackdropApp />}>
-        <Routes>
-          <Route path={ROUTES.HOME} element={<DashboardPage />}>
-            <Route index element={<HomeTab />} />
-            <Route path={ROUTES.STATISTICS} element={<StatisticsTab />} />
-            <Route
-              path={ROUTES.CURRENCY}
-              element={<MediaRoute component={<CurrencyTab />} />}
-            />
-          </Route>
+  return isRefreshing ? (
+    <BackdropApp />
+  ) : (
+    <Suspense fallback={<BackdropApp />}>
+      <Routes>
+        <Route path={ROUTES.HOME} element={<DashboardPage />}>
+          <Route index element={<HomeTab />} />
+          <Route path={ROUTES.STATISTICS} element={<StatisticsTab />} />
+          <Route
+            path={ROUTES.CURRENCY}
+            element={<MediaRoute component={<CurrencyTab />} />}
+          />
+        </Route>
 
-          <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
-          <Route path={ROUTES.LOGIN} element={<LoginPage />} />
+        <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
+        <Route path={ROUTES.LOGIN} element={<LoginPage />} />
 
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </Suspense>
-    </>
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </Suspense>
   );
 }

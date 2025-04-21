@@ -1,15 +1,11 @@
-import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-
-const baseURL = import.meta.env.VITE_API_BASE_URL;
-
-axios.defaults.baseURL = baseURL;
+import { api } from "../../service";
 
 export const getTransactions = createAsyncThunk(
   "transactions/getTransactions",
   async (_, thunkAPI) => {
     try {
-      const response = await axios.get("/transactions");
+      const response = await api.get("/transactions");
       return response.data;
     } catch (e) {
       console.error();
@@ -22,7 +18,7 @@ export const addTransaction = createAsyncThunk(
   "transactions/addTransaction",
   async (data, thunkAPI) => {
     try {
-      const response = await axios.post("/transactions", data);
+      const response = await api.post("/transactions", data);
       return response.data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
@@ -34,7 +30,7 @@ export const deleteTransaction = createAsyncThunk(
   "transactions/deleteTransaction",
   async (transactionId, thunkAPI) => {
     try {
-      const response = await axios.delete("/transactions", transactionId);
+      const response = await api.delete("/transactions", transactionId);
       return response.data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
@@ -46,7 +42,7 @@ export const updTransaction = createAsyncThunk(
   "transactions/updTransaction",
   async (data, thunkAPI) => {
     try {
-      const response = await axios.patch("/transactions", data);
+      const response = await api.patch("/transactions", data);
       return response.data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
