@@ -1,14 +1,14 @@
-import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Link, useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import { registerThunk } from '../../store/auth/operations.js';
-import ConfirmPasswordMatchBar from '../ConfirmPasswordMatchBar./ConfirmPasswordMatchBar.jsx';
+import ConfirmPasswordMatchBar from '../ConfirmPasswordMatchBar/ConfirmPasswordMatchBar.jsx';
 
-import logoSvg from '../../assets/logo.svg';
+import { IoMdLock } from 'react-icons/io';
 import { IoPerson } from 'react-icons/io5';
 import { MdOutlineMailOutline } from 'react-icons/md';
-import { IoMdLock } from 'react-icons/io';
+import logoSvg from '../../assets/logo.svg';
 
 import * as Yup from 'yup';
 
