@@ -2,7 +2,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { registerThunk } from '../../store/auth/operations.js';
 import ConfirmPasswordMatchBar from '../ConfirmPasswordMatchBar/ConfirmPasswordMatchBar.jsx';
 
 import { IoMdLock } from 'react-icons/io';
@@ -11,7 +10,8 @@ import { MdOutlineMailOutline } from 'react-icons/md';
 import logoSvg from '../../assets/logo.svg';
 
 import * as Yup from 'yup';
-
+import { ROUTES } from '../../constants/index.js';
+import { register } from '../../store/auth/operations.js';
 import css from './RegistrationForm.module.css';
 
 const validationSchema = Yup.object({
@@ -20,10 +20,10 @@ const validationSchema = Yup.object({
     .required('Name is required'),
   email: Yup.string().email('Invalid email address').required('Email is required'),
   password: Yup.string()
-    .min(6, 'Password must be at least 6 characters')
+    .min(8, 'Password must be at least 6 characters')
     .max(12, 'Password must not be more than 12 characters')
     .required('Password is required'),
-  confirmPassword: Yup.string()
+  _confirmPassword: Yup.string()
     .oneOf([Yup.ref('password'), null], 'Passwords must match')
     .required('Confirm Password is required'),
 });
@@ -33,34 +33,23 @@ export default function RegistrationForm() {
   const navigate = useNavigate();
 
   const {
-    register,
+    register: formRegister,
     handleSubmit,
     watch,
     formState: { errors },
-    reset,
   } = useForm({
     resolver: yupResolver(validationSchema),
     mode: 'onSubmit',
   });
 
   const password = watch('password');
-  const confirmPassword = watch('confirmPassword');
+  const confirmPassword = watch('_confirmPassword');
 
   const handleFormSubmit = data => {
-    const { confirmPassword, ...payload } = data;
-
-    dispatch(registerThunk(payload))
+    const { _confirmPassword, ...payload } = data;
+    dispatch(register(payload))
       .unwrap()
-      .then(() => {
-        reset();
-        navigate('/dashboard');
-      });
-  };
-
-  const getMatchScore = () => {
-    if (!confirmPassword) return 0;
-    if (confirmPassword === password) return 4;
-    return 2;
+      .then(() => navigate(ROUTES.LOGIN));
   };
 
   return (
@@ -73,7 +62,7 @@ export default function RegistrationForm() {
             <IoPerson className={css.logoIcon} size={24} />
 
             <input
-              {...register('name')}
+              {...formRegister('name')}
               type="text"
               className={css.registerField}
               placeholder="Name"
@@ -87,7 +76,7 @@ export default function RegistrationForm() {
             <MdOutlineMailOutline className={css.logoIcon} size={24} />
 
             <input
-              {...register('email')}
+              {...formRegister('email')}
               type="email"
               className={css.registerField}
               placeholder="E-mail"
@@ -101,7 +90,7 @@ export default function RegistrationForm() {
             <IoMdLock className={css.logoIcon} size={24} />
 
             <input
-              {...register('password')}
+              {...formRegister('password')}
               type="password"
               className={css.registerField}
               placeholder="Password"
@@ -115,13 +104,13 @@ export default function RegistrationForm() {
             <IoMdLock className={css.logoIcon} size={24} />
 
             <input
-              {...register('confirmPassword')}
+              {...formRegister('_confirmPassword')}
               type="password"
               className={css.registerField}
               placeholder="Confirm password"
             />
-            {errors.confirmPassword && (
-              <p className={css.error}>{errors.confirmPassword.message}</p>
+            {errors._confirmPassword && (
+              <p className={css.error}>{errors._confirmPassword.message}</p>
             )}
           </label>
           <ConfirmPasswordMatchBar

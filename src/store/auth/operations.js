@@ -1,15 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { API_PATHS } from '../../constants/index.js';
+import { apiAuth } from '../../service/index.js';
 import { setAuthToken } from '../../utils/setAuthToken.js';
-import { api } from '../../service/index.js';
 
-// REGISTER
-export const registerThunk = createAsyncThunk(
+export const register = createAsyncThunk(
   'auth/register',
   async (credentials, thunkAPI) => {
     try {
-      const { data } = await api.post(`${API_PATHS.AUTH}/register`, credentials);
-      setAuthToken(data.token);
+      const { data } = await apiAuth.post(API_PATHS.REGISTER, credentials);
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -17,41 +15,30 @@ export const registerThunk = createAsyncThunk(
   }
 );
 
-// LOGIN
-export const loginThunk = createAsyncThunk(
-  'auth/login',
-  async (credentials, thunkAPI) => {
-    try {
-      const { data } = await api.post(`${API_PATHS.AUTH}/login`, credentials);
-      setAuthToken(data.token);
-      return data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
-  }
-);
-
-// LOGOUT
-export const logoutThunk = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
+export const login = createAsyncThunk('auth/login', async (credentials, thunkAPI) => {
   try {
-    await api.post(`${API_PATHS.AUTH}/logout`);
-    setAuthToken(null);
+    const { data } = await apiAuth.post(API_PATHS.LOGIN, credentials);
+    setAuthToken(data.token);
+    return data;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.message);
   }
 });
 
-// REFRESH
-export const refreshUserThunk = createAsyncThunk('auth/refresh', async (_, thunkAPI) => {
-  const savedToken = thunkAPI.getState().auth.token;
-  if (!savedToken) {
-    return thunkAPI.rejectWithValue('No token found. Please log in.');
-  }
-
+export const refresh = createAsyncThunk('auth/refresh', async (_, thunkAPI) => {
   try {
-    setAuthToken(savedToken);
-    const { data } = await api.get(`${API_PATHS.AUTH}/current`);
+    const { data } = await apiAuth.post(API_PATHS.REFRESH);
+    setAuthToken(data.accessToken);
     return data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.message);
+  }
+});
+
+export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
+  try {
+    await apiAuth.post(API_PATHS.LOGOUT);
+    setAuthToken();
   } catch (error) {
     return thunkAPI.rejectWithValue(error.message);
   }

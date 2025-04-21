@@ -1,15 +1,14 @@
-import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Link, useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { loginThunk } from '../../store/auth/operations.js';
+import { Link } from 'react-router-dom';
 import logoSvg from '../../assets/logo.svg';
+import { login } from '../../store/auth/operations.js';
 
-import { MdOutlineMailOutline } from 'react-icons/md';
 import { IoMdLock } from 'react-icons/io';
+import { MdOutlineMailOutline } from 'react-icons/md';
 
 import * as Yup from 'yup';
-import { toast } from 'react-hot-toast';
 import css from './LoginForm.module.css';
 
 const validationSchema = Yup.object({
@@ -22,27 +21,17 @@ const validationSchema = Yup.object({
 
 export default function LoginForm() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
-
     formState: { errors },
-    reset,
   } = useForm({
     resolver: yupResolver(validationSchema),
     mode: 'onSubmit',
   });
 
-  const handleFormSubmit = data => {
-    dispatch(loginThunk(data))
-      .unwrap()
-      .then(() => {
-        reset();
-        navigate('/dashboard');
-      });
-  };
+  const handleFormSubmit = data => dispatch(login(data));
 
   return (
     <div className={css.loginWrap}>
