@@ -1,16 +1,13 @@
 import { apiMono } from '../service/index.js';
 
+const ONE_HOUR = 60 * 60 * 1000;
+
 export async function getCurrency() {
-  const ONE_HOUR = 60 * 60 * 1000;
+  const cached = JSON.parse(localStorage.getItem('currencyInfo') || 'null');
+  const now = Date.now();
 
-  const cached = localStorage.getItem('currencyInfo');
-  if (cached) {
-    const savedInfo = JSON.parse(cached);
+  if (cached && now < cached.time) return cached.currency;
 
-    if (Date.now() - savedInfo.time < ONE_HOUR) {
-      return savedInfo.currency;
-    }
-  }
   try {
     const { data } = await apiMono.get();
 
@@ -34,7 +31,7 @@ export async function getCurrency() {
 
     localStorage.setItem(
       'currencyInfo',
-      JSON.stringify({ currency: currencyRates, time: Date.now() })
+      JSON.stringify({ currency: currencyRates, time: Date.now() + ONE_HOUR })
     );
 
     console.log(currencyRates);
