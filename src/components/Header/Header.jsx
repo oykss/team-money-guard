@@ -19,13 +19,17 @@ export default function Header() {
     <>
       <header className={css.header}>
         <Container className={css.container}>
-          <Link to={ROUTES.HOME}>
+          <Link to={ROUTES.HOME} className="btn-pr-effect">
             <img src={logoSvg} alt="Logo" />
           </Link>
 
           <div className={css.infoWrap}>
             <p className={css.name}>{user.name}</p>
-            <button type="button" onClick={() => setIsOpen(prev => !prev)}>
+            <button
+              type="button"
+              className="btn-pr-effect"
+              onClick={() => setIsOpen(prev => !prev)}
+            >
               <IoExitOutline color="#ffffff99" size={24} />
               {!isMobile && <p>Exit</p>}
             </button>

@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import logoSvg from '../../assets/logo.svg';
 
+import clsx from 'clsx';
 import { logOut } from '../../store/auth/operations';
 import { selectIsLoading } from '../../store/auth/selectors';
 import LoadingBtn from '../../ui/LoadingBtn/LoadingBtn';
@@ -27,7 +28,11 @@ export default function ModalLogout({ closeMenu }) {
       >
         Logout
       </LoadingBtn>
-      <button type="button" onClick={closeMenu} className={css.cancelBtn}>
+      <button
+        type="button"
+        onClick={closeMenu}
+        className={clsx(css.cancelBtn, 'btn-pr-effect')}
+      >
         cancel
       </button>
     </Modal>

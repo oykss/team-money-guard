@@ -1,19 +1,18 @@
-import { NavLink } from 'react-router-dom';
 import clsx from 'clsx';
+import { NavLink } from 'react-router-dom';
 
 import { IoMdHome } from 'react-icons/io';
-import { SlGraph } from 'react-icons/sl';
 import { MdAttachMoney } from 'react-icons/md';
-import { FaDollarSign } from 'react-icons/fa6';
+import { SlGraph } from 'react-icons/sl';
 
-import s from './Navigation.module.css';
 import { ROUTES } from '../../constants';
 import { useMediaPoints } from '../../hooks/useMediaPoints';
 import Container from '../../ui/Container/Container';
+import s from './Navigation.module.css';
 
 const Navigation = () => {
   const buildLinkClass = ({ isActive }) => {
-    return clsx(s.link, isActive && s.activeLink);
+    return clsx(s.link, 'btn-pr-effect', isActive && s.activeLink);
   };
 
   const { isMobile } = useMediaPoints();
