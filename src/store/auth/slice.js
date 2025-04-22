@@ -49,6 +49,9 @@ const authSlice = createSlice({
         state.token = initialState.token;
         state.isLoggedIn = initialState.isLoggedIn;
       })
+      .addCase('auth/logout/rejected', () => {
+        toast.error('Logout failed. Please try again.');
+      })
       .addCase('user/current/fulfilled', (state, action) => {
         state.user.name = action.payload.data.name;
         state.user.email = action.payload.data.email;
@@ -80,5 +83,4 @@ const authSlice = createSlice({
   },
 });
 
-export const { setIsLoggedIn } = authSlice.actions;
 export default authSlice.reducer;
