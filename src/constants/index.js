@@ -12,6 +12,7 @@ export const API_PATHS = {
   REGISTER: '/register',
   REFRESH: '/refresh',
   LOGOUT: '/logout',
+  CURRENT: '/user/current',
 };
 
 export const CATEGORY = {
