@@ -2,12 +2,12 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  margin-right: auto;
-  max-width: 329px;
-
+  min-width: 320px;
+  max-width: 320px;
+  height: auto;
   backdrop-filter: blur(100px);
   box-shadow: 0 4px 60px 0 rgba(0, 0, 0, 0.25);
-  background: linear-gradient(180deg, #4c059b 0%, #26004e 100%);
+  background: var(--form-color);
 }
 
 .formLogo {
@@ -20,7 +20,6 @@
 }
 .formGroup {
   width: 280px;
-  min-height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -37,19 +36,25 @@
 .registerLabel {
   display: flex;
   align-items: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Паличка */
-  gap: 20px; /* Відступ між іконкою та інпутом */
-
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  gap: 20px;
   width: 100%;
 }
 .registerField {
-  flex: 1; /* Щоб інпут займав весь доступний простір */
+  flex: 1;
   background: transparent;
   border: none;
   outline: none;
   color: var(--white-600);
   opacity: 1;
-  margin-bottom: 8px;
+  margin-bottom: 5px;
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.registerField::-webkit-scrollbar {
+  display: none;
 }
 .registerField::placeholder {
   font-family: var(--font-family);
@@ -61,8 +66,7 @@
 .progressBar {
   width: 100%;
   height: 4px;
-  background-color: rgba(255, 255, 255, 0.1); /* або щось контрастне */
-  margin-top: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
   border-radius: 2px;
   overflow: hidden;
 }
@@ -76,47 +80,6 @@
 .strengthBar {
   margin-top: 8px;
   width: 100%;
-}
-
-/* Смуги прогресу */
-.strengthBar > div {
-  height: 4px;
-  border-radius: 2px;
-  background-color: rgba(255, 255, 255, 0.1); /* базовий фон */
-  overflow: hidden;
-  display: flex;
-  gap: 4px;
-}
-
-.strengthBar span {
-  flex-grow: 1;
-  background-color: var(--form-color); /* фон по замовчуванню */
-  transition: background-color 0.3s ease;
-}
-
-/* слабкий — світло-фіолетовий */
-.strengthBar .react-password-strength-bar-0 span {
-  background-color: #7c4dff;
-}
-
-/* слабенький — трохи темніший фіолетовий */
-.strengthBar .react-password-strength-bar-1 span {
-  background-color: #651fff;
-}
-
-/* середній — жовто-фіолетовий */
-.strengthBar .react-password-strength-bar-2 span {
-  background-color: #f9a825;
-}
-
-/* добрий — насичений жовтий */
-.strengthBar .react-password-strength-bar-3 span {
-  background-color: #ffca28;
-}
-
-/* дуже сильний — яскраво-жовтий */
-.strengthBar .react-password-strength-bar-4 span {
-  background-color: #ffeb3b;
 }
 
 .registerBtn {
@@ -134,6 +97,12 @@
   text-transform: uppercase;
   text-align: center;
   color: var(--white);
+  transition: all cubic-bezier(0.175, 0.885, 0.32, 1.275) ease;
+}
+.registerBtn:hover,
+.registerBtn:focus {
+  background: #fcfcfc;
+  color: var(--text-button);
 }
 
 .registerLink {
@@ -148,15 +117,67 @@
   background: #fcfcfc;
   font-family: var(--font-family);
   font-weight: 400;
-
   letter-spacing: 0.1em;
   text-transform: uppercase;
   text-align: center;
   color: var(--text-button);
+  transition: all cubic-bezier(0.175, 0.885, 0.32, 1.275) ease;
+}
+
+.registerLink:hover,
+.registerLink:focus {
+  background: linear-gradient(167deg, #fff0c2 0%, #d8a4ff 100%);
+  color: #1b1b1b;
+}
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 .error {
-  color: #ff6b6b; /* або будь-який інший червоний */
+  color: var(--white-600);
   font-size: 12px;
   margin-top: 4px;
+  font-weight: 400;
+  font-family: 'Poppins', sans-serif;
   align-self: flex-start;
+  animation: fadeInUp 0.3s ease-out;
+}
+input:-webkit-autofill {
+  transition: background-color 9999s ease-in-out 0s;
+  -webkit-text-fill-color: var(--white-600);
+}
+@media (min-width: 768px) {
+  .registerForm {
+    min-width: 533px;
+    height: auto;
+    margin: 227px auto 227px;
+  }
+  .formLogo {
+    width: 182px;
+    height: 76px;
+    margin: 40px auto 40px;
+  }
+  .formGroup {
+    width: 409px;
+  }
+  .registerBtn {
+    padding: 13px 68px;
+    width: 300px;
+  }
+  .registerLink {
+    padding: 13px 112px;
+    width: 300px;
+    margin-bottom: 40px;
+  }
+}
+@media screen and (min-width: 1280px) {
+  .registerForm {
+    margin: 48px auto 48px;
+  }
 }

@@ -6,27 +6,13 @@ import ConfirmPasswordMatchBar from '../ConfirmPasswordMatchBar/ConfirmPasswordM
 
 import { IoMdLock } from 'react-icons/io';
 import { IoPerson } from 'react-icons/io5';
-import { MdOutlineMailOutline } from 'react-icons/md';
+import { IoMail } from 'react-icons/io5';
 import logoSvg from '../../assets/logo.svg';
 
-import * as Yup from 'yup';
+import { registerValidationSchema } from '../../validations/registerValidation.js';
 import { ROUTES } from '../../constants/index.js';
 import { register } from '../../store/auth/operations.js';
 import css from './RegistrationForm.module.css';
-
-const validationSchema = Yup.object({
-  name: Yup.string()
-    .min(3, 'Name must be at least 3 characters')
-    .required('Name is required'),
-  email: Yup.string().email('Invalid email address').required('Email is required'),
-  password: Yup.string()
-    .min(8, 'Password must be at least 6 characters')
-    .max(12, 'Password must not be more than 12 characters')
-    .required('Password is required'),
-  _confirmPassword: Yup.string()
-    .oneOf([Yup.ref('password'), null], 'Passwords must match')
-    .required('Confirm Password is required'),
-});
 
 export default function RegistrationForm() {
   const dispatch = useDispatch();
@@ -38,7 +24,7 @@ export default function RegistrationForm() {
     watch,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(validationSchema),
+    resolver: yupResolver(registerValidationSchema),
     mode: 'onSubmit',
   });
 
@@ -67,13 +53,13 @@ export default function RegistrationForm() {
               className={css.registerField}
               placeholder="Name"
             />
-            {errors.name && <p className={css.error}>{errors.name.message}</p>}
           </label>
+          {errors.name && <p className={css.error}>{errors.name.message}</p>}
         </div>
 
         <div className={css.formGroup}>
           <label className={css.registerLabel}>
-            <MdOutlineMailOutline className={css.logoIcon} size={24} />
+            <IoMail className={css.logoIcon} size={24} />
 
             <input
               {...formRegister('email')}
@@ -81,8 +67,8 @@ export default function RegistrationForm() {
               className={css.registerField}
               placeholder="E-mail"
             />
-            {errors.email && <p className={css.error}>{errors.email.message}</p>}
           </label>
+          {errors.email && <p className={css.error}>{errors.email.message}</p>}
         </div>
 
         <div className={css.formGroup}>
@@ -95,8 +81,8 @@ export default function RegistrationForm() {
               className={css.registerField}
               placeholder="Password"
             />
-            {errors.password && <p className={css.error}>{errors.password.message}</p>}
           </label>
+          {errors.password && <p className={css.error}>{errors.password.message}</p>}
         </div>
 
         <div className={css.formGroup}>
@@ -109,14 +95,15 @@ export default function RegistrationForm() {
               className={css.registerField}
               placeholder="Confirm password"
             />
-            {errors._confirmPassword && (
-              <p className={css.error}>{errors._confirmPassword.message}</p>
-            )}
           </label>
+
           <ConfirmPasswordMatchBar
             password={password}
             confirmPassword={confirmPassword}
           />
+          {errors._confirmPassword && (
+            <p className={css.error}>{errors._confirmPassword.message}</p>
+          )}
         </div>
 
         <button type="submit" className={css.registerBtn}>
