@@ -1,3 +1,8 @@
+import DateSelectors from "./DateSelectors";
+
 export default function StatisticsTab() {
-  return <div>StatisticsTab</div>;
+  return (
+    <div>
+      <DateSelectors />
+    </div>);
 }
