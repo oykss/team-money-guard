@@ -7,7 +7,6 @@ export const getTransactions = createAsyncThunk(
     try {
       const response = await api.get('/transactions');
       console.log(response.data);
-
       return response.data.data.data;
     } catch (e) {
       console.error();

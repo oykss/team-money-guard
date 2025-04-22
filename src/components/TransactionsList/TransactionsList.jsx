@@ -3,7 +3,6 @@ import TransactionsItem from '../TransactionsItem/TransactionsItem.jsx';
 import { selectTransactions } from '../../store/transactions/selectors.js';
 import css from './TransactionsList.module.css';
 import Container from '../../ui/Container/Container.jsx';
-// import TransactionsListTablet from './TransactionsListTablet.jsx';
 import { useMediaPoints } from '../../hooks/useMediaPoints.js';
 import clsx from 'clsx';
 

@@ -4,11 +4,12 @@ import 'react-datepicker/dist/react-datepicker.css';
 import Switcher from '../../ui/Switcher/Switcher';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { transactionSchema } from '../../validation/transactions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addTransaction } from '../../store/transactions/operations';
 import { MenuItem, Select } from '@mui/material';
 import css from './AddTransactionForm.module.css';
 import Container from '../../ui/Container/Container';
+import { selectCategories } from '../../store/categories/selectors';
 
 export default function AddTransactionForm({ handleClose }) {
   const dispatch = useDispatch();
@@ -27,6 +28,8 @@ export default function AddTransactionForm({ handleClose }) {
       date: new Date(),
     },
   });
+  const categories = useSelector(selectCategories);
+  console.log(categories.categories.income);
 
   const transactionType = watch('transactionType');
 
@@ -54,7 +57,7 @@ export default function AddTransactionForm({ handleClose }) {
                 <MenuItem value="" disabled className={css['select-item']}>
                   Select a category
                 </MenuItem>
-                <MenuItem>test</MenuItem>
+                <MenuItem>{categories.categories.income}</MenuItem>
                 <MenuItem>test</MenuItem>
               </Select>
             )}
