@@ -1,0 +1,20 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 280px;
+  height: 50px;
+  font-weight: 400;
+  font-size: 18px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: center;
+  border-radius: 20px;
+  box-shadow: 1px 9px 15px 0 rgba(0, 0, 0, 0.2);
+  color: #fff;
+  background: linear-gradient(167deg, #ffc727 0%, #9e40ba 61.46%, #7000ff 90.54%);
+
+  @media (min-width: 768px) {
+    width: 300px;
+  }
+}
