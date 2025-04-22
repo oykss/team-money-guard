@@ -8,7 +8,7 @@ export const getTransactions = createAsyncThunk(
       const response = await api.get('/transactions');
       console.log(response.data);
 
-      return response.data;
+      return response.data.data.data;
     } catch (e) {
       console.error();
       return thunkAPI.rejectWithValue(e.message);

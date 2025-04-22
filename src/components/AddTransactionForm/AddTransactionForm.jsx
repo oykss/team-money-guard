@@ -1,4 +1,3 @@
-// import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -8,8 +7,10 @@ import { transactionSchema } from '../../validation/transactions';
 import { useDispatch } from 'react-redux';
 import { addTransaction } from '../../store/transactions/operations';
 import { MenuItem, Select } from '@mui/material';
+import css from './AddTransactionForm.module.css';
+import Container from '../../ui/Container/Container';
 
-export default function AddTransactionForm() {
+export default function AddTransactionForm({ handleClose }) {
   const dispatch = useDispatch();
 
   const {
@@ -37,19 +38,24 @@ export default function AddTransactionForm() {
 
   return (
     <div>
-      <Switcher transactionType={transactionType} />
+      <h3 className={css['modal-title']}>Add Transaction</h3>
+      <Switcher
+        value={transactionType}
+        onChange={val => setValue('transactionType', val)}
+      />
 
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} className={css.form}>
         {transactionType === 'expense' && (
           <Controller
             name="categoryId"
             control={control}
             render={({ field }) => (
-              <Select {...field} displayEmpty>
-                <MenuItem value="" disabled>
-                  Select category
+              <Select {...field} displayEmpty className={css.select}>
+                <MenuItem value="" disabled className={css['select-item']}>
+                  Select a category
                 </MenuItem>
-                <MenuItem>One</MenuItem>
+                <MenuItem>test</MenuItem>
+                <MenuItem>test</MenuItem>
               </Select>
             )}
           />
@@ -75,7 +81,18 @@ export default function AddTransactionForm() {
         <textarea {...register('comment')} />
         {errors.comment && <p>{errors.comment.message}</p>}
 
-        <button type="submit">Add</button>
+        <div className={css['btn-box']}>
+          <button type="submit" className={css['btn']}>
+            Add
+          </button>
+          <button
+            type="button"
+            className={`${css.btn} ${css.cancel}`}
+            onClick={handleClose}
+          >
+            Cancel
+          </button>
+        </div>
       </form>
     </div>
   );

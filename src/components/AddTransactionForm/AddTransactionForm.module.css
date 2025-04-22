@@ -1,0 +1,58 @@
+.modal-title {
+  font-weight: 400;
+  font-size: 24px;
+  text-align: center;
+  color: var(--white);
+  margin-bottom: 40px;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.form input,
+textarea {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid var(--white-400);
+  color: var(--white-600);
+}
+.form input:active {
+  background-color: transparent;
+  color: var(--white-400);
+}
+
+.select {
+  color: inherit;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid var(--white-400);
+  color: var(--white-600);
+  outline: none;
+}
+
+.btn-box {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.btn {
+  border-radius: 20px;
+  max-width: 280px;
+  height: 50px;
+  box-shadow: 1px 9px 15px 0 rgba(0, 0, 0, 0.2);
+  background: linear-gradient(167deg, #ffc727 0%, #9e40ba 61.46%, #7000ff 90.54%);
+  font-size: 18px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--white);
+}
+
+.btn.cancel {
+  background: var(--white);
+  color: #623f8b;
+  margin-bottom: 0;
+}

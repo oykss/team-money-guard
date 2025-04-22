@@ -25,7 +25,7 @@ export default function HomeTab() {
       <ButtonAddTransaction onClick={handleOpen} />
       {open && (
         <Modal closeFn={handleClose}>
-          <AddTransactionForm />
+          <AddTransactionForm handleClose={handleClose} />
         </Modal>
       )}
     </div>
