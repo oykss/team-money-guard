@@ -1,0 +1,46 @@
+.overlay {
+  position: absolute;
+  inset: 59.89px 0 0;
+  backdrop-filter: blur(7px);
+  background: rgba(34, 13, 91, 0.23);
+
+  @media (min-width: 768px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    inset: 0;
+  }
+}
+
+.modal {
+  backdrop-filter: blur(100px);
+  box-shadow: 0 4px 60px 0 rgba(0, 0, 0, 0.25);
+  background: #382d5c;
+
+  @media (max-width: 767px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: calc(100vh - 59.89px);
+  }
+
+  @media (min-width: 768px) {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-block: 56px;
+    width: 533px;
+    border-radius: 8px;
+  }
+}
+
+.closeBtn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+
+  svg {
+    stroke: var(--white);
+  }
+}

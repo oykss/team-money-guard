@@ -1,11 +1,13 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { api } from "../../service";
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { api } from '../../service';
 
 export const getTransactions = createAsyncThunk(
-  "transactions/getTransactions",
+  'transactions/getTransactions',
   async (_, thunkAPI) => {
     try {
-      const response = await api.get("/transactions");
+      const response = await api.get('/transactions');
+      console.log(response.data);
+
       return response.data;
     } catch (e) {
       console.error();
@@ -15,10 +17,10 @@ export const getTransactions = createAsyncThunk(
 );
 
 export const addTransaction = createAsyncThunk(
-  "transactions/addTransaction",
+  'transactions/addTransaction',
   async (data, thunkAPI) => {
     try {
-      const response = await api.post("/transactions", data);
+      const response = await api.post('/transactions', data);
       return response.data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
@@ -27,10 +29,10 @@ export const addTransaction = createAsyncThunk(
 );
 
 export const deleteTransaction = createAsyncThunk(
-  "transactions/deleteTransaction",
+  'transactions/deleteTransaction',
   async (transactionId, thunkAPI) => {
     try {
-      const response = await api.delete("/transactions", transactionId);
+      const response = await api.delete(`/transactions/:${transactionId}`);
       return response.data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
@@ -39,10 +41,10 @@ export const deleteTransaction = createAsyncThunk(
 );
 
 export const updTransaction = createAsyncThunk(
-  "transactions/updTransaction",
-  async (data, thunkAPI) => {
+  'transactions/updTransaction',
+  async (data, transactionId, thunkAPI) => {
     try {
-      const response = await api.patch("/transactions", data);
+      const response = await api.patch(`/transactions/:${transactionId}`, data);
       return response.data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);

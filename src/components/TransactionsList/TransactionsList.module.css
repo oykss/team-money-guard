@@ -1,5 +1,86 @@
-.transactions-list {
+.item-card {
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   gap: 6px;
+
+  @media (min-width: 768px) {
+    background-color: transparent;
+    border: none;
+    display: flex;
+  }
+}
+
+.item-card::before {
+  position: absolute;
+  content: '';
+  width: 5px;
+  height: 100%;
+}
+
+.item-card.expense::before {
+  background-color: var(--dashboard-text);
+}
+
+.item-card.income::before {
+  background-color: var(--yellow);
+}
+
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 12px;
+}
+
+.thead-row {
+  border-radius: 8px;
+  backdrop-filter: blur(100px);
+  box-shadow: 0 4px 60px 0 rgba(0, 0, 0, 0.25);
+  background: rgba(82, 59, 126, 0.6);
+  padding: 16px 20px;
+}
+
+.thead-row th {
+  padding: 16px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.thead-row th:last-child::before {
+  content: '';
+  display: block;
+  height: 14px;
+}
+
+.row {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(5px);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.row td {
+  padding: 16px;
+  vertical-align: middle;
+  font-size: 15px;
+}
+
+.delete-btn {
+  color: #fff;
+  font-size: 14px;
+  padding: 4px 12px;
+  border-radius: 18px;
+  background: linear-gradient(167deg, #ffc727 0%, #9e40ba 61.46%, #7000ff 90.54%);
+  height: 29px;
+  box-shadow: 1px 9px 15px 0 rgba(0, 0, 0, 0.2);
+}
+
+.edit-btn span {
+  margin-left: 4px;
+  color: var(--white-600);
 }

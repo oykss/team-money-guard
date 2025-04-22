@@ -1,27 +1,20 @@
 import css from './TransactionsItem.module.css';
 import { MdOutlineModeEditOutline } from 'react-icons/md';
-import clsx from 'clsx';
-import { useMediaPoints } from '../../hooks/useMediaPoints';
 import { useDispatch } from 'react-redux';
 import { deleteTransaction } from '../../store/transactions/operations';
+import clsx from 'clsx';
 
 export default function TransactionsItem({ transaction }) {
   const { date, type, category, comment, sum } = transaction;
-  const { isMobile } = useMediaPoints();
   const dispatch = useDispatch();
   const handleDelete = () => {
     dispatch(deleteTransaction(transaction.id));
   };
 
   return (
-    <ul
-      className={clsx(css['item-card'], {
-        [css.income]: type === '+',
-        [css.loss]: type === '-',
-      })}
-    >
+    <ul>
       <li className={css['item-line']}>
-        <span className={clsx(css['bold-text'], { [css.hidden]: !isMobile })}>Date</span>
+        <span className={clsx(css['bold-text'])}>Date</span>
         <span>{date}</span>
       </li>
       <li className={css['item-line']}>

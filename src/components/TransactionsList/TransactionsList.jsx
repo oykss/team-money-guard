@@ -5,10 +5,11 @@ import css from './TransactionsList.module.css';
 import Container from '../../ui/Container/Container.jsx';
 import TransactionsListTablet from './TransactionsListTablet.jsx';
 import { useMediaPoints } from '../../hooks/useMediaPoints.js';
+import clsx from 'clsx';
 
 export default function TransactionsList() {
   const transactions = useSelector(selectTransactions);
-  const isTablet = useMediaPoints();
+  const { isTablet } = useMediaPoints();
 
   if (transactions.length === 0) {
     return (
@@ -20,16 +21,24 @@ export default function TransactionsList() {
 
   return (
     <Container>
-      {isTablet.isTablet ? (
+      {isTablet ? (
         <TransactionsListTablet transactions={transactions} />
       ) : (
-        <ul className={css['transactions-list']}>
-          {transactions.map(transaction => (
-            <li key={transaction.id}>
-              <TransactionsItem transaction={transaction} />
-            </li>
-          ))}
-        </ul>
+        <div className={css.scrollContainer}>
+          <ul className={css.list}>
+            {transactions.map(transaction => (
+              <li
+                key={transaction.id}
+                className={clsx(css['item-card'], {
+                  [css.income]: transaction.type === '+',
+                  [css.expense]: transaction.type === '-',
+                })}
+              >
+                <TransactionsItem transaction={transaction} />
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
     </Container>
   );
