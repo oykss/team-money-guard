@@ -71,3 +71,15 @@ fieldset {
   clip: rect(0 0 0 0);
   overflow: hidden;
 }
+
+.btn-pr-effect {
+  transition: opacity 200ms ease, transform 50ms ease;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &:active {
+    transform: translateY(2px);
+  }
+}

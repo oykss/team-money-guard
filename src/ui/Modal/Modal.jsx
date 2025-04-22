@@ -25,7 +25,11 @@ export default function Modal({ children, closeFn, className }) {
     <div className={css.overlay} onClick={closeFn}>
       <div className={clsx(css.modal, className)} onClick={e => e.stopPropagation()}>
         {!isMobile && (
-          <button type="button" onClick={closeFn} className={css.closeBtn}>
+          <button
+            type="button"
+            onClick={closeFn}
+            className={clsx(css.closeBtn, 'btn-pr-effect')}
+          >
             <IoCloseOutline size={32} />
           </button>
         )}
