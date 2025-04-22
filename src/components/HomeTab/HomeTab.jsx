@@ -10,10 +10,10 @@ import AddTransactionForm from '../AddTransactionForm/AddTransactionForm';
 import { useState } from 'react';
 
 export default function HomeTab() {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getTransactions());
-  }, [dispatch]);
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   dispatch(getTransactions());
+  // }, [dispatch]);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);

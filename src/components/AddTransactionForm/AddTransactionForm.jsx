@@ -50,7 +50,7 @@ export default function AddTransactionForm({ handleClose }) {
             name="categoryId"
             control={control}
             render={({ field }) => (
-              <Select {...field} displayEmpty className={css.select}>
+              <Select {...field} displayEmpty>
                 <MenuItem value="" disabled className={css['select-item']}>
                   Select a category
                 </MenuItem>
