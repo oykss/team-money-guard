@@ -25,9 +25,8 @@ const authSlice = createSlice({
         toast.error('Registration failed. Please try again.');
       })
       .addCase('auth/login/fulfilled', (state, action) => {
-        state.user = action.payload.user;
+        state.token = action.payload.data.accessToken;
         state.isLoggedIn = true;
-        state.token = action.payload.token;
       })
       .addCase('auth/login/rejected', () => {
         toast.error('Login failed. Please try again.');
@@ -37,7 +36,7 @@ const authSlice = createSlice({
         state.isLoggedIn = false;
       })
       .addCase('auth/refresh/fulfilled', (state, action) => {
-        state.token = action.payload.accessToken;
+        state.token = action.payload.data.accessToken;
         state.isRefreshing = false;
         state.isLoggedIn = true;
       })
@@ -49,6 +48,11 @@ const authSlice = createSlice({
         state.user = { ...initialState.user };
         state.token = initialState.token;
         state.isLoggedIn = initialState.isLoggedIn;
+      })
+      .addCase('user/current/fulfilled', (state, action) => {
+        state.user.name = action.payload.data.name;
+        state.user.email = action.payload.data.email;
+        state.user.balance = action.payload.data.balance;
       })
       .addMatcher(
         isAnyOf(
