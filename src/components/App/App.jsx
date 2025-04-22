@@ -1,20 +1,21 @@
-import { Suspense, useEffect } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import { ROUTES } from '../../constants';
-import DashboardPage from '../../pages/DashboardPage/DashboardPage';
-import LoginPage from '../../pages/LoginPage/LoginPage';
-import NotFoundPage from '../../pages/NotFoundPage/NotFoundPage';
-import RegisterPage from '../../pages/RegisterPage/RegisterPage';
 import { refresh } from '../../store/auth/operations';
 import { selectIsRefreshing } from '../../store/auth/selectors';
 import BackdropApp from '../../ui/BackdropApp/BackdropApp';
-import CurrencyTab from '../CurrencyTab/CurrencyTab';
-import HomeTab from '../HomeTab/HomeTab';
 import { MediaRoute } from '../MediaRoutes';
 import { PrivateRoute } from '../PrivateRoute';
 import { RestrictedRoute } from '../RestrictedRoute';
-import StatisticsTab from '../StatisticsTab/StatisticsTab';
+
+const DashboardPage = lazy(() => import('../../pages/DashboardPage/DashboardPage'));
+const LoginPage = lazy(() => import('../../pages/LoginPage/LoginPage'));
+const NotFoundPage = lazy(() => import('../../pages/NotFoundPage/NotFoundPage'));
+const RegisterPage = lazy(() => import('../../pages/RegisterPage/RegisterPage'));
+const CurrencyTab = lazy(() => import('../CurrencyTab/CurrencyTab'));
+const HomeTab = lazy(() => import('../HomeTab/HomeTab'));
+const StatisticsTab = lazy(() => import('../StatisticsTab/StatisticsTab'));
 
 export default function App() {
   const dispatch = useDispatch();
