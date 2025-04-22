@@ -12,7 +12,7 @@ export default function LoadingBtn({
   return (
     <button
       type={type}
-      className={clsx(css.btn, className)}
+      className={clsx(css.btn, className, 'btn-pr-effect')}
       disabled={isLoading}
       onClick={click}
     >
