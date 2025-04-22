@@ -1,3 +1,8 @@
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../store/auth/selectors';
+
 export default function HomeTab() {
-  return <div>HomeTab</div>;
+  const user = useSelector(selectUser);
+
+  return <div>{user.balance}</div>;
 }
