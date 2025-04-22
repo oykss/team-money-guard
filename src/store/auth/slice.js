@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import toast from 'react-hot-toast';
 
 const initialState = {
@@ -10,6 +10,7 @@ const initialState = {
   token: null,
   isLoggedIn: false,
   isRefreshing: false,
+  isLoading: false,
 };
 
 const authSlice = createSlice({
@@ -48,7 +49,30 @@ const authSlice = createSlice({
         state.user = { ...initialState.user };
         state.token = initialState.token;
         state.isLoggedIn = initialState.isLoggedIn;
-      });
+      })
+      .addMatcher(
+        isAnyOf(
+          action => action.type === 'auth/register/pending',
+          action => action.type === 'auth/login/pending',
+          action => action.type === 'auth/logout/pending'
+        ),
+        state => {
+          state.isLoading = true;
+        }
+      )
+      .addMatcher(
+        isAnyOf(
+          action => action.type === 'auth/register/rejected',
+          action => action.type === 'auth/login/rejected',
+          action => action.type === 'auth/logout/rejected',
+          action => action.type === 'auth/register/fulfilled',
+          action => action.type === 'auth/login/fulfilled',
+          action => action.type === 'auth/logout/fulfilled'
+        ),
+        state => {
+          state.isLoading = false;
+        }
+      );
   },
 });
 
