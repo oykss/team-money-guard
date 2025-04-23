@@ -5,7 +5,7 @@ html {
 body {
   font-family: var(--font-pr);
   color: var(--white);
-  background-color: var(--violet-20);
+  background-color: #000;
   line-height: 1.5;
 }
 
