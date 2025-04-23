@@ -20,6 +20,11 @@ const initialState = {
 const authSlice = createSlice({
   name: 'auth',
   initialState,
+  reducers: {
+    setLoggedIn(state, action) {
+      state.isLoggedIn = action.payload;
+    },
+  },
   extraReducers: builder => {
     builder
       .addCase('auth/register/fulfilled', (state, action) => {
@@ -99,3 +104,4 @@ const persistConfig = {
 };
 
 export const authReducer = persistReducer(persistConfig, authSlice.reducer);
+export const { setLoggedIn } = authSlice.actions;

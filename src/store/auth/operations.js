@@ -2,7 +2,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { API_PATHS } from '../../constants/index.js';
 import { api, apiAuth } from '../../service/index.js';
 import { setAuthToken } from '../../utils/setAuthToken.js';
-import { selectToken, selectTokenTimestamp } from './selectors.js';
 
 export const register = createAsyncThunk(
   'auth/register',
@@ -28,16 +27,7 @@ export const login = createAsyncThunk('auth/login', async (credentials, thunkAPI
 });
 
 export const refresh = createAsyncThunk('auth/refresh', async (_, thunkAPI) => {
-  const state = thunkAPI.getState();
-  const tokenTimestamp = selectTokenTimestamp(state);
-  const token = selectToken(state);
-
   try {
-    if (token && tokenTimestamp > Date.now()) {
-      setAuthToken(token);
-      return;
-    }
-
     const { data } = await apiAuth.post(API_PATHS.REFRESH);
     setAuthToken(data.data.accessToken);
     return data;

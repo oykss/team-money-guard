@@ -3,8 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import { ROUTES } from '../../constants';
 import { refresh } from '../../store/auth/operations';
-import { selectIsRefreshing } from '../../store/auth/selectors';
+import {
+  selectIsRefreshing,
+  selectToken,
+  selectTokenTimestamp,
+} from '../../store/auth/selectors';
+import { setLoggedIn } from '../../store/auth/slice';
 import BackdropApp from '../../ui/BackdropApp/BackdropApp';
+import { setAuthToken } from '../../utils/setAuthToken';
 import { MediaRoute } from '../MediaRoutes';
 import { PrivateRoute } from '../PrivateRoute';
 import { RestrictedRoute } from '../RestrictedRoute';
@@ -20,10 +26,18 @@ const StatisticsTab = lazy(() => import('../StatisticsTab/StatisticsTab'));
 export default function App() {
   const dispatch = useDispatch();
   const isRefreshing = useSelector(selectIsRefreshing);
+  const tokenTimestamp = useSelector(selectTokenTimestamp);
+  const token = useSelector(selectToken);
 
   useEffect(() => {
+    if (token && tokenTimestamp > Date.now()) {
+      setAuthToken(token);
+      dispatch(setLoggedIn(true));
+      return;
+    }
+
     dispatch(refresh());
-  }, [dispatch]);
+  }, [dispatch, token, tokenTimestamp]);
 
   return isRefreshing ? (
     <BackdropApp />
