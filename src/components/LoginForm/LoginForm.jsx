@@ -31,45 +31,32 @@ export default function LoginForm() {
   const handleFormSubmit = data => dispatch(login(data));
 
   return (
-    <div className={css.loginWrap}>
-      <form onSubmit={handleSubmit(handleFormSubmit)} className={css.loginForm}>
-        <img src={logoSvg} alt="Logo" className={css.formLogo} />
+    <form onSubmit={handleSubmit(handleFormSubmit)} className={css.form}>
+      <img src={logoSvg} alt="Logo" className={css.logo} />
 
-        <div className={css.formGroup}>
-          <label className={css.loginLabel}>
-            <IoMail className={css.logoIcon} size={24} />
+      <div className={css.wrap}>
+        <label className={css.label}>
+          <IoMail className={css.icon} size={24} />
 
-            <input
-              {...register('email')}
-              type="email"
-              className={css.loginField}
-              placeholder="E-mail"
-            />
-          </label>
-          {errors.email && <p className={css.error}>{errors.email.message}</p>}
-        </div>
+          <input {...register('email')} type="email" placeholder="E-mail" />
+        </label>
+        {errors.email && <p className={css.error}>{errors.email.message}</p>}
+      </div>
 
-        <div className={css.formGroup}>
-          <label className={css.loginLabel}>
-            <IoMdLock className={css.logoIcon} size={24} />
+      <div className={css.wrap}>
+        <label className={css.label}>
+          <IoMdLock className={css.icon} size={24} />
+          <input {...register('password')} type="password" placeholder="Password" />
+        </label>
+        {errors.password && <p className={css.error}>{errors.password.message}</p>}
+      </div>
 
-            <input
-              {...register('password')}
-              type="password"
-              className={css.loginField}
-              placeholder="Password"
-            />
-          </label>
-          {errors.password && <p className={css.error}>{errors.password.message}</p>}
-        </div>
-
-        <LoadingBtn isLoading={isLoading} type="submit" className={css.loginBtn}>
-          LOG IN
-        </LoadingBtn>
-        <Link to="/register" className={css.loginLink}>
-          REGISTER
-        </Link>
-      </form>
-    </div>
+      <LoadingBtn isLoading={isLoading} type="submit" className={css.loginBtn}>
+        LOG IN
+      </LoadingBtn>
+      <Link to="/register" className={css.registerLink}>
+        REGISTER
+      </Link>
+    </form>
   );
 }
