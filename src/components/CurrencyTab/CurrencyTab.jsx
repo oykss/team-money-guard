@@ -17,8 +17,8 @@ export default function CurrencyTab() {
     <div className={css.mainCurrencyDiv}>
       {currency && (
         <table>
-          <thead className={css.tableHeading}>
-            <tr>
+          <thead>
+            <tr className={css.tableHeading}>
               <th>Currency</th>
               <th>Purchase</th>
               <th>Sale</th>
@@ -39,7 +39,10 @@ export default function CurrencyTab() {
         </table>
       )}
 
-      <div className={css.chartDiv}></div>
+      <div className={css.chartDiv}>
+        <img src="../../assets/currency-chart-line.png" alt="" />
+        <img src="../../assets/currency-chart-full.png" alt="" />
+      </div>
     </div>
   );
 }
