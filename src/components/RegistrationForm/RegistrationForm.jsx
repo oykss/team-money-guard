@@ -2,18 +2,17 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import ConfirmPasswordMatchBar from '../ConfirmPasswordMatchBar/ConfirmPasswordMatchBar.jsx';
-import LoadingBtn from '../../ui/LoadingBtn/LoadingBtn';
 import { selectIsLoading } from '../../store/auth/selectors';
+import LoadingBtn from '../../ui/LoadingBtn/LoadingBtn';
 
 import { IoMdLock } from 'react-icons/io';
-import { IoPerson } from 'react-icons/io5';
-import { IoMail } from 'react-icons/io5';
+import { IoMail, IoPerson } from 'react-icons/io5';
 import logoSvg from '../../assets/logo.svg';
 
-import { registerValidationSchema } from '../../validations/registerValidation.js';
 import { ROUTES } from '../../constants/index.js';
 import { register } from '../../store/auth/operations.js';
+import PasswordMatchIndicator from '../../ui/PasswordMatchIndicator/PasswordMatchIndicator.jsx';
+import { registerValidationSchema } from '../../validations/registerValidation.js';
 import css from './RegistrationForm.module.css';
 
 export default function RegistrationForm() {
@@ -42,80 +41,58 @@ export default function RegistrationForm() {
   };
 
   return (
-    <div className={css.registerWrap}>
-      <form onSubmit={handleSubmit(handleFormSubmit)} className={css.registerForm}>
-        <img src={logoSvg} alt="Logo" className={css.formLogo} />
+    <form onSubmit={handleSubmit(handleFormSubmit)} className={css.form}>
+      <img src={logoSvg} alt="Logo" className={css.logo} />
 
-        <div className={css.formGroup}>
-          <label className={css.registerLabel}>
-            <IoPerson className={css.logoIcon} size={24} />
+      <div className={css.wrap}>
+        <label className={css.label}>
+          <IoPerson className={css.icon} size={28} />
+          <input {...formRegister('name')} type="text" placeholder="Name" />
+        </label>
 
-            <input
-              {...formRegister('name')}
-              type="text"
-              className={css.registerField}
-              placeholder="Name"
-            />
-          </label>
-          {errors.name && <p className={css.error}>{errors.name.message}</p>}
-        </div>
+        {errors.name && <span className={css.error}>{errors.name.message}</span>}
+      </div>
 
-        <div className={css.formGroup}>
-          <label className={css.registerLabel}>
-            <IoMail className={css.logoIcon} size={24} />
+      <div className={css.wrap}>
+        <label className={css.label}>
+          <IoMail className={css.icon} size={28} />
+          <input {...formRegister('email')} type="email" placeholder="E-mail" />
+        </label>
 
-            <input
-              {...formRegister('email')}
-              type="email"
-              className={css.registerField}
-              placeholder="E-mail"
-            />
-          </label>
-          {errors.email && <p className={css.error}>{errors.email.message}</p>}
-        </div>
+        {errors.email && <span className={css.error}>{errors.email.message}</span>}
+      </div>
 
-        <div className={css.formGroup}>
-          <label className={css.registerLabel}>
-            <IoMdLock className={css.logoIcon} size={24} />
+      <div className={css.wrap}>
+        <label className={css.label}>
+          <IoMdLock className={css.icon} size={28} />
+          <input {...formRegister('password')} type="password" placeholder="Password" />
+        </label>
 
-            <input
-              {...formRegister('password')}
-              type="password"
-              className={css.registerField}
-              placeholder="Password"
-            />
-          </label>
-          {errors.password && <p className={css.error}>{errors.password.message}</p>}
-        </div>
+        {errors.password && <span className={css.error}>{errors.password.message}</span>}
+      </div>
 
-        <div className={css.formGroup}>
-          <label className={css.registerLabel}>
-            <IoMdLock className={css.logoIcon} size={24} />
-
-            <input
-              {...formRegister('_confirmPassword')}
-              type="password"
-              className={css.registerField}
-              placeholder="Confirm password"
-            />
-          </label>
-
-          <ConfirmPasswordMatchBar
-            password={password}
-            confirmPassword={confirmPassword}
+      <div className={css.wrap}>
+        <label className={css.label}>
+          <IoMdLock className={css.icon} size={28} />
+          <input
+            {...formRegister('_confirmPassword')}
+            type="password"
+            placeholder="Confirm password"
           />
-          {errors._confirmPassword && (
-            <p className={css.error}>{errors._confirmPassword.message}</p>
-          )}
-        </div>
+        </label>
 
-        <LoadingBtn type="submit" isLoading={isLoading} className={css.registerBtn}>
-          register
-        </LoadingBtn>
-        <Link to="/login" className={css.registerLink}>
-          log in
-        </Link>
-      </form>
-    </div>
+        <PasswordMatchIndicator password={password} confirmPassword={confirmPassword} />
+        {errors._confirmPassword && (
+          <span className={css.error}>{errors._confirmPassword.message}</span>
+        )}
+      </div>
+
+      <LoadingBtn type="submit" isLoading={isLoading} className={css.registerBtn}>
+        register
+      </LoadingBtn>
+      <Link to="/login" className={css.loginLink}>
+        log in
+      </Link>
+    </form>
   );
 }
