@@ -25,7 +25,7 @@
   }
 
   @media (min-width: 768px) {
-    background-image: url('../../assets/logout/gradient@1x.png');
+    background-image: url('../../assets/modal/gradient@1x.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -40,7 +40,7 @@
     @media screen and (min-width: 768px) and (min-device-pixel-ratio: 2),
       (min-resolution: 2dppx),
       (min-resolution: 192dpi) {
-      background-image: url('../../assets/logout/gradient@2x.png');
+      background-image: url('../../assets/modal/gradient@2x.png');
     }
   }
 }
