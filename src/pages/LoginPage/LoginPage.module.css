@@ -1,0 +1,62 @@
+.section {
+  padding-block: 24px;
+  display: flex;
+  align-items: center;
+  background-image: url('../../assets/login/mobile@1x.png');
+  min-height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  @media screen and (min-device-pixel-ratio: 2),
+    (min-resolution: 2dppx),
+    (min-resolution: 192dpi) {
+    background-image: url('../../assets/login/mobile@2x.png');
+  }
+
+  @media (min-width: 768px) {
+    background-image: url('../../assets/login/tablet@1x.png');
+
+    @media screen and (min-width: 768px) and (min-device-pixel-ratio: 2),
+      (min-resolution: 2dppx),
+      (min-resolution: 192dpi) {
+      background-image: url('../../assets/login/tablet@2x.png');
+    }
+  }
+
+  @media (min-width: 1280px) {
+    background-image: url('../../assets/login/desktop@1x.png');
+
+    @media screen and (min-width: 1280px) and (min-device-pixel-ratio: 2),
+      (min-resolution: 2dppx),
+      (min-resolution: 192dpi) {
+      background-image: url('../../assets/login/desktop@2x.png');
+    }
+  }
+}
+
+.container {
+  @media (min-width: 768px) {
+    width: 533px;
+    background-color: #382d5c;
+    padding: 60px 62px;
+    border-radius: 8px;
+    backdrop-filter: blur(100px);
+    box-shadow: 0 4px 60px 0 rgba(0, 0, 0, 0.25);
+    background: var(--form-color);
+    background-image: url('../../assets/login/bg-form@1x.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 700px;
+
+    @media screen and (min-width: 768px) and (min-device-pixel-ratio: 2),
+      (min-resolution: 2dppx),
+      (min-resolution: 192dpi) {
+      background-image: url('../../assets/login/bg-form@2x.png');
+    }
+  }
+
+  @media (min-width: 1280px) {
+    padding-block: 82px;
+  }
+}

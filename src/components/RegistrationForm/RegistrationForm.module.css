@@ -1,162 +1,74 @@
-.registerForm {
+.form {
   display: flex;
   align-items: center;
   flex-direction: column;
-  margin-right: auto;
-  max-width: 329px;
-
-  backdrop-filter: blur(100px);
-  box-shadow: 0 4px 60px 0 rgba(0, 0, 0, 0.25);
-  background: linear-gradient(180deg, #4c059b 0%, #26004e 100%);
+  width: 100%;
 }
 
-.formLogo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.icon {
+  color: var(--white-600);
+  opacity: 0.4;
+  margin-left: 10px;
+}
+
+.logo {
   width: 128px;
-  height: 54px;
-  margin: 23px auto 40px;
-}
-.formGroup {
-  width: 280px;
-  min-height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  height: auto;
   margin-bottom: 40px;
 }
-.logoIcon {
-  color: var(--white-600);
-  opacity: 0.4;
-  flex-shrink: 0;
-  margin-left: 12px;
-  margin-bottom: 10px;
+
+.wrap {
+  position: relative;
+  margin-bottom: 40px;
+  width: 100%;
 }
-.registerLabel {
+
+.label {
   display: flex;
   align-items: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Паличка */
-  gap: 20px; /* Відступ між іконкою та інпутом */
+  justify-content: center;
+  gap: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 10px;
 
-  width: 100%;
-}
-.registerField {
-  flex: 1; /* Щоб інпут займав весь доступний простір */
-  background: transparent;
-  border: none;
-  outline: none;
-  color: var(--white-600);
-  opacity: 1;
-  margin-bottom: 8px;
-}
-.registerField::placeholder {
-  font-family: var(--font-family);
-  font-weight: 400;
-  font-size: 18px;
-  color: var(--white-600);
-  opacity: 0.4;
-}
-.progressBar {
-  width: 100%;
-  height: 4px;
-  background-color: rgba(255, 255, 255, 0.1); /* або щось контрастне */
-  margin-top: 8px;
-  border-radius: 2px;
-  overflow: hidden;
-}
-.progressFill {
-  height: 100%;
-  background-color: var(--yellow);
-  box-shadow: 0 1px 8px 0 rgba(255, 182, 39, 0.5);
-  transition: width 0.3s ease;
+  input {
+    background-color: transparent;
+    width: 100%;
+    font-weight: 400;
+    font-size: 18px;
+    color: var(--white-600);
+    padding-right: 10px;
+  }
 }
 
-.strengthBar {
-  margin-top: 8px;
-  width: 100%;
-}
-
-/* Смуги прогресу */
-.strengthBar > div {
-  height: 4px;
-  border-radius: 2px;
-  background-color: rgba(255, 255, 255, 0.1); /* базовий фон */
-  overflow: hidden;
-  display: flex;
-  gap: 4px;
-}
-
-.strengthBar span {
-  flex-grow: 1;
-  background-color: var(--form-color); /* фон по замовчуванню */
-  transition: background-color 0.3s ease;
-}
-
-/* слабкий — світло-фіолетовий */
-.strengthBar .react-password-strength-bar-0 span {
-  background-color: #7c4dff;
-}
-
-/* слабенький — трохи темніший фіолетовий */
-.strengthBar .react-password-strength-bar-1 span {
-  background-color: #651fff;
-}
-
-/* середній — жовто-фіолетовий */
-.strengthBar .react-password-strength-bar-2 span {
-  background-color: #f9a825;
-}
-
-/* добрий — насичений жовтий */
-.strengthBar .react-password-strength-bar-3 span {
-  background-color: #ffca28;
-}
-
-/* дуже сильний — яскраво-жовтий */
-.strengthBar .react-password-strength-bar-4 span {
-  background-color: #ffeb3b;
+.error {
+  position: absolute;
+  bottom: -24px;
+  font-size: 12px;
+  color: var(--dashboard-text);
 }
 
 .registerBtn {
-  border-radius: 20px;
-  margin-bottom: 20px;
-  width: 280px;
-  height: 50px;
-  padding: 13px 55px;
-  border: none;
-  box-shadow: 1px 9px 15px 0 rgba(0, 0, 0, 0.2);
-  background: linear-gradient(167deg, #ffc727 0%, #9e40ba 61.46%, #7000ff 90.54%);
-  font-family: var(--font-family);
-  font-weight: 400;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  text-align: center;
-  color: var(--white);
+  margin-block: 40px 20px;
 }
 
-.registerLink {
-  padding: 13px 55px;
+.loginLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 280px;
   height: 50px;
-  border-radius: 20px;
-  margin-bottom: 23px;
-  width: 280px;
-  height: 50px;
-  box-shadow: 1px 9px 15px 0 rgba(0, 0, 0, 0.2);
-  background: #fcfcfc;
-  font-family: var(--font-family);
   font-weight: 400;
-
+  font-size: 18px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   text-align: center;
+  border-radius: 20px;
+  box-shadow: 1px 9px 15px 0 rgba(0, 0, 0, 0.2);
   color: var(--text-button);
-}
-.error {
-  color: #ff6b6b; /* або будь-який інший червоний */
-  font-size: 12px;
-  margin-top: 4px;
-  align-self: flex-start;
+  background: #fcfcfc;
+
+  @media (min-width: 768px) {
+    width: 300px;
+  }
 }

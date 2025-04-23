@@ -1,103 +1,74 @@
-.loginForm {
+.form {
   display: flex;
   align-items: center;
   flex-direction: column;
-  justify-content: center;
-
-  margin-right: auto;
-  max-width: 329px;
-  height: 568px;
-  backdrop-filter: blur(100px);
-  box-shadow: 0 4px 60px 0 rgba(0, 0, 0, 0.25);
-  background: var(--form-color);
-}
-
-.formLogo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 128px;
-  height: 54px;
-  margin: 97px auto 52px;
-}
-.formGroup {
-  width: 280px;
-  min-height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  margin-bottom: 40px;
-}
-.logoIcon {
-  color: var(--white-600);
-  opacity: 0.4;
-  flex-shrink: 0;
-  margin-left: 12px;
-  margin-bottom: 10px;
-}
-.loginLabel {
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Паличка */
-  gap: 20px; /* Відступ між іконкою та інпутом */
-
   width: 100%;
 }
-.loginField {
-  flex: 1; /* Щоб інпут займав весь доступний простір */
-  background: transparent;
-  border: none;
-  outline: none;
-  color: var(--white-600);
-  opacity: 1;
-  margin-bottom: 8px;
-}
-.loginField::placeholder {
-  font-family: var(--font-family);
-  font-weight: 400;
-  font-size: 18px;
+
+.icon {
   color: var(--white-600);
   opacity: 0.4;
+  margin-left: 10px;
+}
+
+.logo {
+  width: 128px;
+  height: auto;
+  margin-bottom: 40px;
+}
+
+.wrap {
+  position: relative;
+  margin-bottom: 40px;
+  width: 100%;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 10px;
+
+  input {
+    background-color: transparent;
+    width: 100%;
+    font-weight: 400;
+    font-size: 18px;
+    color: var(--white-600);
+    padding-right: 10px;
+  }
 }
 
 .error {
-  color: #ff6b6b; /* або будь-який інший червоний */
+  position: absolute;
+  bottom: -24px;
   font-size: 12px;
-  margin-top: 4px;
-  align-self: flex-start;
+  color: var(--dashboard-text);
 }
+
 .loginBtn {
-  padding: 13px 98px;
-  border-radius: 20px;
-  margin-bottom: 20px;
-  width: 280px;
-  height: 50px;
-  box-shadow: 1px 9px 15px 0 rgba(0, 0, 0, 0.2);
-  background: linear-gradient(167deg, #ffc727 0%, #9e40ba 61.46%, #7000ff 90.54%);
-  font-family: var(--font-family);
-  font-weight: 400;
-
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  text-align: center;
-  color: var(--white);
+  margin-block: 40px 20px;
 }
-.loginLink {
-  padding: 13px 55px;
-  width: 280px;
-  height: 50px;
-  border-radius: 20px;
-  margin-bottom: 98px;
-  width: 280px;
-  height: 50px;
-  box-shadow: 1px 9px 15px 0 rgba(0, 0, 0, 0.2);
-  background: #fcfcfc;
-  font-family: var(--font-family);
-  font-weight: 400;
 
+.registerLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 280px;
+  height: 50px;
+  font-weight: 400;
+  font-size: 18px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   text-align: center;
+  border-radius: 20px;
+  box-shadow: 1px 9px 15px 0 rgba(0, 0, 0, 0.2);
   color: var(--text-button);
+  background: #fcfcfc;
+
+  @media (min-width: 768px) {
+    width: 300px;
+  }
 }

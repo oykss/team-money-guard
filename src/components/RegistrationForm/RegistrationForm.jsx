@@ -1,36 +1,24 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import ConfirmPasswordMatchBar from '../ConfirmPasswordMatchBar/ConfirmPasswordMatchBar.jsx';
+import { selectIsLoading } from '../../store/auth/selectors';
+import LoadingBtn from '../../ui/LoadingBtn/LoadingBtn';
 
 import { IoMdLock } from 'react-icons/io';
-import { IoPerson } from 'react-icons/io5';
-import { MdOutlineMailOutline } from 'react-icons/md';
+import { IoMail, IoPerson } from 'react-icons/io5';
 import logoSvg from '../../assets/logo.svg';
 
-import * as Yup from 'yup';
 import { ROUTES } from '../../constants/index.js';
 import { register } from '../../store/auth/operations.js';
+import PasswordMatchIndicator from '../../ui/PasswordMatchIndicator/PasswordMatchIndicator.jsx';
+import { registerValidationSchema } from '../../validations/registerValidation.js';
 import css from './RegistrationForm.module.css';
-
-const validationSchema = Yup.object({
-  name: Yup.string()
-    .min(3, 'Name must be at least 3 characters')
-    .required('Name is required'),
-  email: Yup.string().email('Invalid email address').required('Email is required'),
-  password: Yup.string()
-    .min(8, 'Password must be at least 6 characters')
-    .max(12, 'Password must not be more than 12 characters')
-    .required('Password is required'),
-  _confirmPassword: Yup.string()
-    .oneOf([Yup.ref('password'), null], 'Passwords must match')
-    .required('Confirm Password is required'),
-});
 
 export default function RegistrationForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const isLoading = useSelector(selectIsLoading);
 
   const {
     register: formRegister,
@@ -38,7 +26,7 @@ export default function RegistrationForm() {
     watch,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(validationSchema),
+    resolver: yupResolver(registerValidationSchema),
     mode: 'onSubmit',
   });
 
@@ -53,79 +41,58 @@ export default function RegistrationForm() {
   };
 
   return (
-    <div className={css.registerWrap}>
-      <form onSubmit={handleSubmit(handleFormSubmit)} className={css.registerForm}>
-        <img src={logoSvg} alt="Logo" className={css.formLogo} />
+    <form onSubmit={handleSubmit(handleFormSubmit)} className={css.form}>
+      <img src={logoSvg} alt="Logo" className={css.logo} />
 
-        <div className={css.formGroup}>
-          <label className={css.registerLabel}>
-            <IoPerson className={css.logoIcon} size={24} />
+      <div className={css.wrap}>
+        <label className={css.label}>
+          <IoPerson className={css.icon} size={28} />
+          <input {...formRegister('name')} type="text" placeholder="Name" />
+        </label>
 
-            <input
-              {...formRegister('name')}
-              type="text"
-              className={css.registerField}
-              placeholder="Name"
-            />
-            {errors.name && <p className={css.error}>{errors.name.message}</p>}
-          </label>
-        </div>
+        {errors.name && <span className={css.error}>{errors.name.message}</span>}
+      </div>
 
-        <div className={css.formGroup}>
-          <label className={css.registerLabel}>
-            <MdOutlineMailOutline className={css.logoIcon} size={24} />
+      <div className={css.wrap}>
+        <label className={css.label}>
+          <IoMail className={css.icon} size={28} />
+          <input {...formRegister('email')} type="email" placeholder="E-mail" />
+        </label>
 
-            <input
-              {...formRegister('email')}
-              type="email"
-              className={css.registerField}
-              placeholder="E-mail"
-            />
-            {errors.email && <p className={css.error}>{errors.email.message}</p>}
-          </label>
-        </div>
+        {errors.email && <span className={css.error}>{errors.email.message}</span>}
+      </div>
 
-        <div className={css.formGroup}>
-          <label className={css.registerLabel}>
-            <IoMdLock className={css.logoIcon} size={24} />
+      <div className={css.wrap}>
+        <label className={css.label}>
+          <IoMdLock className={css.icon} size={28} />
+          <input {...formRegister('password')} type="password" placeholder="Password" />
+        </label>
 
-            <input
-              {...formRegister('password')}
-              type="password"
-              className={css.registerField}
-              placeholder="Password"
-            />
-            {errors.password && <p className={css.error}>{errors.password.message}</p>}
-          </label>
-        </div>
+        {errors.password && <span className={css.error}>{errors.password.message}</span>}
+      </div>
 
-        <div className={css.formGroup}>
-          <label className={css.registerLabel}>
-            <IoMdLock className={css.logoIcon} size={24} />
-
-            <input
-              {...formRegister('_confirmPassword')}
-              type="password"
-              className={css.registerField}
-              placeholder="Confirm password"
-            />
-            {errors._confirmPassword && (
-              <p className={css.error}>{errors._confirmPassword.message}</p>
-            )}
-          </label>
-          <ConfirmPasswordMatchBar
-            password={password}
-            confirmPassword={confirmPassword}
+      <div className={css.wrap}>
+        <label className={css.label}>
+          <IoMdLock className={css.icon} size={28} />
+          <input
+            {...formRegister('_confirmPassword')}
+            type="password"
+            placeholder="Confirm password"
           />
-        </div>
+        </label>
 
-        <button type="submit" className={css.registerBtn}>
-          register
-        </button>
-        <Link to="/login" className={css.registerLink}>
-          log in
-        </Link>
-      </form>
-    </div>
+        <PasswordMatchIndicator password={password} confirmPassword={confirmPassword} />
+        {errors._confirmPassword && (
+          <span className={css.error}>{errors._confirmPassword.message}</span>
+        )}
+      </div>
+
+      <LoadingBtn type="submit" isLoading={isLoading} className={css.registerBtn}>
+        register
+      </LoadingBtn>
+      <Link to="/login" className={css.loginLink}>
+        log in
+      </Link>
+    </form>
   );
 }
