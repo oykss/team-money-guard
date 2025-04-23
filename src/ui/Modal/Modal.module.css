@@ -15,16 +15,20 @@
 .modal {
   backdrop-filter: blur(100px);
   box-shadow: 0 4px 60px 0 rgba(0, 0, 0, 0.25);
-  background: #382d5c;
 
   @media (max-width: 767px) {
     display: flex;
     flex-direction: column;
     justify-content: center;
     min-height: calc(100vh - 59.89px);
+    background: linear-gradient(180deg, #41337e, #493886, #615274);
   }
 
   @media (min-width: 768px) {
+    background-image: url('../../assets/logout/gradient@1x.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -32,6 +36,12 @@
     padding-block: 56px;
     width: 533px;
     border-radius: 8px;
+
+    @media screen and (min-width: 768px) and (min-device-pixel-ratio: 2),
+      (min-resolution: 2dppx),
+      (min-resolution: 192dpi) {
+      background-image: url('../../assets/logout/gradient@2x.png');
+    }
   }
 }
 
