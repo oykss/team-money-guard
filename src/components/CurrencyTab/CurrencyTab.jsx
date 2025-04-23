@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { getCurrency } from '../../utils/monoApiFn';
 import css from './CurrencyTab.module.css';
+import chartLine from '../../assets/photo/currency-chart-line.png';
+import chartFull from '../../assets/photo/currency-chart-full.png';
 
 export default function CurrencyTab() {
   const [currency, setCurrency] = useState(null);
@@ -40,8 +42,8 @@ export default function CurrencyTab() {
       )}
 
       <div className={css.chartDiv}>
-        <img src="../../assets/currency-chart-line.png" alt="Chart line" />
-        <img src="../../assets/currency-chart-full.png" alt="Chart" />
+        <img className={css.chartLineImg} src={chartLine} alt="Chart line" />
+        <img src={chartFull} alt="Chart" />
       </div>
     </div>
   );
