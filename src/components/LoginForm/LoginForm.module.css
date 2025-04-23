@@ -21,6 +21,10 @@
   position: relative;
   margin-bottom: 40px;
   width: 100%;
+
+  &:nth-child(3) {
+    margin-bottom: 50px;
+  }
 }
 
 .label {
@@ -57,6 +61,10 @@
   bottom: -24px;
   font-size: 12px;
   color: var(--dashboard-text);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 100%;
   animation: fadeIn 200ms ease-in-out forwards;
 }
 

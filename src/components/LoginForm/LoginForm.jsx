@@ -37,7 +37,7 @@ export default function LoginForm() {
 
         <div className={css.wrap}>
           <label className={css.label}>
-            <IoMail className={css.icon} size={24} />
+            <IoMail className={css.icon} size={28} />
 
             <input {...register('email')} type="email" placeholder="E-mail" />
           </label>
@@ -46,7 +46,7 @@ export default function LoginForm() {
 
         <div className={css.wrap}>
           <label className={css.label}>
-            <IoMdLock className={css.icon} size={24} />
+            <IoMdLock className={css.icon} size={28} />
             <input {...register('password')} type="password" placeholder="Password" />
           </label>
           {errors.password && <p className={css.error}>{errors.password.message}</p>}
