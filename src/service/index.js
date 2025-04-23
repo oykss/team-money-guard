@@ -29,7 +29,15 @@ const createUpdateAuthInterceptor = (store, http) => async error => {
     }
 
     try {
-      await refreshTokenPromise;
+      const refreshResponse = await refreshTokenPromise;
+      const newAccessToken = refreshResponse?.payload?.data?.accessToken;
+
+      if (newAccessToken) {
+        error.config.headers['Authorization'] = `Bearer ${newAccessToken}`;
+      } else {
+        return;
+      }
+
       return http(error.config);
     } finally {
       refreshTokenPromise = null;
