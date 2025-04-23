@@ -1,11 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
-import authSlice from './auth/slice';
+import persistStore from 'redux-persist/es/persistStore';
+import { authReducer } from './auth/slice';
 import categoriesSlice from './categories/slice';
 import transactionsSlice from './transactions/slice';
 
 export const store = configureStore({
   reducer: {
-    auth: authSlice,
+    auth: authReducer,
     categories: categoriesSlice,
     transactions: transactionsSlice,
   },
@@ -14,3 +15,5 @@ export const store = configureStore({
       serializableCheck: false,
     }),
 });
+
+export const persistor = persistStore(store);

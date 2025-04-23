@@ -1,5 +1,8 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import toast from 'react-hot-toast';
+import persistReducer from 'redux-persist/es/persistReducer';
+import storage from 'redux-persist/lib/storage';
+import { FIFTEEN_MINUTES } from '../../constants';
 
 const initialState = {
   user: {
@@ -8,6 +11,7 @@ const initialState = {
     balance: 0,
   },
   token: null,
+  tokenTimestamp: null,
   isLoggedIn: false,
   isRefreshing: false,
   isLoading: false,
@@ -26,6 +30,7 @@ const authSlice = createSlice({
       })
       .addCase('auth/login/fulfilled', (state, action) => {
         state.token = action.payload.data.accessToken;
+        state.tokenTimestamp = Date.now() + FIFTEEN_MINUTES;
         state.isLoggedIn = true;
       })
       .addCase('auth/login/rejected', () => {
@@ -36,7 +41,10 @@ const authSlice = createSlice({
         state.isLoggedIn = false;
       })
       .addCase('auth/refresh/fulfilled', (state, action) => {
-        state.token = action.payload.data.accessToken;
+        if (action.payload) {
+          state.token = action.payload.data.accessToken;
+        }
+        state.tokenTimestamp = Date.now() + FIFTEEN_MINUTES;
         state.isRefreshing = false;
         state.isLoggedIn = true;
       })
@@ -47,6 +55,7 @@ const authSlice = createSlice({
       .addCase('auth/logout/fulfilled', state => {
         state.user = { ...initialState.user };
         state.token = initialState.token;
+        state.tokenTimestamp = initialState.tokenTimestamp;
         state.isLoggedIn = initialState.isLoggedIn;
       })
       .addCase('auth/logout/rejected', () => {
@@ -83,4 +92,10 @@ const authSlice = createSlice({
   },
 });
 
-export default authSlice.reducer;
+const persistConfig = {
+  key: 'auth',
+  storage,
+  whitelist: ['token', 'tokenTimestamp'],
+};
+
+export const authReducer = persistReducer(persistConfig, authSlice.reducer);
