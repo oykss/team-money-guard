@@ -1,11 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
-import {
-  addTransaction,
-  deleteTransaction,
-  getTransactions,
-} from "./operations";
+import { createSlice } from '@reduxjs/toolkit';
+import { addTransaction, deleteTransaction, getTransactions } from './operations';
 
-const handlePending = (state) => {
+const handlePending = state => {
   state.loading = true;
 };
 
@@ -15,30 +11,30 @@ const handleRejected = (state, action) => {
 };
 
 const transactionsSlice = createSlice({
-  name: "transactions",
+  name: 'transactions',
   initialState: {
     transactions: [
-      {
-        id: "1",
-        date: "04.01.23",
-        type: "-",
-        category: "Other",
-        comment: "Gift for your wife",
-        sum: 300,
-      },
-      {
-        id: "2",
-        date: "05.01.23",
-        type: "+",
-        category: "Salary",
-        comment: "January payment",
-        sum: 1500,
-      },
+      // {
+      //   id: "1",
+      //   date: "04.01.23",
+      //   type: "-",
+      //   category: "Other",
+      //   comment: "Gift for your wife",
+      //   sum: 300,
+      // },
+      // {
+      //   id: "2",
+      //   date: "05.01.23",
+      //   type: "+",
+      //   category: "Salary",
+      //   comment: "January payment",
+      //   sum: 1500,
+      // },
     ],
     loading: false,
     error: null,
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
       .addCase(getTransactions.pending, handlePending)
       .addCase(getTransactions.fulfilled, (state, action) => {
@@ -57,9 +53,7 @@ const transactionsSlice = createSlice({
       .addCase(deleteTransaction.fulfilled, (state, action) => {
         state.loading = false;
         state.error = null;
-        state.transactions.filter(
-          (transaction) => transaction.id != action.payload.id
-        );
+        state.transactions.filter(transaction => transaction._id !== action.payload._id);
       })
       .addCase(deleteTransaction.rejected, handleRejected);
   },

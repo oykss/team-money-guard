@@ -27,3 +27,9 @@
   margin-left: 4px;
   color: var(--white-600);
 }
+
+.btns {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 8px;
+}

@@ -8,8 +8,8 @@ import clsx from 'clsx';
 
 export default function TransactionsList() {
   const transactions = useSelector(selectTransactions);
-  const { isTablet } = useMediaPoints();
 
+  const { isTablet } = useMediaPoints();
   if (transactions.length === 0) {
     return (
       <Container>
@@ -21,9 +21,9 @@ export default function TransactionsList() {
   return (
     <Container>
       {isTablet ? (
-        <table className="w-full border-collapse">
+        <table className={css.table}>
           <thead>
-            <tr>
+            <tr className={css['thead-row']}>
               <th>Date</th>
               <th>Type</th>
               <th>Category</th>
@@ -33,8 +33,10 @@ export default function TransactionsList() {
             </tr>
           </thead>
           <tbody>
-            {transactions.map(tx => (
-              <TransactionsItem key={tx.id} transaction={tx} variant="row" />
+            {transactions.map(transaction => (
+              <tr key={transaction._id} className={css['item-row']}>
+                <TransactionsItem transaction={transaction} variant="row" />
+              </tr>
             ))}
           </tbody>
         </table>
@@ -43,10 +45,10 @@ export default function TransactionsList() {
           <ul className={css.list}>
             {transactions.map(transaction => (
               <li
-                key={transaction.id}
+                key={transaction._id}
                 className={clsx(css['item-card'], {
-                  [css.income]: transaction.type === '+',
-                  [css.expense]: transaction.type === '-',
+                  [css.income]: transaction.transactionType === 'income',
+                  [css.expense]: transaction.transactionType === 'expense',
                 })}
               >
                 <TransactionsItem transaction={transaction} />

@@ -1,5 +1,4 @@
 import { useDispatch } from 'react-redux';
-import BgBlur from '../../ui/BgBlur/BgBlur';
 import ButtonAddTransaction from '../ButtonAddTransaction/ButtonAddTransaction';
 import TransactionsList from '../TransactionsList/TransactionsList';
 import { useEffect } from 'react';
@@ -25,7 +24,6 @@ export default function HomeTab() {
 
   return (
     <div>
-      {/* <BgBlur /> */}
       <TransactionsList />
       <ButtonAddTransaction onClick={handleOpen} />
       {open && (

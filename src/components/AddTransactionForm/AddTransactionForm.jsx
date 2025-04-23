@@ -8,13 +8,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addTransaction } from '../../store/transactions/operations';
 import { MenuItem, Select } from '@mui/material';
 import css from './AddTransactionForm.module.css';
-import Container from '../../ui/Container/Container';
-import { selectCategories } from '../../store/categories/selectors';
+import {
+  selectIncomeCategories,
+  selectExpenseCategories,
+} from '../../store/categories/selectors.js';
 
 export default function AddTransactionForm({ handleClose }) {
   const dispatch = useDispatch();
 
   const {
+    reset,
     register,
     handleSubmit,
     control,
@@ -26,17 +29,23 @@ export default function AddTransactionForm({ handleClose }) {
     defaultValues: {
       transactionType: 'expense',
       date: new Date(),
+      categoryId: '',
+      comment: ' ',
     },
   });
-  const categories = useSelector(selectCategories);
-  console.log(categories.categories.income);
 
   const transactionType = watch('transactionType');
-
+  const incomes = useSelector(selectIncomeCategories);
+  const expenses = useSelector(selectExpenseCategories);
   const onSubmit = data => {
-    console.log(data);
-
+    if (transactionType === 'income') {
+      if (incomes && incomes.length > 0) {
+        data.categoryId = incomes[0]._id;
+      }
+    }
     dispatch(addTransaction(data));
+    reset();
+    handleClose();
   };
 
   return (
@@ -57,12 +66,16 @@ export default function AddTransactionForm({ handleClose }) {
                 <MenuItem value="" disabled className={css['select-item']}>
                   Select a category
                 </MenuItem>
-                <MenuItem>{categories.categories.income}</MenuItem>
-                <MenuItem>test</MenuItem>
+                {expenses.map(expense => (
+                  <MenuItem key={expense._id} value={expense._id}>
+                    {expense.title}
+                  </MenuItem>
+                ))}
               </Select>
             )}
           />
         )}
+
         {errors.categoryId && <p>{errors.categoryId.message}</p>}
 
         <input {...register('summ')} type="number" />

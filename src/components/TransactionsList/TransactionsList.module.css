@@ -6,7 +6,7 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  margin-bottom: 6px;
 
   @media (min-width: 768px) {
     background-color: transparent;
@@ -30,47 +30,48 @@
   background-color: var(--yellow);
 }
 
-table {
+.item-card:last-child {
+  margin-bottom: 0;
+}
+
+.table {
+  border-collapse: collapse;
+  background: transparent;
   width: 100%;
-  border-collapse: separate;
-  border-spacing: 0 12px;
+  margin: 0 auto;
 }
 
-.thead-row {
-  border-radius: 8px;
-  backdrop-filter: blur(100px);
-  box-shadow: 0 4px 60px 0 rgba(0, 0, 0, 0.25);
-  background: rgba(82, 59, 126, 0.6);
-  padding: 16px 20px;
-}
-
-.thead-row th {
+.table th,
+td {
   padding: 16px;
   text-align: left;
   font-weight: 600;
-  font-size: 16px;
+}
+.thead-row {
+  background-color: rgba(82, 59, 126, 0.6);
+  backdrop-filter: blur(100px);
+  box-shadow: 0 4px 60px 0 rgba(0, 0, 0, 0.25);
 }
 
-.thead-row th:last-child::before {
-  content: '';
-  display: block;
-  height: 14px;
+.thead-row th:first-child {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
 }
 
-.row {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(5px);
-  border-radius: 12px;
-  overflow: hidden;
+.thead-row th:last-child {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 
-.row td {
-  padding: 16px;
-  vertical-align: middle;
-  font-size: 15px;
+.item-row {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.delete-btn {
+.item-row:last-child {
+  border-bottom: none;
+}
+
+.thead-row .delete-btn {
   color: #fff;
   font-size: 14px;
   padding: 4px 12px;
