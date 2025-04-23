@@ -48,11 +48,11 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: 700px;
-  }
 
-  @media screen and (min-width: 768px) and (min-device-pixel-ratio: 2),
-    (min-resolution: 2dppx),
-    (min-resolution: 192dpi) {
-    background-image: url('../../assets/register/bg-form@2x.png');
+    @media screen and (min-width: 768px) and (min-device-pixel-ratio: 2),
+      (min-resolution: 2dppx),
+      (min-resolution: 192dpi) {
+      background-image: url('../../assets/register/bg-form@2x.png');
+    }
   }
 }
