@@ -1,8 +1,10 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import ConfirmPasswordMatchBar from '../ConfirmPasswordMatchBar/ConfirmPasswordMatchBar.jsx';
+import LoadingBtn from '../../ui/LoadingBtn/LoadingBtn';
+import { selectIsLoading } from '../../store/auth/selectors';
 
 import { IoMdLock } from 'react-icons/io';
 import { IoPerson } from 'react-icons/io5';
@@ -17,6 +19,7 @@ import css from './RegistrationForm.module.css';
 export default function RegistrationForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const isLoading = useSelector(selectIsLoading);
 
   const {
     register: formRegister,
@@ -106,9 +109,9 @@ export default function RegistrationForm() {
           )}
         </div>
 
-        <button type="submit" className={css.registerBtn}>
+        <LoadingBtn type="submit" isLoading={isLoading} className={css.registerBtn}>
           register
-        </button>
+        </LoadingBtn>
         <Link to="/login" className={css.registerLink}>
           log in
         </Link>

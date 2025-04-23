@@ -2,8 +2,35 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: auto;
+  min-height: 100vh;
   width: 100%;
   background-color: var(--background-color);
   box-sizing: border-box;
+}
+
+@media (min-width: 768px) and (max-width: 1279px) {
+  .registerPage {
+    background-image: url('/src/images/register/tablet-register-1x.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}
+@media (min-width: 768px) and (max-width: 1279px) and (min-resolution: 2dppx) {
+  .registerPage {
+    background-image: url('/src/images/register/tablet-register-2x.jpg');
+  }
+}
+@media screen and (min-width: 1280px) {
+  .registerPage {
+    background-image: url('../../images/register/desctop-register-1x.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}
+@media (min-width: 1280px) and (min-resolution: 2dppx) {
+  .registerPage {
+    background-image: url('../../images/register/desctop-register-2x.jpg');
+  }
 }

@@ -2,8 +2,36 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: auto;
+  box-sizing: border-box;
+  min-height: 100vh;
   width: 100%;
   background-color: var(--background-color);
   box-sizing: border-box;
+}
+
+@media (min-width: 768px) and (max-width: 1279px) {
+  .loginPage {
+    background-image: url('/src/images/login/login-tablet-1x.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}
+@media (min-width: 768px) and (max-width: 1279px) and (min-resolution: 2dppx) {
+  .loginPage {
+    background-image: url('/src/images/login/login-tablet-2x.jpg');
+  }
+}
+@media screen and (min-width: 1280px) {
+  .loginPage {
+    background-image: url('../../images/login/desctop-1x-login.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}
+@media (min-width: 1280px) and (min-resolution: 2dppx) {
+  .loginPage {
+    background-image: url('../../images/login/desctop-2x-login.jpg');
+  }
 }

@@ -14,6 +14,15 @@ createRoot(document.getElementById('root')).render(
         <App />
       </BrowserRouter>
     </Provider>
-    <Toaster position="top-right" reverseOrder={false} />
+    <Toaster
+      position="top-right"
+      reverseOrder={false}
+      toastOptions={{
+        style: {
+          background: '#623f8b',
+          color: '#fbfbfb',
+        },
+      }}
+    />
   </StrictMode>
 );

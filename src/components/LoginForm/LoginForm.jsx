@@ -1,7 +1,11 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+
+import { selectIsLoading } from '../../store/auth/selectors';
+import LoadingBtn from '../../ui/LoadingBtn/LoadingBtn';
+
 import logoSvg from '../../assets/logo.svg';
 import { login } from '../../store/auth/operations.js';
 import { loginValidationSchema } from '../../validations/loginValidation.js';
@@ -13,6 +17,7 @@ import css from './LoginForm.module.css';
 
 export default function LoginForm() {
   const dispatch = useDispatch();
+  const isLoading = useSelector(selectIsLoading);
 
   const {
     register,
@@ -58,9 +63,9 @@ export default function LoginForm() {
           {errors.password && <p className={css.error}>{errors.password.message}</p>}
         </div>
 
-        <button type="submit" className={css.loginBtn}>
+        <LoadingBtn isLoading={isLoading} type="submit" className={css.loginBtn}>
           LOG IN
-        </button>
+        </LoadingBtn>
         <Link to="/register" className={css.loginLink}>
           REGISTER
         </Link>
