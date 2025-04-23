@@ -31,32 +31,38 @@ export default function LoginForm() {
   const handleFormSubmit = data => dispatch(login(data));
 
   return (
-    <form onSubmit={handleSubmit(handleFormSubmit)} className={css.form}>
-      <img src={logoSvg} alt="Logo" className={css.logo} />
+    <form onSubmit={handleSubmit(handleFormSubmit)}>
+      <fieldset className={css.fieldset} disabled={isLoading}>
+        <img src={logoSvg} alt="Logo" className={css.logo} />
 
-      <div className={css.wrap}>
-        <label className={css.label}>
-          <IoMail className={css.icon} size={24} />
+        <div className={css.wrap}>
+          <label className={css.label}>
+            <IoMail className={css.icon} size={24} />
 
-          <input {...register('email')} type="email" placeholder="E-mail" />
-        </label>
-        {errors.email && <p className={css.error}>{errors.email.message}</p>}
-      </div>
+            <input {...register('email')} type="email" placeholder="E-mail" />
+          </label>
+          {errors.email && <p className={css.error}>{errors.email.message}</p>}
+        </div>
 
-      <div className={css.wrap}>
-        <label className={css.label}>
-          <IoMdLock className={css.icon} size={24} />
-          <input {...register('password')} type="password" placeholder="Password" />
-        </label>
-        {errors.password && <p className={css.error}>{errors.password.message}</p>}
-      </div>
+        <div className={css.wrap}>
+          <label className={css.label}>
+            <IoMdLock className={css.icon} size={24} />
+            <input {...register('password')} type="password" placeholder="Password" />
+          </label>
+          {errors.password && <p className={css.error}>{errors.password.message}</p>}
+        </div>
 
-      <LoadingBtn isLoading={isLoading} type="submit" className={css.loginBtn}>
-        LOG IN
-      </LoadingBtn>
-      <Link to="/register" className={css.registerLink}>
-        REGISTER
-      </Link>
+        <LoadingBtn isLoading={isLoading} type="submit" className={css.loginBtn}>
+          LOG IN
+        </LoadingBtn>
+        <Link
+          to="/register"
+          className={css.registerLink}
+          onClick={e => (isLoading ? e.preventDefault() : null)}
+        >
+          REGISTER
+        </Link>
+      </fieldset>
     </form>
   );
 }

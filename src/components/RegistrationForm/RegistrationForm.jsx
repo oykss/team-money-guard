@@ -41,58 +41,66 @@ export default function RegistrationForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(handleFormSubmit)} className={css.form}>
-      <img src={logoSvg} alt="Logo" className={css.logo} />
+    <form onSubmit={handleSubmit(handleFormSubmit)}>
+      <fieldset className={css.fieldset} disabled={isLoading}>
+        <img src={logoSvg} alt="Logo" className={css.logo} />
 
-      <div className={css.wrap}>
-        <label className={css.label}>
-          <IoPerson className={css.icon} size={28} />
-          <input {...formRegister('name')} type="text" placeholder="Name" />
-        </label>
+        <div className={css.wrap}>
+          <label className={css.label}>
+            <IoPerson className={css.icon} size={28} />
+            <input {...formRegister('name')} type="text" placeholder="Name" />
+          </label>
 
-        {errors.name && <span className={css.error}>{errors.name.message}</span>}
-      </div>
+          {errors.name && <span className={css.error}>{errors.name.message}</span>}
+        </div>
 
-      <div className={css.wrap}>
-        <label className={css.label}>
-          <IoMail className={css.icon} size={28} />
-          <input {...formRegister('email')} type="email" placeholder="E-mail" />
-        </label>
+        <div className={css.wrap}>
+          <label className={css.label}>
+            <IoMail className={css.icon} size={28} />
+            <input {...formRegister('email')} type="email" placeholder="E-mail" />
+          </label>
 
-        {errors.email && <span className={css.error}>{errors.email.message}</span>}
-      </div>
+          {errors.email && <span className={css.error}>{errors.email.message}</span>}
+        </div>
 
-      <div className={css.wrap}>
-        <label className={css.label}>
-          <IoMdLock className={css.icon} size={28} />
-          <input {...formRegister('password')} type="password" placeholder="Password" />
-        </label>
+        <div className={css.wrap}>
+          <label className={css.label}>
+            <IoMdLock className={css.icon} size={28} />
+            <input {...formRegister('password')} type="password" placeholder="Password" />
+          </label>
 
-        {errors.password && <span className={css.error}>{errors.password.message}</span>}
-      </div>
+          {errors.password && (
+            <span className={css.error}>{errors.password.message}</span>
+          )}
+        </div>
 
-      <div className={css.wrap}>
-        <label className={css.label}>
-          <IoMdLock className={css.icon} size={28} />
-          <input
-            {...formRegister('_confirmPassword')}
-            type="password"
-            placeholder="Confirm password"
-          />
-        </label>
+        <div className={css.wrap}>
+          <label className={css.label}>
+            <IoMdLock className={css.icon} size={28} />
+            <input
+              {...formRegister('_confirmPassword')}
+              type="password"
+              placeholder="Confirm password"
+            />
+          </label>
 
-        <PasswordMatchIndicator password={password} confirmPassword={confirmPassword} />
-        {errors._confirmPassword && (
-          <span className={css.error}>{errors._confirmPassword.message}</span>
-        )}
-      </div>
+          <PasswordMatchIndicator password={password} confirmPassword={confirmPassword} />
+          {errors._confirmPassword && (
+            <span className={css.error}>{errors._confirmPassword.message}</span>
+          )}
+        </div>
 
-      <LoadingBtn type="submit" isLoading={isLoading} className={css.registerBtn}>
-        register
-      </LoadingBtn>
-      <Link to="/login" className={css.loginLink}>
-        log in
-      </Link>
+        <LoadingBtn type="submit" isLoading={isLoading} className={css.registerBtn}>
+          register
+        </LoadingBtn>
+        <Link
+          to="/login"
+          className={css.loginLink}
+          onClick={e => (isLoading ? e.preventDefault() : null)}
+        >
+          log in
+        </Link>
+      </fieldset>
     </form>
   );
 }
