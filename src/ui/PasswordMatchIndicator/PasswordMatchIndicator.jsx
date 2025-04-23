@@ -1,6 +1,6 @@
 import PasswordStrengthBar from 'react-password-strength-bar-with-style-item';
 
-export default function ConfirmPasswordMatchBar({ password, confirmPassword }) {
+export default function PasswordMatchIndicator({ password, confirmPassword }) {
   const match = confirmPassword === password;
   const isEmpty = !confirmPassword?.trim();
 
@@ -8,8 +8,8 @@ export default function ConfirmPasswordMatchBar({ password, confirmPassword }) {
   const progressColor = isEmpty
     ? 'transparent'
     : match
-      ? 'linear-gradient(90deg, #FFC107 0%, #6A1B9A 100%)'
-      : '#FFC107';
+    ? 'linear-gradient(90deg, #FFC107 0%, #6A1B9A 100%)'
+    : '#FFC107';
 
   return (
     <div style={{ width: '100%', marginTop: '8px' }}>
