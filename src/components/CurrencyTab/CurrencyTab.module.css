@@ -1,5 +1,6 @@
 .mainCurrencyDiv {
   background-color: rgba(74, 86, 226, 0.1);
+  padding-bottom: 40px;
 }
 
 .tableHeading {
@@ -49,6 +50,10 @@ td:nth-child(2) {
 td:nth-child(3) {
   padding-top: 8px;
   padding-bottom: 12px;
+}
+
+.chartDiv img {
+  z-index: 3;
 }
 
 @media screen and (min-width: 768px) {

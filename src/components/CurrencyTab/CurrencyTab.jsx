@@ -40,8 +40,8 @@ export default function CurrencyTab() {
       )}
 
       <div className={css.chartDiv}>
-        <img src="../../assets/currency-chart-line.png" alt="" />
-        <img src="../../assets/currency-chart-full.png" alt="" />
+        <img src="../../assets/currency-chart-line.png" alt="Chart line" />
+        <img src="../../assets/currency-chart-full.png" alt="Chart" />
       </div>
     </div>
   );
