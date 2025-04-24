@@ -26,3 +26,5 @@ export const CATEGORY = {
   leisure: { label: 'Leisure', color: '#24cca7' },
   'other-expenses': { label: 'Other expenses', color: '#00ad84' },
 };
+
+export const FIFTEEN_MINUTES = 15 * 60 * 1000;

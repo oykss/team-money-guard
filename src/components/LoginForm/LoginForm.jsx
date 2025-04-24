@@ -1,78 +1,68 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+
+import { selectIsLoading } from '../../store/auth/selectors';
+import LoadingBtn from '../../ui/LoadingBtn/LoadingBtn';
+
 import logoSvg from '../../assets/logo.svg';
 import { login } from '../../store/auth/operations.js';
+import { loginValidationSchema } from '../../validations/loginValidation.js';
 
 import { IoMdLock } from 'react-icons/io';
-import { MdOutlineMailOutline } from 'react-icons/md';
+import { IoMail } from 'react-icons/io5';
 
-import * as Yup from 'yup';
 import css from './LoginForm.module.css';
-
-const validationSchema = Yup.object({
-  email: Yup.string().email('Invalid email address').required('Email is required'),
-  password: Yup.string()
-    .min(6, 'Password must be at least 6 characters')
-    .max(12, 'Password must not be more than 12 characters')
-    .required('Password is required'),
-});
 
 export default function LoginForm() {
   const dispatch = useDispatch();
+  const isLoading = useSelector(selectIsLoading);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(validationSchema),
+    resolver: yupResolver(loginValidationSchema),
     mode: 'onSubmit',
   });
 
   const handleFormSubmit = data => dispatch(login(data));
 
   return (
-    <div className={css.loginWrap}>
-      <form onSubmit={handleSubmit(handleFormSubmit)} className={css.loginForm}>
-        <img src={logoSvg} alt="Logo" className={css.formLogo} />
+    <form onSubmit={handleSubmit(handleFormSubmit)}>
+      <fieldset className={css.fieldset} disabled={isLoading}>
+        <img src={logoSvg} alt="Logo" className={css.logo} />
 
-        <div className={css.formGroup}>
-          <label className={css.loginLabel}>
-            <MdOutlineMailOutline className={css.logoIcon} size={24} />
+        <div className={css.wrap}>
+          <label className={css.label}>
+            <IoMail className={css.icon} size={28} />
 
-            <input
-              {...register('email')}
-              type="email"
-              className={css.loginField}
-              placeholder="E-mail"
-            />
-            {errors.email && <p className={css.error}>{errors.email.message}</p>}
+            <input {...register('email')} type="email" placeholder="E-mail" />
           </label>
+          {errors.email && <p className={css.error}>{errors.email.message}</p>}
         </div>
 
-        <div className={css.formGroup}>
-          <label className={css.loginLabel}>
-            <IoMdLock className={css.logoIcon} size={24} />
-
-            <input
-              {...register('password')}
-              type="password"
-              className={css.loginField}
-              placeholder="Password"
-            />
-            {errors.password && <p className={css.error}>{errors.password.message}</p>}
+        <div className={css.wrap}>
+          <label className={css.label}>
+            <IoMdLock className={css.icon} size={28} />
+            <input {...register('password')} type="password" placeholder="Password" />
           </label>
+          {errors.password && <p className={css.error}>{errors.password.message}</p>}
         </div>
 
-        <button type="submit" className={css.loginBtn}>
+        <LoadingBtn isLoading={isLoading} type="submit" className={css.loginBtn}>
           LOG IN
-        </button>
-        <Link to="/register" className={css.loginLink}>
+        </LoadingBtn>
+        <Link
+          to="/register"
+          className={css.registerLink}
+          onClick={e => (isLoading ? e.preventDefault() : null)}
+        >
           REGISTER
         </Link>
-      </form>
-    </div>
+      </fieldset>
+    </form>
   );
 }
