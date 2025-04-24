@@ -13,6 +13,7 @@ table {
 }
 
 /* table header */
+
 th:nth-child(1) {
   width: 130px;
   padding-left: 20px;
@@ -33,6 +34,10 @@ th:nth-child(3) {
 
 /* table body */
 
+td {
+  font-family: var(--font-sec);
+}
+
 td:nth-child(1) {
   width: 32px !important;
   padding-top: 8px;
@@ -51,17 +56,93 @@ td:nth-child(3) {
   padding-bottom: 12px;
 }
 
-.chartDiv {
-  position: relative;
+.chartDiv p {
+  display: none;
 }
 
-.chartLineImg {
-  position: absolute;
-  top: -10px;
+.canvas {
+  width: 100%;
 }
 
 @media screen and (min-width: 768px) {
+  .mainCurrencyDiv {
+    max-width: 336px;
+  }
+
+  /* table header */
+  th:nth-child(1) {
+    width: 130px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-right: 34px;
+  }
+
+  th:nth-child(2) {
+    width: 151px;
+    padding: 0 74px 0 0;
+  }
+
+  th:nth-child(3) {
+    width: 55px;
+    padding: 0 20px 0 0;
+  }
+
+  .chartDiv img {
+    min-width: 336px;
+  }
 }
 
 @media screen and (min-width: 1280px) {
+  .chartDiv {
+    position: relative;
+  }
+  .chartDiv p {
+    display: block;
+    position: absolute;
+    font-size: 12px;
+    color: var(--dashboard-text);
+  }
+
+  .chartDiv .usdP {
+    top: 90px;
+    left: 105px;
+  }
+
+  .chartDiv .euroP {
+    top: -5px;
+    right: 105px;
+  }
+
+  .mainCurrencyDiv {
+    max-width: 480px;
+  }
+
+  /* table header */
+
+  th:nth-child(1) {
+    width: 187px;
+    padding-left: 62px;
+    padding-right: 49px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+
+  th:nth-child(2) {
+    width: 127px;
+    padding: 0 50px 0 0;
+  }
+
+  th:nth-child(3) {
+    width: 166px;
+    padding: 0 131px 0 0;
+  }
+
+  /* table body */
+
+  td:nth-child(1) {
+    text-align: center;
+    padding-top: 8px;
+    padding-left: 20px;
+    padding-bottom: 12px;
+  }
 }
