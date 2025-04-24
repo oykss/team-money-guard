@@ -3,6 +3,7 @@
   inset: 59.89px 0 0;
   backdrop-filter: blur(7px);
   background: rgba(34, 13, 91, 0.23);
+  z-index: 999;
 
   @media (min-width: 768px) {
     display: flex;
