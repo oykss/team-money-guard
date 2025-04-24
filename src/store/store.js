@@ -3,12 +3,14 @@ import persistStore from 'redux-persist/es/persistStore';
 import { authReducer } from './auth/slice';
 import categoriesSlice from './categories/slice';
 import transactionsSlice from './transactions/slice';
+import statisticsSlice from './statistics/slice'
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
     categories: categoriesSlice,
     transactions: transactionsSlice,
+    statistics: statisticsSlice,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
