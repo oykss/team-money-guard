@@ -8,6 +8,11 @@ export const ROUTES = {
 
 export const API_PATHS = {
   AUTH: '/auth',
+  LOGIN: '/login',
+  REGISTER: '/register',
+  REFRESH: '/refresh',
+  LOGOUT: '/logout',
+  CURRENT: '/user/current',
 };
 
 export const CATEGORY = {
@@ -21,3 +26,5 @@ export const CATEGORY = {
   leisure: { label: 'Leisure', color: '#24cca7' },
   'other-expenses': { label: 'Other expenses', color: '#00ad84' },
 };
+
+export const FIFTEEN_MINUTES = 15 * 60 * 1000;

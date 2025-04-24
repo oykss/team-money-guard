@@ -10,13 +10,22 @@ import './styles/index.css';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
+    <PersistGate loading={null} persistor={persistor}>
+      <Provider store={store}>
         <BrowserRouter>
           <App />
         </BrowserRouter>
-      </PersistGate>
-    </Provider>
-    <Toaster position="top-right" reverseOrder={false} />
+      </Provider>
+    </PersistGate>
+    <Toaster
+      position="top-right"
+      reverseOrder={false}
+      toastOptions={{
+        style: {
+          background: '#623f8b',
+          color: '#fbfbfb',
+        },
+      }}
+    />
   </StrictMode>
 );

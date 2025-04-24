@@ -5,7 +5,7 @@ html {
 body {
   font-family: var(--font-pr);
   color: var(--white);
-  background-color: var(--violet-20);
+  background-color: #000;
   line-height: 1.5;
 }
 
@@ -50,7 +50,14 @@ button {
 
 input,
 select {
+  padding: 0;
   outline: none;
+  border: none;
+}
+
+input:-webkit-autofill {
+  transition: background-color 9999s ease-in-out 0s;
+  -webkit-text-fill-color: var(--white-600);
 }
 
 fieldset {
@@ -70,4 +77,16 @@ fieldset {
   clip-path: inset(100%);
   clip: rect(0 0 0 0);
   overflow: hidden;
+}
+
+.btn-pr-effect {
+  transition: opacity 200ms ease, transform 50ms ease;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &:active {
+    transform: translateY(2px);
+  }
 }

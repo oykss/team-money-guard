@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.0.1",
     "@reduxjs/toolkit": "^2.7.0",
     "axios": "^1.8.4",
     "chart.js": "^4.4.9",
@@ -28,6 +29,9 @@
     "react-router-dom": "^7.5.1",
     "react-select": "^5.10.1",
     "redux-persist": "^6.0.0",
+    "sharp": "^0.34.1",
+    "svgo": "^3.3.2",
+    "vite-plugin-image-optimizer": "^1.1.8",
     "yup": "^1.6.1"
   },
   "devDependencies": {
