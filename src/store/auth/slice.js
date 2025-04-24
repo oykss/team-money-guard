@@ -15,6 +15,7 @@ const initialState = {
   isLoggedIn: false,
   isRefreshing: false,
   isLoading: false,
+  wasLogout: false,
 };
 
 const authSlice = createSlice({
@@ -37,6 +38,7 @@ const authSlice = createSlice({
         state.token = action.payload.data.accessToken;
         state.tokenTimestamp = Date.now() + FIFTEEN_MINUTES;
         state.isLoggedIn = true;
+        state.wasLogout = false;
       })
       .addCase('auth/login/rejected', () => {
         toast.error('Login failed. Please try again.');
@@ -62,6 +64,7 @@ const authSlice = createSlice({
         state.token = initialState.token;
         state.tokenTimestamp = initialState.tokenTimestamp;
         state.isLoggedIn = initialState.isLoggedIn;
+        state.wasLogout = true;
       })
       .addCase('auth/logout/rejected', () => {
         toast.error('Logout failed. Please try again.');
