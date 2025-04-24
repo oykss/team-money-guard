@@ -2,8 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 import { fetchStatistics } from "./operations";
 
 const initialState = {
-    statistics: null,
-    isLoadfing: false,
+    summary: {
+        income: [],
+        expense: [],
+        totalIncome: 0,
+        totalExpense: 0,
+        balance: 0,
+    },
+    isLoading: false,
     error: null,
     selectedDate: {
         month: new Date().getMonth() + 1,
@@ -25,15 +31,15 @@ const statisticsSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(fetchStatistics.pending, (state) => {
-                state.isLoadfing = true;
+                state.isLoading = true;
                 state.error = null;
             })
             .addCase(fetchStatistics.fulfilled, (state, action) => {
-                state.statistics = action.payload;
-                state.isLoadfing = false;
+                state.summary = action.payload;
+                state.isLoading = false;
             })
             .addCase(fetchStatistics.rejected, (state, action) => {
-                state.isLoadfing = false;
+                state.isLoading = false;
                 state.error = action.payload;
             });
     },
