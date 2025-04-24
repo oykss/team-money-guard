@@ -28,9 +28,6 @@ const authSlice = createSlice({
   },
   extraReducers: builder => {
     builder
-      .addCase('auth/register/fulfilled', (state, action) => {
-        state.user = action.payload.user;
-      })
       .addCase('auth/register/rejected', () => {
         toast.error('Registration failed. Please try again.');
       })
