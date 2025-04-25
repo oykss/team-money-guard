@@ -60,10 +60,6 @@ td:nth-child(3) {
   display: none;
 }
 
-.canvas {
-  width: 100%;
-}
-
 @media screen and (min-width: 768px) {
   .mainCurrencyDiv {
     max-width: 336px;
