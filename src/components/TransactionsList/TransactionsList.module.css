@@ -1,4 +1,4 @@
-.item-card {
+.itemMobile {
   position: relative;
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 10px;
@@ -15,22 +15,22 @@
   }
 }
 
-.item-card::before {
+.itemMobile::before {
   position: absolute;
   content: '';
   width: 5px;
   height: 100%;
 }
 
-.item-card.expense::before {
+.itemMobile.expense::before {
   background-color: var(--dashboard-text);
 }
 
-.item-card.income::before {
+.itemMobile.income::before {
   background-color: var(--yellow);
 }
 
-.item-card:last-child {
+.itemMobile:last-child {
   margin-bottom: 0;
 }
 
@@ -42,36 +42,41 @@
 }
 
 .table th,
-td {
+.table td {
   padding: 16px;
   text-align: left;
-  font-weight: 600;
+  font-size: 16px;
+
+  @media screen {
+    font-size: 14px;
+  }
 }
-.thead-row {
+
+.theadRow {
   background-color: rgba(82, 59, 126, 0.6);
   backdrop-filter: blur(100px);
   box-shadow: 0 4px 60px 0 rgba(0, 0, 0, 0.25);
 }
 
-.thead-row th:first-child {
+.theadRow th:first-child {
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
 }
 
-.thead-row th:last-child {
+.theadRow th:last-child {
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
 }
 
-.item-row {
+.itemRow {
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.item-row:last-child {
+.itemRow:last-child {
   border-bottom: none;
 }
 
-.thead-row .delete-btn {
+.theadRow .delete-btn {
   color: #fff;
   font-size: 14px;
   padding: 4px 12px;
@@ -84,4 +89,8 @@ td {
 .edit-btn span {
   margin-left: 4px;
   color: var(--white-600);
+}
+
+.thType {
+  text-align: center !important;
 }
