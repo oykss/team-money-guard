@@ -1,17 +1,12 @@
 import { useSelector } from "react-redux"
 import s from "./StatisticsTab.module.css"
-import { CATEGORY, formatNumber } from "../../constants";
+import { getCategoryColor, formatNumber } from "../../constants";
 
 const StatisticTable = () => {
     const summary = useSelector(state => state.statistics.summary);
     const { expense = [], totalExpense = 0, totalIncome = 0 } = summary;
 
-    const getCategoryColor = (title) => {
-        const entry = Object.entries(CATEGORY).find(
-            ([, value]) => value.label === title
-        );
-        return entry ? entry[1].color : '#fff';
-    };
+    
 
     if (!expense.length) {
         return <p>No transactions for the selected period</p>

@@ -56,3 +56,10 @@ export const formatNumber = (num) => {
     .toFixed(2)
     .replace(/\B(?=(\d{3})+(?!\d))/g, " ")
 }
+
+export const getCategoryColor = (title) => {
+        const entry = Object.entries(CATEGORY).find(
+            ([, value]) => value.label === title
+        );
+        return entry ? entry[1].color : '#fff';
+    };
