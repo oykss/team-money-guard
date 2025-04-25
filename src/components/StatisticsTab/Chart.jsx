@@ -31,18 +31,28 @@ const centerTextPlugin = {
 
 const Chart = () => {
   const summary = useSelector(state => state.statistics.summary);
-  const { expense = [], balance = 0 } = summary;
+    const { expense = [], balance = 0 } = summary;
+    
+    const hasExpenses = expense.length > 0 && expense.some(category => category.total > 0);
 
-  const data = {
+  const data = hasExpenses ? {
     labels: expense.map(category => category.title),
     datasets: [
       {
         label: 'Expense total',
         data: expense.map(category => category.total),
         backgroundColor: expense.map(category => getCategoryColor(category.title)),
-        borderWidth: 1,
       }
     ]
+  } : {
+    labels: ['No data'],
+    datasets: [
+      {
+        label: 'No data',
+        data: [1],
+        backgroundColor: 'rgba(82, 59, 126, 0.6)',
+      }
+    ]  
   };
 
   const options = {
