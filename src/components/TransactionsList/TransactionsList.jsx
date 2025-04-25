@@ -9,7 +9,7 @@ import clsx from 'clsx';
 export default function TransactionsList() {
   const transactions = useSelector(selectTransactions);
 
-  const { isTablet } = useMediaPoints();
+  const { isMobile } = useMediaPoints();
   if (transactions.length === 0) {
     return (
       <Container>
@@ -20,7 +20,23 @@ export default function TransactionsList() {
 
   return (
     <Container>
-      {isTablet ? (
+      {isMobile ? (
+        <div className={css.scrollContainer}>
+          <ul className={css.list}>
+            {transactions.map(transaction => (
+              <li
+                key={transaction._id}
+                className={clsx(css['item-card'], {
+                  [css.income]: transaction.transactionType === 'income',
+                  [css.expense]: transaction.transactionType === 'expense',
+                })}
+              >
+                <TransactionsItem transaction={transaction} />
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : (
         <table className={css.table}>
           <thead>
             <tr className={css['thead-row']}>
@@ -40,22 +56,6 @@ export default function TransactionsList() {
             ))}
           </tbody>
         </table>
-      ) : (
-        <div className={css.scrollContainer}>
-          <ul className={css.list}>
-            {transactions.map(transaction => (
-              <li
-                key={transaction._id}
-                className={clsx(css['item-card'], {
-                  [css.income]: transaction.transactionType === 'income',
-                  [css.expense]: transaction.transactionType === 'expense',
-                })}
-              >
-                <TransactionsItem transaction={transaction} />
-              </li>
-            ))}
-          </ul>
-        </div>
       )}
     </Container>
   );

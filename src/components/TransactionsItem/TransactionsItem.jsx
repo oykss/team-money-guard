@@ -19,11 +19,18 @@ export default function TransactionsItem({ transaction, variant = 'card' }) {
   const handleDelete = () => {
     dispatch(deleteTransaction(_id));
   };
+
+  const getDate = date => {
+    const unfromattedDate = new Date(date);
+    const formattedDate = unfromattedDate.toLocaleDateString('en-GB');
+    return formattedDate;
+  };
+
   const { isMobile } = useMediaPoints();
   if (variant === 'row') {
     return (
       <>
-        <td>{date}</td>
+        <td>{getDate(date)}</td>
         <td>{transactionType}</td>
         <td>{findCategoryTitle(categoryId)}</td>
         <td>{comment}</td>
@@ -49,7 +56,7 @@ export default function TransactionsItem({ transaction, variant = 'card' }) {
     <div className={css['item-wrapper']}>
       <div className={css['item-line']}>
         <span className={clsx(css['bold-text'])}>Date</span>
-        <span>{date}</span>
+        <span>{getDate(date)}</span>
       </div>
       <div className={css['item-line']}>
         <span className={css['bold-text']}>Type</span>

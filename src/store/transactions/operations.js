@@ -6,8 +6,8 @@ export const getTransactions = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await api.get('/transactions');
-      console.log(response.data.data.data);
-      return response.data.data.data;
+      console.log(response.data.data);
+      return response.data.data;
     } catch (e) {
       console.error();
       return thunkAPI.rejectWithValue(e.message);
@@ -33,7 +33,7 @@ export const deleteTransaction = createAsyncThunk(
   async (transactionId, thunkAPI) => {
     try {
       const response = await api.delete(`/transactions/${transactionId}`);
-      return response.data;
+      return response.data.data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
     }

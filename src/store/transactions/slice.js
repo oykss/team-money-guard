@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { addTransaction, deleteTransaction, getTransactions } from './operations';
+// import { addTransaction, deleteTransaction, getTransactions } from './operations';
+import toast from 'react-hot-toast';
 
 const handlePending = state => {
   state.loading = true;
@@ -13,49 +14,42 @@ const handleRejected = (state, action) => {
 const transactionsSlice = createSlice({
   name: 'transactions',
   initialState: {
-    transactions: [
-      // {
-      //   id: "1",
-      //   date: "04.01.23",
-      //   type: "-",
-      //   category: "Other",
-      //   comment: "Gift for your wife",
-      //   sum: 300,
-      // },
-      // {
-      //   id: "2",
-      //   date: "05.01.23",
-      //   type: "+",
-      //   category: "Salary",
-      //   comment: "January payment",
-      //   sum: 1500,
-      // },
-    ],
+    transactions: [],
     loading: false,
     error: null,
   },
   extraReducers: builder => {
     builder
-      .addCase(getTransactions.pending, handlePending)
-      .addCase(getTransactions.fulfilled, (state, action) => {
+      .addCase('transactions/getTransactions/pending', handlePending)
+      .addCase('transactions/getTransactions/fulfilled', (state, action) => {
         state.loading = false;
         state.error = null;
         state.transactions = action.payload;
       })
-      .addCase(getTransactions.rejected, handleRejected)
-      .addCase(addTransaction.pending, handlePending)
-      .addCase(addTransaction.fulfilled, (state, action) => {
+      .addCase('/transactions/getTransactions/rejected', () => {
+        handleRejected;
+        toast.error('Failed to get transactions. Please try again.');
+      })
+      .addCase('transactions/addTransaction/pending', handlePending)
+      .addCase('transactions/addTransaction/fulfilled', (state, action) => {
         state.loading = false;
         state.error = null;
         state.transactions.push(action.payload);
       })
-      .addCase(deleteTransaction.pending, handlePending)
-      .addCase(deleteTransaction.fulfilled, (state, action) => {
+      .addCase('transactions/addTransaction/rejected', (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+        toast.error('Failed to add transaction. Please try again.');
+      })
+      .addCase('transactions/deleteTransaction/pending', handlePending)
+      .addCase('transactions/deleteTransaction/fulfilled', (state, action) => {
         state.loading = false;
         state.error = null;
-        state.transactions.filter(transaction => transaction._id !== action.payload._id);
+        state.transactions = state.transactions.filter(
+          transaction => transaction._id !== action.meta.arg
+        );
       })
-      .addCase(deleteTransaction.rejected, handleRejected);
+      .addCase('transactions/deleteTransaction/rejected', handleRejected);
   },
 });
 

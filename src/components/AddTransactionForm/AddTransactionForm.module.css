@@ -18,18 +18,13 @@ textarea {
   border-bottom: 1px solid var(--white-400);
   color: var(--white-600);
 }
+
+.form textarea {
+  resize: none;
+}
 .form input:active {
   background-color: transparent;
   color: var(--white-400);
-}
-
-.select {
-  color: inherit;
-  background-color: transparent;
-  border: none;
-  border-bottom: 1px solid var(--white-400);
-  color: var(--white-600);
-  outline: none;
 }
 
 .btn-box {
