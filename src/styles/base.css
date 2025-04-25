@@ -49,20 +49,46 @@ button {
 }
 
 input,
-select {
+select,
+textarea {
   padding: 0;
   outline: none;
   border: none;
 }
 
-input:-webkit-autofill {
-  transition: background-color 9999s ease-in-out 0s;
-  -webkit-text-fill-color: var(--white-600);
+input {
+  &:-webkit-autofill {
+    transition: background-color 9999s ease-in-out 0s;
+    -webkit-text-fill-color: var(--white-600);
+  }
+
+  &[type='number'] {
+    appearance: none;
+    -moz-appearance: textfield;
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+}
+
+textarea {
+  resize: none;
+  overflow: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 fieldset {
   border: none;
   padding: 0;
+  margin: 0;
 }
 
 .visually-hidden {
