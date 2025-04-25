@@ -6,6 +6,7 @@ import Header from '../../components/Header/Header';
 import Navigation from '../../components/Navigation/Navigation';
 import { useMediaPoints } from '../../hooks/useMediaPoints';
 import { currentUser } from '../../store/auth/operations';
+import { getCategories } from '../../store/categories/operations';
 import css from './DashboardPage.module.css';
 
 export default function DashboardPage() {
@@ -13,11 +14,8 @@ export default function DashboardPage() {
   const { isMobile } = useMediaPoints();
 
   useEffect(() => {
-    async function fetchCurrentUser() {
-      dispatch(currentUser());
-    }
-
-    fetchCurrentUser();
+    dispatch(currentUser());
+    dispatch(getCategories());
   }, [dispatch]);
   return (
     <section className={css.section}>

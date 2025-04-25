@@ -1,36 +1,25 @@
-import { useDispatch } from 'react-redux';
-import ButtonAddTransaction from '../ButtonAddTransaction/ButtonAddTransaction';
-import TransactionsList from '../TransactionsList/TransactionsList';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { getTransactions } from '../../store/transactions/operations';
-import Modal from '../../ui/Modal/Modal';
-import AddTransactionForm from '../AddTransactionForm/AddTransactionForm';
-
-import { useState } from 'react';
-import { getCategories } from '../../store/categories/operations';
+import { selectTransactions } from '../../store/transactions/selectors';
+import ButtonAddTransaction from '../../ui/ButtonAddTransaction/ButtonAddTransaction';
+import ModalAddTransaction from '../ModalAddTransaction/ModalAddTransaction';
+import TransactionsList from '../TransactionsList/TransactionsList';
 
 export default function HomeTab() {
+  const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getTransactions());
-  }, [dispatch]);
+  const transactions = useSelector(selectTransactions);
 
   useEffect(() => {
-    dispatch(getCategories());
-  }, [dispatch]);
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+    if (transactions.length === 0) dispatch(getTransactions());
+  }, [dispatch, transactions]);
 
   return (
-    <div>
+    <>
       <TransactionsList />
-      <ButtonAddTransaction onClick={handleOpen} />
-      {open && (
-        <Modal closeFn={handleClose}>
-          <AddTransactionForm handleClose={handleClose} />
-        </Modal>
-      )}
-    </div>
+      <ButtonAddTransaction onClick={() => setIsOpen(true)} />
+      {isOpen && <ModalAddTransaction closeFn={() => setIsOpen(false)} />}
+    </>
   );
 }
