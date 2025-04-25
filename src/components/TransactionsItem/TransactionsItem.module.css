@@ -1,0 +1,35 @@
+.item-line {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 12px 20px;
+}
+
+.item-line:last-child {
+  border-bottom: none;
+}
+
+.bold-text {
+  font-weight: 600;
+}
+
+.delete-btn {
+  color: #fff;
+  font-size: 14px;
+  padding: 4px 12px;
+  border-radius: 18px;
+  background: linear-gradient(167deg, #ffc727 0%, #9e40ba 61.46%, #7000ff 90.54%);
+  height: 29px;
+  box-shadow: 1px 9px 15px 0 rgba(0, 0, 0, 0.2);
+}
+
+.edit-btn span {
+  margin-left: 4px;
+  color: var(--white-600);
+}
+
+.btns {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 8px;
+}

@@ -1,8 +1,36 @@
-import { useSelector } from 'react-redux';
-import { selectUser } from '../../store/auth/selectors';
+import { useDispatch } from 'react-redux';
+import ButtonAddTransaction from '../ButtonAddTransaction/ButtonAddTransaction';
+import TransactionsList from '../TransactionsList/TransactionsList';
+import { useEffect } from 'react';
+import { getTransactions } from '../../store/transactions/operations';
+import Modal from '../../ui/Modal/Modal';
+import AddTransactionForm from '../AddTransactionForm/AddTransactionForm';
+
+import { useState } from 'react';
+import { getCategories } from '../../store/categories/operations';
 
 export default function HomeTab() {
-  const user = useSelector(selectUser);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getTransactions());
+  }, [dispatch]);
 
-  return <div>{user.balance}</div>;
+  useEffect(() => {
+    dispatch(getCategories());
+  }, [dispatch]);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  return (
+    <div>
+      <TransactionsList />
+      <ButtonAddTransaction onClick={handleOpen} />
+      {open && (
+        <Modal closeFn={handleClose}>
+          <AddTransactionForm handleClose={handleClose} />
+        </Modal>
+      )}
+    </div>
+  );
 }
