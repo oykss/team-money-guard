@@ -33,3 +33,21 @@
   flex-direction: row-reverse;
   gap: 8px;
 }
+
+.thType {
+  text-align: center !important;
+}
+
+.length {
+  display: block;
+  text-align: end;
+  width: 120px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+
+  @media (min-width: 768px) {
+    text-align: start;
+    width: 100px;
+  }
+}

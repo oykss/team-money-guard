@@ -1,14 +1,14 @@
-import { useSelector } from 'react-redux';
-import TransactionsItem from '../TransactionsItem/TransactionsItem.jsx';
-import { selectTransactions } from '../../store/transactions/selectors.js';
-import css from './TransactionsList.module.css';
-import Container from '../../ui/Container/Container.jsx';
-import { useMediaPoints } from '../../hooks/useMediaPoints.js';
 import clsx from 'clsx';
+import { useSelector } from 'react-redux';
+import { useMediaPoints } from '../../hooks/useMediaPoints.js';
+import { selectTransactions } from '../../store/transactions/selectors.js';
+import TransactionsItem from '../TransactionsItem/TransactionsItem.jsx';
+import css from './TransactionsList.module.css';
 import Balance from '../Balance/Balance.jsx';
 
 export default function TransactionsList() {
   const transactions = useSelector(selectTransactions);
+  const transactionsReverse = [...transactions]?.reverse();
 
   const { isMobile } = useMediaPoints();
   if (transactions.length === 0) {
@@ -26,10 +26,10 @@ export default function TransactionsList() {
         <div className={css.scrollContainer}>
           <Balance />
           <ul className={css.list}>
-            {transactions.map(transaction => (
+            {transactionsReverse.map(transaction => (
               <li
                 key={transaction._id}
-                className={clsx(css['item-card'], {
+                className={clsx(css.itemMobile, {
                   [css.income]: transaction.transactionType === 'income',
                   [css.expense]: transaction.transactionType === 'expense',
                 })}
@@ -42,9 +42,9 @@ export default function TransactionsList() {
       ) : (
         <table className={css.table}>
           <thead>
-            <tr className={css['thead-row']}>
+            <tr className={css.theadRow}>
               <th>Date</th>
-              <th>Type</th>
+              <th className={css.thType}>Type</th>
               <th>Category</th>
               <th>Comment</th>
               <th>Sum</th>
@@ -52,8 +52,8 @@ export default function TransactionsList() {
             </tr>
           </thead>
           <tbody>
-            {transactions.map(transaction => (
-              <tr key={transaction._id} className={css['item-row']}>
+            {transactionsReverse.map(transaction => (
+              <tr key={transaction._id} className={css.itemRow}>
                 <TransactionsItem transaction={transaction} variant="row" />
               </tr>
             ))}

@@ -6,7 +6,6 @@ export const getTransactions = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await api.get('/transactions');
-      console.log(response.data.data);
       return response.data.data;
     } catch (e) {
       console.error();
@@ -20,7 +19,6 @@ export const addTransaction = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       const response = await api.post('/transactions', data);
-      console.log(response.data.data);
       return response.data.data.transaction;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);

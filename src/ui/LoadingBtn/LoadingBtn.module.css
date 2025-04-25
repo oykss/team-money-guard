@@ -13,6 +13,7 @@
   box-shadow: 1px 9px 15px 0 rgba(0, 0, 0, 0.2);
   color: #fff;
   background: linear-gradient(167deg, #ffc727 0%, #9e40ba 61.46%, #7000ff 90.54%);
+  flex-shrink: 0;
 
   &:disabled {
     cursor: progress;

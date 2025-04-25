@@ -1,16 +1,17 @@
-import { IoAddOutline } from 'react-icons/io5';
-import { FiMinus } from 'react-icons/fi';
-import css from './Switcher.module.css';
 import clsx from 'clsx';
+import { FiMinus } from 'react-icons/fi';
+import { IoAddOutline } from 'react-icons/io5';
+import css from './Switcher.module.css';
 
-export default function Switcher({ value, onChange }) {
+export default function Switcher({ value, onChange, className }) {
   const isChecked = value === 'expense';
 
   const handleToggle = () => {
     onChange(isChecked ? 'income' : 'expense');
   };
+
   return (
-    <div className={css['checkbox-wrapper-51']}>
+    <div className={clsx(css['checkbox-wrapper-51'], className)}>
       <span
         className={clsx(css['switcher-text'], {
           [css.income]: isChecked === false,

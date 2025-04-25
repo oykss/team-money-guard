@@ -16,8 +16,11 @@ export default function Modal({ children, closeFn, className }) {
     };
 
     document.addEventListener('keydown', handleKeyDown);
+    document.body.style.overflow = 'hidden';
+
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
     };
   }, [closeFn]);
 

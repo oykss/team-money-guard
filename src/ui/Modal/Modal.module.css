@@ -1,5 +1,5 @@
 .overlay {
-  position: absolute;
+  position: fixed;
   inset: 59.89px 0 0;
   backdrop-filter: blur(7px);
   background: rgba(34, 13, 91, 0.23);
@@ -10,12 +10,21 @@
     align-items: center;
     justify-content: center;
     inset: 0;
+    padding: 40px;
   }
 }
 
 .modal {
   backdrop-filter: blur(100px);
   box-shadow: 0 4px 60px 0 rgba(0, 0, 0, 0.25);
+  max-height: 100vh;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   @media (max-width: 767px) {
     display: flex;
