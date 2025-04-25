@@ -5,6 +5,7 @@ import css from './TransactionsList.module.css';
 import Container from '../../ui/Container/Container.jsx';
 import { useMediaPoints } from '../../hooks/useMediaPoints.js';
 import clsx from 'clsx';
+import Balance from '../Balance/Balance.jsx';
 
 export default function TransactionsList() {
   const transactions = useSelector(selectTransactions);
@@ -12,16 +13,18 @@ export default function TransactionsList() {
   const { isMobile } = useMediaPoints();
   if (transactions.length === 0) {
     return (
-      <Container>
+      <div className={css.noTransactionsContainer}>
+        {isMobile && <Balance />}
         <p>There are no transactions yet.</p>
-      </Container>
+      </div>
     );
   }
 
   return (
-    <Container>
+    <div className={css.transactionsContainer}>
       {isMobile ? (
         <div className={css.scrollContainer}>
+          <Balance />
           <ul className={css.list}>
             {transactions.map(transaction => (
               <li
@@ -57,6 +60,6 @@ export default function TransactionsList() {
           </tbody>
         </table>
       )}
-    </Container>
+    </div>
   );
 }

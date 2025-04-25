@@ -1,0 +1,38 @@
+.container {
+  @media (min-width: 1280px) {
+    padding-inline: 0;
+    max-width: 480px;
+    margin: 0;
+  }
+}
+
+.wrap {
+  padding: 8px 32px;
+  backdrop-filter: blur(100px);
+  box-shadow: 0 4px 60px 0 rgba(0, 0, 0, 0.25);
+  background: rgba(82, 59, 126, 0.6);
+  border-radius: 8px;
+  @media (min-width: 768px) {
+    padding: 8px 40px;
+    width: 336px;
+  }
+  @media (min-width: 1280px) {
+    padding: 8px 56px;
+    width: 480px;
+    border-radius: 0;
+  }
+}
+
+.text {
+  font-weight: 400;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--white-400);
+}
+
+.count {
+  font-family: var(--font-family);
+  font-size: 30px;
+  color: var(--white);
+  font-weight: 700;
+}
