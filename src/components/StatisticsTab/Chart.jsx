@@ -4,6 +4,8 @@ import { Doughnut } from 'react-chartjs-2';
 import { useSelector } from 'react-redux';
 import { formatNumber, getCategoryColor } from '../../constants';
 
+import s from "./StatisticsTab.module.css"
+
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const centerTextPlugin = {
@@ -13,15 +15,15 @@ const centerTextPlugin = {
     const { height } = chart;
     const ctx = chart.ctx;
     ctx.restore();
-    const fontSize = (height / 150).toFixed(2);
-    ctx.font = `${fontSize}em sans-serif`;
+    const fontSize = '18px';
+    ctx.font = `${fontSize} sans-serif`;
     ctx.textBaseline = 'middle';
 
     const text = chart.config.options.plugins.centerText.text;
     const textX = Math.round((width - ctx.measureText(text).width) / 2);
     const textY = height / 2;
 
-    ctx.fillStyle = '#000';
+    ctx.fillStyle = '#FBFBFB';
     ctx.fillText(text, textX, textY);
     ctx.save();
   }
@@ -47,15 +49,15 @@ const Chart = () => {
     plugins: {
       centerText: {
         text: `₴ ${formatNumber(balance)} `,
-      },
-      legend: {
-        position: 'bottom',
-      },
+          },
+        legend: {
+            display: false,
+        },
     },
     cutout: '70%',
   };
 
-  return <Doughnut data={data} options={options} plugins={[centerTextPlugin]} />;
+  return <Doughnut className={s.chart} data={data} options={options} plugins={[centerTextPlugin]} />;
 };
 
 export default Chart;
