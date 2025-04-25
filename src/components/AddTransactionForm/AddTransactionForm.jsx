@@ -1,23 +1,29 @@
-import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import clsx from 'clsx';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import Switcher from '../../ui/Switcher/Switcher';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { transactionSchema } from '../../validations/transactions.js';
+import { Controller, useForm } from 'react-hook-form';
+import { FaMoneyBillWave, FaRegCalendarAlt, FaRegCommentDots } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import { addTransaction } from '../../store/transactions/operations';
-import css from './AddTransactionForm.module.css';
 import Select from 'react-select';
 import {
-  selectIncomeCategories,
   selectExpenseCategories,
+  selectIncomeCategories,
 } from '../../store/categories/selectors.js';
+import { addTransaction } from '../../store/transactions/operations';
+import LoadingBtn from '../../ui/LoadingBtn/LoadingBtn.jsx';
+import Switcher from '../../ui/Switcher/Switcher';
+import { transactionSchema } from '../../validations/transactions.js';
+import { useMediaPoints } from './../../hooks/useMediaPoints';
+import css from './AddTransactionForm.module.css';
 
 export default function AddTransactionForm({ handleClose }) {
   const dispatch = useDispatch();
+  const { isMobile } = useMediaPoints();
+  const incomes = useSelector(selectIncomeCategories);
+  const expenses = useSelector(selectExpenseCategories) ?? [];
 
   const {
-    reset,
     register,
     handleSubmit,
     control,
@@ -29,136 +35,181 @@ export default function AddTransactionForm({ handleClose }) {
     defaultValues: {
       transactionType: 'expense',
       date: new Date(),
-      categoryId: '',
+      categoryId: null,
     },
   });
 
   const transactionType = watch('transactionType');
-  const incomes = useSelector(selectIncomeCategories);
-  const expenses = useSelector(selectExpenseCategories);
+
   const onSubmit = data => {
-    if (transactionType === 'income') {
-      if (incomes && incomes.length > 0) {
-        data.categoryId = incomes[0]._id;
-      }
-    }
-    if (!data.comment || data.comment.trim() === '') {
-      data.comment = '-';
-    }
-    dispatch(addTransaction(data));
-    reset();
-    handleClose();
+    if (transactionType === 'income' && incomes && incomes.length > 0)
+      data.categoryId = incomes[0]._id;
+
+    if (!data.comment || data.comment.trim() === '') data.comment = '-';
+
+    dispatch(addTransaction(data))
+      .unwrap()
+      .then(() => handleClose());
   };
 
   const customStyles = {
-    control: (base, state) => ({
-      ...base,
-      backgroundColor: 'rgba(74, 86, 226, 0.1)',
+    control: (_, { isFocused }) => ({
+      display: 'flex',
+      borderRadius: '8px',
+      backgroundColor: 'transparent',
       borderStyle: 'none',
-      borderBottom: '1px solid rgba(255, 255, 255, 0.6)',
-      boxShadow: state.isFocused ? '0 0 0 1px #A27BFF' : 'none',
-      color: '#FBFBFB',
+      border: isFocused
+        ? '1px solid rgba(255, 255, 255, 0.6)'
+        : '1px solid rgba(255, 255, 255, 0.2)',
+      outline: 'none',
+      color: 'rgba(255, 255, 255, 0.6)',
       cursor: 'pointer',
+      transition: 'all 200ms ease',
+      '&:hover': {
+        border: '1px solid rgba(255, 255, 255, 0.6)',
+      },
     }),
     menu: base => ({
       ...base,
       background:
-        'linear-gradient(180deg, rgba(83, 61, 186, 1), rgba(80, 48, 154, 1), rgba(106, 70, 165, 0.75), rgba(133, 93, 175, 0.19))',
+        'linear-gradient(180deg, rgba(83, 61, 186), rgba(80, 48, 154), rgba(106, 70, 165), rgba(133, 93, 175))',
       borderRadius: '8px',
       marginTop: '0px',
       overflow: 'hidden',
-      zIndex: 5,
       backdropFilter: 'blur(8px)',
     }),
     menuList: base => ({
       ...base,
-      padding: '12px 0',
+      '::-webkit-scrollbar': {
+        width: '8px',
+      },
+      '::-webkit-scrollbar-thumb': {
+        backgroundColor: 'rgba(255, 255, 255, 0.4)',
+        borderRadius: '4px',
+      },
+      '::-webkit-scrollbar-thumb:hover': {
+        backgroundColor: 'rgba(255, 255, 255, 0.6)',
+      },
+      '::-webkit-scrollbar-track': {
+        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+        borderRadius: '4px',
+      },
     }),
     option: (base, { isFocused }) => ({
       ...base,
       backgroundColor: isFocused ? 'rgba(162, 123, 255, 0.3)' : 'transparent',
       color: isFocused ? '#FF868D' : '#fff',
       padding: '10px 15px',
+      transition: 'all 100ms ease',
       cursor: 'pointer',
     }),
     singleValue: base => ({
       ...base,
-      color: '#FBFBFB',
-    }),
-    dropdownIndicator: base => ({
-      ...base,
-      color: '#FBFBFB',
+      color: 'rgba(255, 255, 255, 0.6)',
     }),
     indicatorSeparator: () => ({
       display: 'none',
     }),
+    dropdownIndicator: (base, { isFocused }) => ({
+      ...base,
+      color: isFocused ? 'rgba(255, 255, 255, 0.6)' : 'rgba(255, 255, 255, 0.2)',
+      transition: 'color 200ms ease',
+      '&:hover': {
+        color: 'rgba(255, 255, 255, 0.6)',
+      },
+    }),
   };
 
   return (
-    <div>
-      <h3 className={css['modal-title']}>Add Transaction</h3>
-      <Switcher
-        value={transactionType}
-        onChange={val => setValue('transactionType', val)}
-      />
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <fieldset className={css.fieldset}>
+        <h2 className={css.title}>Add Transaction</h2>
 
-      <form onSubmit={handleSubmit(onSubmit)} className={css.form}>
+        <Switcher
+          value={transactionType}
+          onChange={val => setValue('transactionType', val)}
+          className={css.switcher}
+        />
+
         {transactionType === 'expense' && (
           <Controller
             name="categoryId"
             control={control}
             render={({ field }) => (
-              <Select
-                {...field}
-                value={expenses
-                  .map(exp => ({ value: exp._id, label: exp.title }))
-                  .find(option => option.value === field.value)}
-                onChange={selectedOption => field.onChange(selectedOption?.value)}
-                options={expenses.map(exp => ({
-                  value: exp._id,
-                  label: exp.title,
-                }))}
-                styles={customStyles}
-                placeholder="Select a category..."
-              />
+              <div className={css.wrap}>
+                <Select
+                  {...field}
+                  value={expenses
+                    .map(exp => ({ value: exp._id, label: exp.title }))
+                    .find(option => option.value === field.value)}
+                  onChange={selectedOption => field.onChange(selectedOption?.value)}
+                  options={expenses.map(exp => ({
+                    value: exp._id,
+                    label: exp.title,
+                  }))}
+                  styles={customStyles}
+                  placeholder="Select a category..."
+                />
+                {errors.categoryId && (
+                  <span className={css.error}>{errors.categoryId.message}</span>
+                )}
+              </div>
             )}
           />
         )}
 
-        {errors.categoryId && <p>{errors.categoryId.message}</p>}
+        <div className={css.inputWrap}>
+          <div className={css.wrap}>
+            <label className={css.label}>
+              <FaMoneyBillWave className={css.icon} size={28} />
+              <input
+                {...register('summ')}
+                type="number"
+                step="0.01"
+                min="0.01"
+                placeholder="0.01"
+              />
+            </label>
+            {errors.summ && <span className={css.error}>{errors.summ.message}</span>}
+          </div>
 
-        <input {...register('summ')} type="number" />
-        {errors.summ && <p>{errors.summ.message}</p>}
-
-        <Controller
-          name="date"
-          control={control}
-          render={({ field }) => (
-            <DatePicker
-              selected={field.value}
-              onChange={field.onChange}
-              dateFormat="dd-MM-yyyy"
-            />
-          )}
-        />
-        {errors.date && <p>{errors.date.message}</p>}
-
-        <textarea {...register('comment')} />
-        {errors.comment && <p>{errors.comment.message}</p>}
-
-        <div className={css['btn-box']}>
-          <button type="submit" className={css['btn']}>
-            Add
-          </button>
-          <button
-            type="button"
-            className={`${css.btn} ${css.cancel}`}
-            onClick={handleClose}
-          >
-            Cancel
-          </button>
+          <Controller
+            name="date"
+            control={control}
+            render={({ field }) => (
+              <div className={css.wrap}>
+                <label className={css.label}>
+                  <DatePicker
+                    className={css.datePicker}
+                    selected={field.value}
+                    onChange={field.onChange}
+                    dateFormat="dd-MM-yyyy"
+                  />
+                  <FaRegCalendarAlt className={clsx(css.icon, css.iconDate)} size={28} />
+                </label>{' '}
+                {errors.date && <span className={css.error}>{errors.date.message}</span>}
+              </div>
+            )}
+          />
         </div>
-      </form>
-    </div>
+
+        <div className={clsx(css.wrap, css.comment)}>
+          <label className={css.label}>
+            {!isMobile && <FaRegCommentDots className={css.icon} size={24} />}
+            <textarea {...register('comment')} placeholder="Comment" />
+          </label>
+          {errors.comment && <span className={css.error}>{errors.comment.message}</span>}
+        </div>
+
+        <LoadingBtn type="submit">Add</LoadingBtn>
+        <button
+          type="button"
+          onClick={handleClose}
+          className={clsx(css.cancelBtn, 'btn-pr-effect')}
+        >
+          cancel
+        </button>
+      </fieldset>
+    </form>
   );
 }
