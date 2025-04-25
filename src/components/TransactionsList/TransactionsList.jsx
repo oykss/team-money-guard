@@ -2,9 +2,9 @@ import clsx from 'clsx';
 import { useSelector } from 'react-redux';
 import { useMediaPoints } from '../../hooks/useMediaPoints.js';
 import { selectTransactions } from '../../store/transactions/selectors.js';
-import Container from '../../ui/Container/Container.jsx';
 import TransactionsItem from '../TransactionsItem/TransactionsItem.jsx';
 import css from './TransactionsList.module.css';
+import Balance from '../Balance/Balance.jsx';
 
 export default function TransactionsList() {
   const transactions = useSelector(selectTransactions);
@@ -13,28 +13,32 @@ export default function TransactionsList() {
   const { isMobile } = useMediaPoints();
   if (transactions.length === 0) {
     return (
-      <Container>
+      <div className={css.noTransactionsContainer}>
+        {isMobile && <Balance />}
         <p>There are no transactions yet.</p>
-      </Container>
+      </div>
     );
   }
 
   return (
-    <Container>
+    <div className={css.transactionsContainer}>
       {isMobile ? (
-        <ul className={css.list}>
-          {transactionsReverse.map(transaction => (
-            <li
-              key={transaction._id}
-              className={clsx(css.itemMobile, {
-                [css.income]: transaction.transactionType === 'income',
-                [css.expense]: transaction.transactionType === 'expense',
-              })}
-            >
-              <TransactionsItem transaction={transaction} />
-            </li>
-          ))}
-        </ul>
+        <div className={css.scrollContainer}>
+          <Balance />
+          <ul className={css.list}>
+            {transactionsReverse.map(transaction => (
+              <li
+                key={transaction._id}
+                className={clsx(css.itemMobile, {
+                  [css.income]: transaction.transactionType === 'income',
+                  [css.expense]: transaction.transactionType === 'expense',
+                })}
+              >
+                <TransactionsItem transaction={transaction} />
+              </li>
+            ))}
+          </ul>
+        </div>
       ) : (
         <table className={css.table}>
           <thead>
@@ -56,6 +60,6 @@ export default function TransactionsList() {
           </tbody>
         </table>
       )}
-    </Container>
+    </div>
   );
 }

@@ -8,6 +8,8 @@ import { useMediaPoints } from '../../hooks/useMediaPoints';
 import { currentUser } from '../../store/auth/operations';
 import { getCategories } from '../../store/categories/operations';
 import css from './DashboardPage.module.css';
+import Balance from '../../components/Balance/Balance';
+import Container from '../../ui/Container/Container';
 
 export default function DashboardPage() {
   const dispatch = useDispatch();
@@ -20,9 +22,16 @@ export default function DashboardPage() {
   return (
     <section className={css.section}>
       <Header />
-      <Navigation />
-      {!isMobile && <CurrencyTab />}
-      <Outlet />
+      <Container className={css.container}>
+        <div className={css.userBarContainer}>
+          <div className={css.navAndBalCont}>
+            <Navigation />
+            {!isMobile && <Balance />}
+          </div>
+          {!isMobile && <CurrencyTab />}
+        </div>
+        <Outlet />
+      </Container>
     </section>
   );
 }

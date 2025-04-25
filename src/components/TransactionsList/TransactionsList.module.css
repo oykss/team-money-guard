@@ -91,6 +91,30 @@
   color: var(--white-600);
 }
 
+.transactionsContainer {
+  @media screen and (min-width: 1280px) {
+    padding-top: 46px;
+  }
+}
+
+.scrollContainer {
+  padding-block: 12px;
+  padding-inline: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.noTransactionsContainer {
+  padding-block: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  text-align: center;
+  @media (min-width: 1280px) {
+    padding-top: 46px;
+  }
+}
 .thType {
   text-align: center !important;
 }
