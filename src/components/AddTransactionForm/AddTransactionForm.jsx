@@ -11,6 +11,7 @@ import {
   selectIncomeCategories,
 } from '../../store/categories/selectors.js';
 import { addTransaction } from '../../store/transactions/operations';
+import { selectIsLoading } from '../../store/transactions/selectors.js';
 import LoadingBtn from '../../ui/LoadingBtn/LoadingBtn.jsx';
 import Switcher from '../../ui/Switcher/Switcher';
 import { transactionSchema } from '../../validations/transactions.js';
@@ -20,6 +21,7 @@ import css from './AddTransactionForm.module.css';
 export default function AddTransactionForm({ handleClose }) {
   const dispatch = useDispatch();
   const { isMobile } = useMediaPoints();
+  const isLoading = useSelector(selectIsLoading);
   const incomes = useSelector(selectIncomeCategories);
   const expenses = useSelector(selectExpenseCategories) ?? [];
 
@@ -41,7 +43,7 @@ export default function AddTransactionForm({ handleClose }) {
 
   const transactionType = watch('transactionType');
 
-  const onSubmit = data => {
+  const onSubmit = async data => {
     if (transactionType === 'income' && incomes && incomes.length > 0)
       data.categoryId = incomes[0]._id;
 
@@ -122,7 +124,7 @@ export default function AddTransactionForm({ handleClose }) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <fieldset className={css.fieldset}>
+      <fieldset className={css.fieldset} disabled={isLoading}>
         <h2 className={css.title}>Add Transaction</h2>
 
         <Switcher
@@ -201,7 +203,9 @@ export default function AddTransactionForm({ handleClose }) {
           {errors.comment && <span className={css.error}>{errors.comment.message}</span>}
         </div>
 
-        <LoadingBtn type="submit">Add</LoadingBtn>
+        <LoadingBtn type="submit" isLoading={isLoading}>
+          Add
+        </LoadingBtn>
         <button
           type="button"
           onClick={handleClose}
