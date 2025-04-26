@@ -14,11 +14,11 @@ const StatisticTable = () => {
 
     return (
         <div>
-            <table>
+            <table className={s.statisticsTable}>
                 <thead>
-                    <tr>
-                        <th>Category</th>
-                        <th>Sum</th>
+                    <tr className={s.tableHeader}>
+                        <th className={s.leftCorner}>Category</th>
+                        <th className={s.rightCorner}>Sum</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -26,22 +26,22 @@ const StatisticTable = () => {
                         const color = getCategoryColor(category.title);
 
                         return (
-                            <tr key={category.categoryId}>
-                                <td>
+                            <tr key={category.categoryId} className={s.tableItem}>
+                                <td className={s.categoryColumn}>
                                     <span className={s.categoryMarker} style={{ backgroundColor: color}}></span>
                                     {category.title}
                                 </td>
-                                <td>{formatNumber(category.total)}</td>
+                                <td className={s.sumColumn}>{formatNumber(category.total)}</td>
                             </tr>
                         )
                     })}
                     <tr key={totalExpense}>
-                        <td>Expenses:</td>
-                        <td>{formatNumber(totalExpense)}</td>
+                        <td className={s.transactionsType}>Expenses:</td>
+                        <td className={s.totalExpense}>{formatNumber(totalExpense)}</td>
                     </tr>
                     <tr key={totalIncome}>
-                        <td>Income:</td>
-                        <td>{formatNumber(totalIncome)}</td>
+                        <td className={s.transactionsType}>Income:</td>
+                        <td className={s.totalIncome}>{formatNumber(totalIncome)}</td>
                     </tr>
                 </tbody>
             </table>

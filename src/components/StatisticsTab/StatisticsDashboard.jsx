@@ -68,12 +68,14 @@ const StatisticsDashboard = () => {
     return (
         <div className={s.dashboardFilters}>
             <Select
+                className={s.monthFilter}
                 options={months}
                 value={selectedMonthOption}
                 onChange={handleMonthChange}
                 styles={customStyles}
             />
             <Select
+                className={s.yearFilter}
                 options={years}
                 value={selectedYearOption}
                 onChange={handleYearChange}

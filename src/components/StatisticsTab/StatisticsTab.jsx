@@ -4,6 +4,7 @@ import StatisticTable from "./StatisticTable";
 import { useEffect } from "react";
 import { fetchStatistics } from "../../store/statistics/operations";
 import Chart from "./Chart";
+import s from "./StatisticsTab.module.css"
 
 export default function StatisticsTab() {
   const dispatch = useDispatch();
@@ -15,8 +16,8 @@ export default function StatisticsTab() {
   }, [dispatch, month, year]);
   
   return (
-    <div>
-      <p>Statistics</p>
+    <div className={s.statisticsContainer}>
+      <h2 className={s.title}>Statistics</h2>
       <Chart />
       <StatisticsDashboard />
       <StatisticTable />
