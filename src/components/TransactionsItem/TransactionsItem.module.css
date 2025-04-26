@@ -3,10 +3,10 @@
   justify-content: space-between;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   padding: 12px 20px;
-}
 
-.itemLine:last-child {
-  border-bottom: none;
+  &:last-child {
+    border-bottom: none;
+  }
 }
 
 .boldText {
@@ -44,10 +44,6 @@
   gap: 8px;
 }
 
-.thType {
-  text-align: center !important;
-}
-
 .length {
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -55,9 +51,4 @@
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 120px;
-  text-align: end;
-
-  @media (min-width: 768px) {
-    text-align: start;
-  }
 }
