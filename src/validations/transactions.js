@@ -18,11 +18,10 @@ export const transactionSchema = yup.object().shape({
 
   summ: yup
     .number()
-    .trim()
     .required('Amount is required')
     .min(0.01, 'Amount must be at least 0.01'),
 
-  date: yup.date().trim().typeError('Date must be a valid date-time string'),
+  date: yup.date().typeError('Date must be a valid date-time string'),
 
   comment: yup.string().trim().max(300, 'Comment must be at most 300 characters'),
 });
