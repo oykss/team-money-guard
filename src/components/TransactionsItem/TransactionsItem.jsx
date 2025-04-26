@@ -99,7 +99,12 @@ export default function TransactionsItem({ transaction, variant = 'card' }) {
           <span>Edit</span>
         </button>
       </div>
-      {isOpen && <ModalEditTransaction closeFn={() => setIsOpen(false)} />}
+      {isOpen && (
+        <ModalEditTransaction
+          closeFn={() => setIsOpen(false)}
+          transaction={transaction}
+        />
+      )}
     </div>
   );
 }

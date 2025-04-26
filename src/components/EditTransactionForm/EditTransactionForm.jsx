@@ -8,6 +8,10 @@ import DatePicker from 'react-datepicker';
 import LoadingBtn from '../../ui/LoadingBtn/LoadingBtn';
 import { selectIsLoading } from '../../store/transactions/selectors.js';
 import { updTransaction } from '../../store/transactions/operations';
+import css from './EditTransactionForm.module.css';
+import clsx from 'clsx';
+import { FaRegCalendarAlt, FaRegCommentDots } from 'react-icons/fa';
+import { useMediaPoints } from '../../hooks/useMediaPoints.js';
 
 export default function EditTransactionForm({ transaction, handleClose }) {
   const { _id, date, transactionType, categoryId, comment, summ } = transaction;
@@ -27,6 +31,7 @@ export default function EditTransactionForm({ transaction, handleClose }) {
     },
   });
 
+  const { isMobile } = useMediaPoints();
   const expenses = useSelector(selectExpenseCategories);
   const isLoading = useSelector(selectIsLoading);
   const dispatch = useDispatch();
@@ -107,15 +112,33 @@ export default function EditTransactionForm({ transaction, handleClose }) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <fieldset>
-        <h2>Edit Transaction</h2>
-
+      <fieldset className={css.fieldset} disabled={isLoading}>
+        <h2 className={css.title}>Edit Transaction</h2>
+        <div className={css.wrap}>
+          <p className={css.typeText}>
+            <span
+              style={{
+                color: transactionType === 'income' ? '#FFB627' : 'var(--white-600)',
+              }}
+            >
+              Income
+            </span>
+            /
+            <span
+              style={{
+                color: transactionType === 'expense' ? '#FF868D' : 'var(--white-600)',
+              }}
+            >
+              Expense
+            </span>
+          </p>
+        </div>
         {transactionType === 'expense' && (
           <Controller
             name="categoryId"
             control={control}
             render={({ field }) => (
-              <div>
+              <div className={css.wrap}>
                 <Select
                   {...field}
                   value={expenses
@@ -134,41 +157,49 @@ export default function EditTransactionForm({ transaction, handleClose }) {
           />
         )}
 
-        <div>
-          <label>
-            <input
-              {...register('summ')}
-              type="number"
-              step="0.01"
-              min="0.01"
-              defaultValue={summ}
-            />
-          </label>
+        <div className={css.inputWrap}>
+          <div className={css.wrap}>
+            <label className={css.label}>
+              <input
+                {...register('summ')}
+                type="number"
+                step="0.01"
+                min="0.01"
+                defaultValue={summ}
+              />
+            </label>
+            {errors.summ && <span className={css.error}>{errors.summ.message}</span>}
+          </div>
+          <Controller
+            name="date"
+            control={control}
+            render={({ field }) => (
+              <div className={css.wrap}>
+                <label className={css.label}>
+                  <DatePicker
+                    className={css.datePicker}
+                    selected={field.value}
+                    onChange={field.onChange}
+                    dateFormat="dd-MM-yyyy"
+                  />
+                  <FaRegCalendarAlt className={clsx(css.icon, css.iconDate)} size={28} />
+                </label>
+              </div>
+            )}
+          />
         </div>
-        <Controller
-          name="date"
-          control={control}
-          render={({ field }) => (
-            <div>
-              <label>
-                <DatePicker
-                  selected={field.value}
-                  onChange={field.onChange}
-                  dateFormat="dd-MM-yyyy"
-                />
-              </label>
-            </div>
-          )}
-        />
-        <div>
-          <label>
-            <textarea {...register('comment')} defaultValue={comment} />
+        <div className={clsx(css.wrap, css.comment)}>
+          <label className={css.label}>
+            {!isMobile && <FaRegCommentDots className={css.icon} size={24} />}
+            <textarea {...register('comment')} placeholder="Comment" />
           </label>
+          {errors.comment && <span className={css.error}>{errors.comment.message}</span>}
         </div>
+
         <LoadingBtn type="submit" isLoading={isLoading}>
           Save
         </LoadingBtn>
-        <button type="button" onClick={handleClose}>
+        <button type="button" onClick={handleClose} className={css.cancelBtn}>
           Cancel
         </button>
       </fieldset>

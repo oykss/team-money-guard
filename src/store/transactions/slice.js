@@ -53,11 +53,9 @@ const transactionsSlice = createSlice({
       })
       .addCase('transactions/deleteTransaction/rejected', handleRejected)
       .addCase('transactions/updTransaction/pending', handlePending)
-      .addCase('transactions/updTransaction/fulfilled', (state, action) => {
+      .addCase('transactions/updTransaction/fulfilled', state => {
         state.isLoading = false;
         state.error = null;
-        const index = state.transactions.findIndex(t => t._id === action.payload._id);
-        state.transactions[index] = action.payload;
       })
       .addCase('transactions/updTransaction/rejected', (state, action) => {
         state.isLoading = false;
