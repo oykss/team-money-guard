@@ -1,0 +1,18 @@
+.skeleton {
+  display: flex;
+  background-color: #452766;
+  animation: pulse 2s infinite ease-in-out;
+  border-radius: 8px;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
