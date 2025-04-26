@@ -15,7 +15,6 @@ export async function getCurrency() {
       throw new Error('No data received from API');
     }
 
-    // find appropriate currency rates
     const usd = data.find(item => {
       return item.currencyCodeA === 840 && item.currencyCodeB === 980;
     });
@@ -33,8 +32,6 @@ export async function getCurrency() {
       'currencyInfo',
       JSON.stringify({ currency: currencyRates, time: Date.now() + ONE_HOUR })
     );
-
-    console.log(currencyRates);
 
     return currencyRates;
   } catch (error) {
