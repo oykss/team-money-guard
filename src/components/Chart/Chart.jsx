@@ -35,8 +35,10 @@ export function Chart() {
         borderColor: '#e673c7',
         backgroundColor: ctx => {
           const gradient = ctx.chart.ctx.createLinearGradient(0, 0, 0, 200);
-          gradient.addColorStop(0, '#e0b3ff55');
-          gradient.addColorStop(1, '#1c124055');
+          gradient.addColorStop(0, 'rgba(255, 255, 255, 0.3)');
+          gradient.addColorStop(0.5, 'rgba(255, 255, 255, 0.2)');
+          gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+
           return gradient;
         },
         tension: 0.4,
