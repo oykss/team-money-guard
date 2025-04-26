@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-// import { addTransaction, deleteTransaction, getTransactions } from './operations';
 import toast from 'react-hot-toast';
 
 const handlePending = state => {
@@ -53,9 +52,14 @@ const transactionsSlice = createSlice({
       })
       .addCase('transactions/deleteTransaction/rejected', handleRejected)
       .addCase('transactions/updTransaction/pending', handlePending)
-      .addCase('transactions/updTransaction/fulfilled', state => {
+      .addCase('transactions/updTransaction/fulfilled', (state, action) => {
         state.isLoading = false;
         state.error = null;
+        const newTransaction = action.payload;
+        const index = state.transactions.findIndex(t => t._id === newTransaction._id);
+        if (index !== -1) {
+          state.transactions[index] = newTransaction;
+        }
       })
       .addCase('transactions/updTransaction/rejected', (state, action) => {
         state.isLoading = false;

@@ -7,7 +7,7 @@ import { selectExpenseCategories } from '../../store/categories/selectors';
 import DatePicker from 'react-datepicker';
 import LoadingBtn from '../../ui/LoadingBtn/LoadingBtn';
 import { selectIsLoading } from '../../store/transactions/selectors.js';
-import { updTransaction } from '../../store/transactions/operations';
+import { updTransaction } from '../../store/transactions/operations.js';
 import css from './EditTransactionForm.module.css';
 import clsx from 'clsx';
 import { FaRegCalendarAlt, FaRegCommentDots } from 'react-icons/fa';
@@ -37,9 +37,9 @@ export default function EditTransactionForm({ transaction, handleClose }) {
   const dispatch = useDispatch();
 
   const onSubmit = async data => {
-    dispatch(updTransaction({ data, transactionId: _id }))
-      .unwrap()
-      .then(() => handleClose());
+    const transactionId = _id;
+
+    dispatch(updTransaction({ data, transactionId }));
   };
 
   const customStyles = {
