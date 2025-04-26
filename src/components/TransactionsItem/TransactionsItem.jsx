@@ -6,12 +6,16 @@ import { selectExpenseCategories } from '../../store/categories/selectors';
 import { deleteTransaction } from '../../store/transactions/operations';
 import LoadingBtn from '../../ui/LoadingBtn/LoadingBtn';
 import css from './TransactionsItem.module.css';
+import { findCategoryTitle } from '../../utils/findCategoryTitle';
+import { getDate } from '../../utils/getDate';
+import ModalEditTransaction from '../ModalEditTransaction/ModalEditTransaction';
 
 export default function TransactionsItem({ transaction, variant = 'card' }) {
   const { _id, date, transactionType, categoryId, comment, summ } = transaction;
 
   const dispatch = useDispatch();
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleDelete = async () => {
     setIsDeleting(true);
@@ -23,25 +27,11 @@ export default function TransactionsItem({ transaction, variant = 'card' }) {
 
   const expenseCat = useSelector(selectExpenseCategories);
 
-  const findCategoryTitle = categoryId => {
-    if (!expenseCat || expenseCat.length === 0) return 'Loading...';
-    const category = expenseCat.find(exp => exp._id === categoryId);
-    return category ? category.title : 'Income';
-  };
-
-  const getDate = date => {
-    const unformattedDate = new Date(date);
-    const day = String(unformattedDate.getDate()).padStart(2, '0');
-    const month = String(unformattedDate.getMonth() + 1).padStart(2, '0');
-    const year = unformattedDate.getFullYear();
-    return `${day}.${month}.${year}`;
-  };
-
   return variant === 'row' ? (
     <>
       <td>{getDate(date)}</td>
       <td className={css.thType}>{transactionType === 'income' ? '+' : '-'}</td>
-      <td>{findCategoryTitle(categoryId)}</td>
+      <td>{findCategoryTitle(categoryId, expenseCat)}</td>
       <td>
         <span className={css.length}>{comment}</span>
       </td>
@@ -51,37 +41,43 @@ export default function TransactionsItem({ transaction, variant = 'card' }) {
       <td className={css.btns}>
         <LoadingBtn
           isLoading={isDeleting}
-          className={css['delete-btn']}
+          className={css.deleteBtn}
           click={handleDelete}
           size={20}
         >
           Delete
         </LoadingBtn>
-        <button type="button" className={css['edit-btn']}>
+        <button type="button" className={css.editBtn} onClick={() => setIsOpen(true)}>
           <MdOutlineModeEditOutline size={20} color="rgba(255, 255, 255, 0.6)" />
         </button>
+        {isOpen && (
+          <ModalEditTransaction
+            transaction={transaction}
+            closeFn={() => setIsOpen(false)}
+          />
+        )}
       </td>
     </>
   ) : (
-    <div className={css['item-wrapper']}>
-      <div className={css['item-line']}>
-        <span className={clsx(css['bold-text'])}>Date</span>
+    <div className={css.itemWrapper}>
+      <div className={css.itemLine}>
+        <span className={clsx(css.boldText)}>Date</span>
         <span>{getDate(date)}</span>
       </div>
-      <div className={css['item-line']}>
-        <span className={css['bold-text']}>Type</span>
+      <div className={css.itemLine}>
+        <span className={css.boldText}>Type</span>
         <span>{transactionType === 'income' ? '+' : '-'}</span>
       </div>
-      <div className={css['item-line']}>
-        <span className={css['bold-text']}>Category</span>
-        <span>{findCategoryTitle(categoryId)}</span>
+      <div className={css.itemLine}>
+        <span className={css.boldText}>Category</span>
+        <span>{findCategoryTitle(categoryId, expenseCat)}</span>
       </div>
-      <div className={css['item-line']}>
-        <span className={css['bold-text']}>Comment</span>
+      <div className={css.itemLine}>
+        <span className={css.boldText}>Comment</span>
         <span className={css.length}>{comment}</span>
       </div>
-      <div className={css['item-line']}>
-        <span className={css['bold-text']}>Sum</span>
+      <div className={css.itemLine}>
+        <span className={css.boldText}>Sum</span>
         <span
           className={css.length}
           style={{ color: transactionType === 'income' ? '#FFB627' : '#FF868D' }}
@@ -89,20 +85,21 @@ export default function TransactionsItem({ transaction, variant = 'card' }) {
           {summ}
         </span>
       </div>
-      <div className={css['item-line']}>
+      <div className={css.itemLine}>
         <LoadingBtn
           isLoading={isDeleting}
-          className={css['delete-btn']}
+          className={css.deleteBtn}
           click={handleDelete}
           size={20}
         >
           Delete
         </LoadingBtn>
-        <button type="button" className={css['edit-btn']}>
+        <button type="button" className={css.editBtn} onClick={() => setIsOpen(true)}>
           <MdOutlineModeEditOutline size={18} color="rgba(255, 255, 255, 0.6)" />
           <span>Edit</span>
         </button>
       </div>
+      {isOpen && <ModalEditTransaction closeFn={() => setIsOpen(false)} />}
     </div>
   );
 }

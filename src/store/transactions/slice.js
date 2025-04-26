@@ -11,13 +11,15 @@ const handleRejected = (state, action) => {
   state.error = action.payload;
 };
 
+const initialState = {
+  transactions: [],
+  isLoading: false,
+  error: null,
+};
+
 const transactionsSlice = createSlice({
   name: 'transactions',
-  initialState: {
-    transactions: [],
-    isLoading: false,
-    error: null,
-  },
+  initialState,
   extraReducers: builder => {
     builder
       .addCase('transactions/getTransactions/pending', handlePending)
@@ -49,7 +51,19 @@ const transactionsSlice = createSlice({
           transaction => transaction._id !== action.meta.arg
         );
       })
-      .addCase('transactions/deleteTransaction/rejected', handleRejected);
+      .addCase('transactions/deleteTransaction/rejected', handleRejected)
+      .addCase('transactions/updTransaction/pending', handlePending)
+      .addCase('transactions/updTransaction/fulfilled', (state, action) => {
+        state.isLoading = false;
+        state.error = null;
+        const index = state.transactions.findIndex(t => t._id === action.payload._id);
+        state.transactions[index] = action.payload;
+      })
+      .addCase('transactions/updTransaction/rejected', (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+        toast.error('Failed to update the transaction. Please try again.');
+      });
   },
 });
 

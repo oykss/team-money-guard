@@ -1,19 +1,19 @@
-.item-line {
+.itemLine {
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   padding: 12px 20px;
 }
 
-.item-line:last-child {
+.itemLine:last-child {
   border-bottom: none;
 }
 
-.bold-text {
+.boldText {
   font-weight: 600;
 }
 
-.delete-btn {
+.deleteBtn {
   color: #fff;
   letter-spacing: 0;
   font-size: 14px;
@@ -27,7 +27,7 @@
   box-shadow: 1px 9px 15px 0 rgba(0, 0, 0, 0.2);
 }
 
-.edit-btn {
+.editBtn {
   display: flex;
   align-items: center;
   gap: 4px;
