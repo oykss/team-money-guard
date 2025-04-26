@@ -99,17 +99,19 @@
 }
 
 .transactionsContainer {
-  @media screen and (min-width: 1280px) {
-    padding-top: 46px;
+  @media (min-width: 768px) {
+    padding-block: 0px 20px;
+  }
+
+  @media (min-width: 1280px) {
+    padding-block: 46px 20px;
   }
 }
 
 .scrollContainer {
-  padding-block: 12px;
-  padding-inline: 20px;
+  padding-block: 32px 20px;
   display: flex;
   flex-direction: column;
-  gap: 32px;
 }
 
 .noTransactionsContainer {
@@ -118,6 +120,7 @@
   flex-direction: column;
   gap: 32px;
   text-align: center;
+
   @media (min-width: 1280px) {
     padding-top: 46px;
   }
@@ -129,4 +132,40 @@
 .list {
   display: grid;
   gap: 12px;
+}
+
+.noTransactionsContainer {
+  display: flex;
+  max-height: 100%;
+  max-width: 700px;
+  align-items: center;
+  justify-content: center;
+
+  @media (min-width: 1280px) {
+    width: 700px;
+  }
+}
+
+.skeletonsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-block: 20px;
+
+  @media (min-width: 768px) {
+    padding-block: 0 20px;
+  }
+}
+
+.skeleton {
+  height: 293px;
+
+  @media (min-width: 768px) {
+    height: 53px;
+    width: 100%;
+  }
+
+  @media (min-width: 1280px) {
+    width: 700px;
+  }
 }
