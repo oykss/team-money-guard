@@ -1,15 +1,25 @@
 import clsx from 'clsx';
+import { useState } from 'react';
 import { MdOutlineModeEditOutline } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectExpenseCategories } from '../../store/categories/selectors';
 import { deleteTransaction } from '../../store/transactions/operations';
+import LoadingBtn from '../../ui/LoadingBtn/LoadingBtn';
 import css from './TransactionsItem.module.css';
 
 export default function TransactionsItem({ transaction, variant = 'card' }) {
   const { _id, date, transactionType, categoryId, comment, summ } = transaction;
 
   const dispatch = useDispatch();
-  const handleDelete = () => dispatch(deleteTransaction(_id));
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const handleDelete = async () => {
+    setIsDeleting(true);
+
+    dispatch(deleteTransaction(_id))
+      .unwrap()
+      .finally(() => setIsDeleting(false));
+  };
 
   const expenseCat = useSelector(selectExpenseCategories);
 
@@ -39,9 +49,14 @@ export default function TransactionsItem({ transaction, variant = 'card' }) {
         <span className={css.length}>{summ}</span>
       </td>
       <td className={css.btns}>
-        <button type="button" className={css['delete-btn']} onClick={handleDelete}>
+        <LoadingBtn
+          isLoading={isDeleting}
+          className={css['delete-btn']}
+          click={handleDelete}
+          size={20}
+        >
           Delete
-        </button>
+        </LoadingBtn>
         <button type="button" className={css['edit-btn']}>
           <MdOutlineModeEditOutline size={20} color="rgba(255, 255, 255, 0.6)" />
         </button>
@@ -75,9 +90,14 @@ export default function TransactionsItem({ transaction, variant = 'card' }) {
         </span>
       </div>
       <div className={css['item-line']}>
-        <button type="button" className={css['delete-btn']} onClick={handleDelete}>
+        <LoadingBtn
+          isLoading={isDeleting}
+          className={css['delete-btn']}
+          click={handleDelete}
+          size={20}
+        >
           Delete
-        </button>
+        </LoadingBtn>
         <button type="button" className={css['edit-btn']}>
           <MdOutlineModeEditOutline size={18} color="rgba(255, 255, 255, 0.6)" />
           <span>Edit</span>

@@ -39,13 +39,20 @@
   background: transparent;
   width: 100%;
   margin: 0 auto;
+  border-collapse: collapse;
+
+  thead {
+    position: sticky;
+    top: 0;
+  }
 }
 
 .table th,
 .table td {
-  padding: 16px;
+  padding: 8px 16px;
   text-align: left;
   font-size: 16px;
+  height: 56px;
 
   @media screen {
     font-size: 14px;
@@ -117,4 +124,9 @@
 }
 .thType {
   text-align: center !important;
+}
+
+.list {
+  display: grid;
+  gap: 12px;
 }

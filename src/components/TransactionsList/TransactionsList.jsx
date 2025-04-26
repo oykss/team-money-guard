@@ -2,9 +2,9 @@ import clsx from 'clsx';
 import { useSelector } from 'react-redux';
 import { useMediaPoints } from '../../hooks/useMediaPoints.js';
 import { selectTransactions } from '../../store/transactions/selectors.js';
+import Balance from '../Balance/Balance.jsx';
 import TransactionsItem from '../TransactionsItem/TransactionsItem.jsx';
 import css from './TransactionsList.module.css';
-import Balance from '../Balance/Balance.jsx';
 
 export default function TransactionsList() {
   const transactions = useSelector(selectTransactions);
