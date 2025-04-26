@@ -1,7 +1,8 @@
 .container {
-  padding-top: 12px;
+  padding-block: 16px 20px;
+
   @media (min-width: 768px) {
-    padding-top: 40px;
+    padding-block: 40px 0px;
   }
   @media (min-width: 1280px) {
     padding-left: 16px;
