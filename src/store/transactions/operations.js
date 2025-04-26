@@ -19,11 +19,11 @@ export const addTransaction = createAsyncThunk(
   'transactions/addTransaction',
   async (data, thunkAPI) => {
     try {
-      const { data } = await api.post('/transactions', data);
+      const res = await api.post('/transactions', data);
 
-      thunkAPI.dispatch(setBalance(data.data.balance));
+      thunkAPI.dispatch(setBalance(res.data.data.balance));
 
-      return data.data.transaction;
+      return res.data.data.transaction;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
     }
