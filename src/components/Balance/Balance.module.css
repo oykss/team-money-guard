@@ -12,10 +12,12 @@
   box-shadow: 0 4px 60px 0 rgba(0, 0, 0, 0.25);
   background: rgba(82, 59, 126, 0.6);
   border-radius: 8px;
+
   @media (min-width: 768px) {
     padding: 8px 40px;
     width: 336px;
   }
+
   @media (min-width: 1280px) {
     padding: 8px 56px;
     width: 480px;
@@ -35,4 +37,29 @@
   font-size: 30px;
   color: var(--white);
   font-weight: 700;
+  overflow-x: auto;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(82, 59, 126, 0.8);
+    border-radius: 4px;
+    transition: background 200ms ease;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(82, 59, 126, 1);
+  }
+
+  @media (min-width: 1280px) {
+    max-width: 368px;
+  }
 }
