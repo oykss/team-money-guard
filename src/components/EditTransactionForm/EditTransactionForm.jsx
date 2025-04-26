@@ -1,17 +1,17 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Controller, useForm } from 'react-hook-form';
-import { transactionSchema } from '../../validations/transactions';
-import Select from 'react-select';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectExpenseCategories } from '../../store/categories/selectors';
-import DatePicker from 'react-datepicker';
-import LoadingBtn from '../../ui/LoadingBtn/LoadingBtn';
-import { selectIsLoading } from '../../store/transactions/selectors.js';
-import { updTransaction } from '../../store/transactions/operations.js';
-import css from './EditTransactionForm.module.css';
 import clsx from 'clsx';
+import DatePicker from 'react-datepicker';
+import { Controller, useForm } from 'react-hook-form';
 import { FaRegCalendarAlt, FaRegCommentDots } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
+import Select from 'react-select';
 import { useMediaPoints } from '../../hooks/useMediaPoints.js';
+import { selectExpenseCategories } from '../../store/categories/selectors';
+import { updTransaction } from '../../store/transactions/operations.js';
+import { selectIsLoading } from '../../store/transactions/selectors.js';
+import LoadingBtn from '../../ui/LoadingBtn/LoadingBtn';
+import { transactionSchema } from '../../validations/transactions';
+import css from './EditTransactionForm.module.css';
 
 export default function EditTransactionForm({ transaction, handleClose }) {
   const { _id, date, transactionType, categoryId, comment, summ } = transaction;
@@ -39,7 +39,9 @@ export default function EditTransactionForm({ transaction, handleClose }) {
   const onSubmit = async data => {
     const transactionId = _id;
 
-    dispatch(updTransaction({ data, transactionId }));
+    dispatch(updTransaction({ data, transactionId }))
+      .unwrap()
+      .then(() => handleClose());
   };
 
   const customStyles = {
