@@ -8,6 +8,7 @@ import TransactionsList from '../TransactionsList/TransactionsList';
 export default function HomeTab() {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getTransactions());
   }, [dispatch]);

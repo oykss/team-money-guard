@@ -3,6 +3,7 @@ import * as yup from 'yup';
 export const transactionSchema = yup.object().shape({
   transactionType: yup
     .string()
+    .trim()
     .required('Transaction type is required')
     .oneOf(
       ['income', 'expense'],
@@ -22,5 +23,5 @@ export const transactionSchema = yup.object().shape({
 
   date: yup.date().typeError('Date must be a valid date-time string'),
 
-  comment: yup.string().max(300, 'Comment must be at most 300 characters'),
+  comment: yup.string().trim().max(300, 'Comment must be at most 300 characters'),
 });

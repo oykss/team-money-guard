@@ -1,0 +1,5 @@
+.canvas {
+  @media (min-width: 1280px) {
+    padding-top: 18px;
+  }
+}

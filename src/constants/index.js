@@ -13,6 +13,10 @@ export const API_PATHS = {
   REFRESH: '/refresh',
   LOGOUT: '/logout',
   CURRENT: '/user/current',
+  TRANSACTION: {
+    PATH: 'transactions',
+    PATH_ID: id => `/transactions/${id}`,
+  },
 };
 
 export const CATEGORY = {

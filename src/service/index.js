@@ -19,5 +19,5 @@ export const apiMono = axios.create({
   baseURL: 'https://api.monobank.ua/bank/currency',
 });
 
-const updateAuthCb = createUpdateAuthInterceptor(store);
+const updateAuthCb = createUpdateAuthInterceptor(store, api);
 api.interceptors.response.use(null, updateAuthCb);
