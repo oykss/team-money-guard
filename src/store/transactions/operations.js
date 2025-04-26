@@ -50,8 +50,6 @@ export const updTransaction = createAsyncThunk(
   'transactions/updTransaction',
   async ({ data, transactionId }, thunkAPI) => {
     try {
-      console.log(data);
-
       const response = await api.patch(
         API_PATHS.TRANSACTION.PATH_ID(transactionId),
         data

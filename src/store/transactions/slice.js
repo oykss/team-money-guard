@@ -14,6 +14,8 @@ const initialState = {
   transactions: [],
   isLoading: false,
   error: null,
+  isFetching: false,
+  hasFetched: false,
 };
 
 const transactionsSlice = createSlice({
@@ -21,14 +23,18 @@ const transactionsSlice = createSlice({
   initialState,
   extraReducers: builder => {
     builder
-      .addCase('transactions/getTransactions/pending', handlePending)
+      .addCase('transactions/getTransactions/pending', state => {
+        state.isFetching = true;
+      })
       .addCase('transactions/getTransactions/fulfilled', (state, action) => {
-        state.isLoading = false;
+        state.isFetching = false;
         state.error = null;
         state.transactions = action.payload;
+        state.hasFetched = true;
       })
-      .addCase('/transactions/getTransactions/rejected', () => {
-        handleRejected;
+      .addCase('/transactions/getTransactions/rejected', (state, action) => {
+        handleRejected(state, action);
+        state.isFetching = false;
         toast.error('Failed to get transactions. Please try again.');
       })
       .addCase('transactions/addTransaction/pending', handlePending)
@@ -42,9 +48,7 @@ const transactionsSlice = createSlice({
         state.error = action.payload;
         toast.error('Failed to add transaction. Please try again.');
       })
-      .addCase('transactions/deleteTransaction/pending', handlePending)
       .addCase('transactions/deleteTransaction/fulfilled', (state, action) => {
-        state.isLoading = false;
         state.error = null;
         state.transactions = state.transactions.filter(
           transaction => transaction._id !== action.meta.arg

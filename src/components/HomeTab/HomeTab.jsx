@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getTransactions } from '../../store/transactions/operations';
+import { selectHasFetched } from '../../store/transactions/selectors';
 import ButtonAddTransaction from '../../ui/ButtonAddTransaction/ButtonAddTransaction';
 import ModalAddTransaction from '../ModalAddTransaction/ModalAddTransaction';
 import TransactionsList from '../TransactionsList/TransactionsList';
@@ -8,10 +9,11 @@ import TransactionsList from '../TransactionsList/TransactionsList';
 export default function HomeTab() {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
+  const hasFetched = useSelector(selectHasFetched);
 
   useEffect(() => {
-    dispatch(getTransactions());
-  }, [dispatch]);
+    if (!hasFetched) dispatch(getTransactions());
+  }, [dispatch, hasFetched]);
 
   return (
     <>
