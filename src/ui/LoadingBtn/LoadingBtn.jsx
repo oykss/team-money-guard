@@ -8,6 +8,7 @@ export default function LoadingBtn({
   click,
   type = 'button',
   className,
+  size,
 }) {
   return (
     <button
@@ -16,7 +17,7 @@ export default function LoadingBtn({
       disabled={isLoading}
       onClick={click}
     >
-      {isLoading ? <Loader /> : children}
+      {isLoading ? <Loader size={size} /> : children}
     </button>
   );
 }
