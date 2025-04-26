@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import logoSvg from '../../assets/logo.svg';
 import { selectUser } from '../../store/auth/selectors';
 import Container from '../../ui/Container/Container';
+import Skeleton from '../../ui/Skeleton/Skeleton';
 import ModalLogout from '../ModalLogout/ModalLogout';
 import { ROUTES } from './../../constants/index';
 import { useMediaPoints } from './../../hooks/useMediaPoints';
@@ -24,7 +25,9 @@ export default function Header() {
           </Link>
 
           <div className={css.infoWrap}>
-            <p className={css.name}>{user.name}</p>
+            <p className={css.name}>
+              {user.name ? user.name : <Skeleton width="70px" height="24px" />}
+            </p>
             <button
               type="button"
               className="btn-pr-effect"
