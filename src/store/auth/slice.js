@@ -25,6 +25,9 @@ const authSlice = createSlice({
     setLoggedIn(state, action) {
       state.isLoggedIn = action.payload;
     },
+    setBalance(state, action) {
+      state.user.balance = action.payload;
+    },
   },
   extraReducers: builder => {
     builder
@@ -104,4 +107,4 @@ const persistConfig = {
 };
 
 export const authReducer = persistReducer(persistConfig, authSlice.reducer);
-export const { setLoggedIn } = authSlice.actions;
+export const { setLoggedIn, setBalance } = authSlice.actions;
