@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getCurrency } from '../../utils/monoApiFn';
-import { CurrencyChart } from '../CurrencyChart/CurrencyChart';
+import CurrencyChart from '../CurrencyChart/CurrencyChart';
 import css from './CurrencyTab.module.css';
 
 export default function CurrencyTab() {
