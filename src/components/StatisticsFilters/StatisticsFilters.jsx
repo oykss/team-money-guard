@@ -33,7 +33,7 @@ export default function StatisticsFilters() {
     menu: base => ({
       ...base,
       background:
-        'linear-gradient(180deg, rgba(83, 61, 186, 1), rgba(80, 48, 154, 1), rgba(106, 70, 165, 0.75), rgba(133, 93, 175, 0.19))',
+        'linear-gradient(180deg, rgba(83, 61, 186), rgba(80, 48, 154), rgba(106, 70, 165), rgba(133, 93, 175))',
       borderRadius: '8px',
       marginTop: '0px',
       overflow: 'hidden',
@@ -41,7 +41,20 @@ export default function StatisticsFilters() {
     }),
     menuList: base => ({
       ...base,
-      padding: '12px 0',
+      '::-webkit-scrollbar': {
+        width: '8px',
+      },
+      '::-webkit-scrollbar-thumb': {
+        backgroundColor: 'rgba(255, 255, 255, 0.4)',
+        borderRadius: '4px',
+      },
+      '::-webkit-scrollbar-thumb:hover': {
+        backgroundColor: 'rgba(255, 255, 255, 0.6)',
+      },
+      '::-webkit-scrollbar-track': {
+        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+        borderRadius: '4px',
+      },
     }),
     option: (base, { isFocused }) => ({
       ...base,
@@ -54,9 +67,13 @@ export default function StatisticsFilters() {
       ...base,
       color: '#FBFBFB',
     }),
-    dropdownIndicator: base => ({
+    dropdownIndicator: (base, { isFocused }) => ({
       ...base,
-      color: '#FBFBFB',
+      color: isFocused ? 'rgba(255, 255, 255, 1)' : 'rgba(255, 255, 255, 0.6)',
+      transition: 'color 200ms ease',
+      '&:hover': {
+        color: 'rgba(255, 255, 255, 0.6)',
+      },
     }),
     indicatorSeparator: () => ({
       display: 'none',
