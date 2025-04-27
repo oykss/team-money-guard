@@ -87,7 +87,7 @@ export default function TransactionsItem({
           className={css.length}
           style={{ color: transactionType === 'income' ? '#FFB627' : '#FF868D' }}
         >
-          {summ}
+          {formatNumber(summ)}
         </span>
       </li>
       <li className={css.itemLine}>
