@@ -51,4 +51,5 @@
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 120px;
+  font-weight: 600;
 }

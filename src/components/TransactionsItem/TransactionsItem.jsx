@@ -42,7 +42,7 @@ export default function TransactionsItem({
         </span>
       </td>
       <td style={{ color: transactionType === 'income' ? '#FFB627' : '#FF868D' }}>
-        <span className={css.length}>{summ}</span>
+        <span className={css.length}>{summ.toFixed(2)}</span>
       </td>
       <td className={css.btns}>
         <LoadingBtn
@@ -86,7 +86,7 @@ export default function TransactionsItem({
           className={css.length}
           style={{ color: transactionType === 'income' ? '#FFB627' : '#FF868D' }}
         >
-          {summ}
+          {summ.toFixed(2)}
         </span>
       </li>
       <li className={css.itemLine}>
