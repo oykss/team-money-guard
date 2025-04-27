@@ -1,5 +1,9 @@
-.canvas {
+.chart {
+  width: 100%;
+  height: 88px;
+
   @media (min-width: 1280px) {
     padding-top: 18px;
+    height: 255px;
   }
 }

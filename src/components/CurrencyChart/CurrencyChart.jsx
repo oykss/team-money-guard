@@ -8,14 +8,11 @@ import {
   Tooltip,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import { useMediaPoints } from './../../hooks/useMediaPoints';
 import css from './CurrencyChart.module.css';
 
 ChartJS.register(LineElement, PointElement, LinearScale, CategoryScale, Tooltip, Filler);
 
-export function CurrencyChart() {
-  const { isMobile, isTablet } = useMediaPoints();
-
+export default function CurrencyChart() {
   const dataPoints = [3, 13, 10, 23, 17];
 
   const pointRadius = dataPoints.map((_, index) => (index === 1 || index === 3 ? 5 : 0));
@@ -61,14 +58,7 @@ export function CurrencyChart() {
   };
 
   return (
-    <div
-      style={{
-        width: '100%',
-        height: isMobile || isTablet ? 88 : 255, // динамическая высота
-        position: 'relative', // нужно для chart.js
-      }}
-      className={css.canvas}
-    >
+    <div className={css.chart}>
       <Line data={data} options={options} />
     </div>
   );
