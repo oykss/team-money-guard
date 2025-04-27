@@ -1,0 +1,16 @@
+.chart {
+  width: 280px;
+  height: 280px;
+  margin: 0 auto;
+
+  @media (min-width: 768px) {
+    width: 336px;
+    height: 336px;
+    margin: 0;
+  }
+
+  @media (min-width: 1280px) {
+    width: 288px;
+    height: 288px;
+  }
+}
