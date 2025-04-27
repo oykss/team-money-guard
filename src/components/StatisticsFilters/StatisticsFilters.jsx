@@ -2,12 +2,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
 
 import { MONTHS, YEARS } from '../../constants';
+import { selectDate } from '../../store/statistics/selectors';
 import { setMonth, setYear } from '../../store/statistics/slice';
 import css from './StatisticsFilters.module.css';
 
 export default function StatisticsFilters() {
   const dispatch = useDispatch();
-  const { month, year } = useSelector(state => state.statistics.selectedDate);
+  const { month, year } = useSelector(selectDate);
 
   const selectedMonthOption = MONTHS.find(m => m.value === month);
   const selectedYearOption = YEARS.find(y => y.value === year);

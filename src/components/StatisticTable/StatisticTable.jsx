@@ -1,10 +1,11 @@
 import { useSelector } from 'react-redux';
+import { selectSummary } from '../../store/statistics/selectors';
 import { formatNumber } from '../../utils/formatNumber';
 import { getCategoryColor } from '../../utils/getCategoryColor';
 import css from './StatisticTable.module.css';
 
 export default function StatisticTable() {
-  const summary = useSelector(state => state.statistics.summary);
+  const summary = useSelector(selectSummary);
   const { expense = [], totalExpense = 0, totalIncome = 0 } = summary;
 
   if (!expense.length) {
