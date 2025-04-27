@@ -9,10 +9,10 @@ export const fetchStatistics = createAsyncThunk(
             const formattedMonth = month.toString().padStart(2, '0');
             const formattedDate = `${year}-${formattedMonth}`;
             
-            const response = await api.get(`/summary?date=${formattedDate}`);
-            return response.data.data.data;
+            const response = await api.get(`/transactions/summary?period=${formattedDate}`);
+            return response.data;
         } catch (error) {
-            thunkAPI.rejectWithValue(error.response.data.message || 'Something went wrong');
+            return thunkAPI.rejectWithValue(error.response.data.message || 'Something went wrong');
         };
     }
 );
