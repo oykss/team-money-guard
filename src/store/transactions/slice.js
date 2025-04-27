@@ -40,7 +40,7 @@ const transactionsSlice = createSlice({
         state.transactions = action.payload;
         state.hasFetched = true;
       })
-      .addCase('/transactions/getTransactions/rejected', (state, action) => {
+      .addCase('transactions/getTransactions/rejected', (state, action) => {
         handleRejected(state, action);
         state.isFetching = false;
         toast.error('Failed to get transactions. Please try again.');

@@ -10,10 +10,8 @@ export const fetchStatistics = createAsyncThunk(
 
       const response = await api.get(`/transactions/summary?period=${formattedDate}`);
       return response.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(
-        error.response.data.message || 'Something went wrong'
-      );
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.message);
     }
   }
 );

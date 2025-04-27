@@ -8,8 +8,7 @@ export const getCategories = createAsyncThunk(
       const response = await api.get('/categories');
       return response.data.data;
     } catch (e) {
-      console.error();
-      return thunkAPI.rejectWithValue(e);
+      return thunkAPI.rejectWithValue(e.message);
     }
   }
 );

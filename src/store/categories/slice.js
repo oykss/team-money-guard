@@ -5,16 +5,6 @@ const initialState = {
   categories: [],
   isLoading: false,
   loading: false,
-  error: null,
-};
-
-const handlePending = state => {
-  state.loading = true;
-};
-
-const handleRejected = (state, action) => {
-  state.loading = false;
-  state.error = action.payload;
 };
 
 const categoriesSlice = createSlice({
@@ -22,13 +12,17 @@ const categoriesSlice = createSlice({
   initialState,
   extraReducers: builder => {
     builder
-      .addCase(getCategories.pending, handlePending)
-      .addCase(getCategories.fulfilled, (state, action) => {
+      .addCase('categories/getCategories/pending', state => {
+        state.loading = true;
+      })
+      .addCase('categories/getCategories/fulfilled', (state, action) => {
         state.loading = false;
         state.error = null;
         state.categories = action.payload;
       })
-      .addCase(getCategories.rejected, handleRejected);
+      .addCase(getCategories.rejected, state => {
+        state.loading = false;
+      });
   },
 });
 

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchStatistics } from './operations';
+import toast from 'react-hot-toast';
 
 const initialState = {
   summary: {
@@ -33,15 +33,16 @@ const statisticsSlice = createSlice({
   },
   extraReducers: builder => {
     builder
-      .addCase(fetchStatistics.pending, state => {
+      .addCase('statistics/fetchStatistics/pending', state => {
         state.isLoading = true;
       })
-      .addCase(fetchStatistics.fulfilled, (state, action) => {
+      .addCase('statistics/fetchStatistics/fulfilled', (state, action) => {
         state.summary = action.payload;
         state.isLoading = false;
       })
-      .addCase(fetchStatistics.rejected, state => {
+      .addCase('statistics/fetchStatistics/rejected', state => {
         state.isLoading = false;
+        toast.error('Failed to update the statistics. Please try again.');
       });
   },
 });

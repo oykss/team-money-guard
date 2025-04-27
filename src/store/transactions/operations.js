@@ -10,7 +10,6 @@ export const getTransactions = createAsyncThunk(
       const { data } = await api.get(API_PATHS.TRANSACTION.PATH);
       return data.data;
     } catch (e) {
-      console.error();
       return thunkAPI.rejectWithValue(e.message);
     }
   }
