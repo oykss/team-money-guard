@@ -5,6 +5,7 @@ import { selectExpenseCategories } from '../../store/categories/selectors';
 import { deleteTransaction } from '../../store/transactions/operations';
 import LoadingBtn from '../../ui/LoadingBtn/LoadingBtn';
 import { findCategoryTitle } from '../../utils/findCategoryTitle';
+import { formatNumber } from '../../utils/formatNumber';
 import { getDate } from '../../utils/getDate';
 import css from './TransactionsItem.module.css';
 
@@ -42,7 +43,7 @@ export default function TransactionsItem({
         </span>
       </td>
       <td style={{ color: transactionType === 'income' ? '#FFB627' : '#FF868D' }}>
-        <span className={css.length}>{summ}</span>
+        <span className={css.length}>{formatNumber(summ)}</span>
       </td>
       <td className={css.btns}>
         <LoadingBtn
