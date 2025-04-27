@@ -2,7 +2,8 @@ import { ArcElement, Chart as ChartJS, Legend, Tooltip } from 'chart.js';
 import React from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { useSelector } from 'react-redux';
-import { selectSummary } from '../../store/statistics/selectors';
+import { selectIsLoading, selectSummary } from '../../store/statistics/selectors';
+import Skeleton from '../../ui/Skeleton/Skeleton';
 import { formatNumber } from '../../utils/formatNumber';
 import { getCategoryColor } from '../../utils/getCategoryColor';
 import css from './StatisticsChart.module.css';
@@ -32,6 +33,7 @@ const centerTextPlugin = {
 
 export default function StatisticsChart() {
   const summary = useSelector(selectSummary);
+  const isLoading = useSelector(selectIsLoading);
   const { expense = [], balance = 0 } = summary;
 
   const hasExpenses = expense.length > 0 && expense.some(category => category.total > 0);
@@ -78,7 +80,14 @@ export default function StatisticsChart() {
 
   return (
     <div className={css.chart}>
-      <Doughnut data={data} options={options} plugins={[centerTextPlugin]} />
+      {isLoading ? (
+        <div className={css.wrapSkeleton}>
+          <Skeleton className={css.skeletonCircle} />
+          <Skeleton className={css.skeleton} />
+        </div>
+      ) : (
+        <Doughnut data={data} options={options} plugins={[centerTextPlugin]} />
+      )}
     </div>
   );
 }

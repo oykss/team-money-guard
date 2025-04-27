@@ -14,3 +14,39 @@
     height: 288px;
   }
 }
+
+.wrapSkeleton {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.skeletonCircle {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  mask-image: radial-gradient(circle 100px at center, transparent 99px, black 100px);
+  -webkit-mask-image: radial-gradient(
+    circle 100px at center,
+    transparent 99px,
+    black 100px
+  );
+
+  @media (max-width: 1279px) and (min-width: 768px) {
+    mask-image: radial-gradient(circle 120px at center, transparent 119px, black 120px);
+    -webkit-mask-image: radial-gradient(
+      circle 120px at center,
+      transparent 119px,
+      black 120px
+    );
+  }
+}
+
+.skeleton {
+  position: absolute;
+  max-width: 100px;
+  height: 28px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
