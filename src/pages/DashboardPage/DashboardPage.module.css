@@ -50,10 +50,12 @@
     padding-left: 0;
   }
 }
+
 .userBarContainer {
   @media (min-width: 768px) {
     display: flex;
     justify-content: space-between;
+    gap: 32px;
   }
 
   @media (min-width: 1280px) {
