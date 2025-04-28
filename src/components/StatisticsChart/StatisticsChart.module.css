@@ -35,13 +35,17 @@
     transform: translate(-50%, -50%);
     border-radius: 100%;
     box-shadow: 0 0 8px 0 #000;
+  }
 
-    @media (min-width: 768px) {
+  @media (min-width: 768px) {
+    &::after {
       width: 231px;
       height: 231px;
     }
+  }
 
-    @media (min-width: 1280px) {
+  @media (min-width: 1280px) {
+    &::after {
       width: 198px;
       height: 198px;
     }

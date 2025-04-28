@@ -1,6 +1,10 @@
 .transactionsContainer {
   width: 100%;
 
+  @media (max-width: 767px) {
+    padding-inline: 20px;
+  }
+
   @media (min-width: 768px) {
     padding-block: 0px 20px;
   }
