@@ -10,7 +10,25 @@
     padding-block: 16px;
   }
 }
+.userPhoto {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 8px;
+}
 
+.userLetter {
+  background: #6c3db5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #e9a949;
+  margin-right: 5px;
+}
 .container {
   display: flex;
   align-items: center;

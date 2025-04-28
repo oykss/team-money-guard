@@ -73,7 +73,9 @@ const authSlice = createSlice({
         state.user.name = action.payload.data.name;
         state.user.email = action.payload.data.email;
         state.user.balance = action.payload.data.balance;
+        state.user.photo = action.payload.data.photo;
       })
+
       .addMatcher(
         isAnyOf(
           action => action.type === 'auth/register/pending',
@@ -103,7 +105,7 @@ const authSlice = createSlice({
 const persistConfig = {
   key: 'auth',
   storage,
-  whitelist: ['token', 'tokenTimestamp'],
+  whitelist: ['token', 'tokenTimestamp', 'user', 'isLoggedIn'],
 };
 
 export const authReducer = persistReducer(persistConfig, authSlice.reducer);

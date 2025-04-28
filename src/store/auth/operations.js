@@ -57,3 +57,31 @@ export const currentUser = createAsyncThunk('user/current', async (_, thunkAPI) 
     return thunkAPI.rejectWithValue(e.message);
   }
 });
+export const updateUserName = createAsyncThunk(
+  'auth/updateUserName',
+  async (payload, thunkAPI) => {
+    try {
+      const { data } = await api.patch('/user/name', payload);
+      return data.data;
+    } catch (error) {
+      toast.error(error.response?.data?.message || 'Failed to update name');
+      return thunkAPI.rejectWithValue(error.response?.data?.message);
+    }
+  }
+);
+export const updateUserPhoto = createAsyncThunk(
+  'auth/updateUserPhoto',
+  async (formData, thunkAPI) => {
+    try {
+      const { data } = await api.patch('/user/photo', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      return data.data;
+    } catch (error) {
+      toast.error(error.response?.data?.message || 'Failed to update photo');
+      return thunkAPI.rejectWithValue(error.response?.data?.message);
+    }
+  }
+);

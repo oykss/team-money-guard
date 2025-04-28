@@ -2,7 +2,7 @@ import { lazy, Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import { ROUTES } from '../../constants';
-import { refresh } from '../../store/auth/operations';
+import { refresh, currentUser } from '../../store/auth/operations';
 import {
   selectIsRefreshing,
   selectToken,
@@ -35,6 +35,7 @@ export default function App() {
     if (token && tokenTimestamp > Date.now()) {
       setAuthToken(token);
       dispatch(setLoggedIn(true));
+      dispatch(currentUser());
       return;
     }
 
