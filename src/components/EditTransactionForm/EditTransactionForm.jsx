@@ -95,13 +95,7 @@ export default function EditTransactionForm({ transaction, handleClose }) {
         <div className={css.inputWrap}>
           <div className={css.wrap}>
             <label className={css.label}>
-              <input
-                {...register('summ')}
-                type="number"
-                step="0.01"
-                min="0.01"
-                defaultValue={summ}
-              />
+              <input {...register('summ')} type="number" defaultValue={summ} />
             </label>
             {errors.summ && <span className={css.error}>{errors.summ.message}</span>}
           </div>

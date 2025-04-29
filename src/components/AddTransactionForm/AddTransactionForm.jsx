@@ -97,13 +97,7 @@ export default function AddTransactionForm({ handleClose }) {
           <div className={css.wrap}>
             <label className={css.label}>
               <FaMoneyBillWave className={css.icon} size={28} />
-              <input
-                {...register('summ')}
-                type="number"
-                step="0.01"
-                min="0.01"
-                placeholder="0.01"
-              />
+              <input {...register('summ')} type="number" placeholder="0.01" />
             </label>
             {errors.summ && <span className={css.error}>{errors.summ.message}</span>}
           </div>
