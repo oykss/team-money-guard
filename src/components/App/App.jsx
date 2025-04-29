@@ -38,7 +38,7 @@ export default function App() {
       return;
     }
 
-    if (!wasLogout) dispatch(currentUser());
+    dispatch(currentUser());
   }, [dispatch, token, tokenTimestamp, wasLogout]);
 
   return isRefreshing ? (
