@@ -2,7 +2,6 @@ import { lazy, Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import { ROUTES } from '../../constants';
-import { refresh } from '../../store/auth/operations';
 import {
   selectIsRefreshing,
   selectToken,
@@ -15,6 +14,7 @@ import { setAuthToken } from '../../utils/setAuthToken';
 import { MediaRoute } from '../MediaRoutes';
 import { PrivateRoute } from '../PrivateRoute';
 import { RestrictedRoute } from '../RestrictedRoute';
+import { currentUser } from './../../store/auth/operations';
 
 const DashboardPage = lazy(() => import('../../pages/DashboardPage/DashboardPage'));
 const LoginPage = lazy(() => import('../../pages/LoginPage/LoginPage'));
@@ -38,7 +38,7 @@ export default function App() {
       return;
     }
 
-    if (!wasLogout) dispatch(refresh());
+    if (!wasLogout) dispatch(currentUser());
   }, [dispatch, token, tokenTimestamp, wasLogout]);
 
   return isRefreshing ? (
