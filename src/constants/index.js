@@ -12,7 +12,7 @@ export const API_PATHS = {
   REGISTER: '/register',
   REFRESH: '/refresh',
   LOGOUT: '/logout',
-  CURRENT: '/user/current',
+  USER: { CURRENT: '/user/current', NAME: '/user/name', PHOTO: '/user/photo' },
   TRANSACTION: {
     PATH: 'transactions',
     PATH_ID: id => `/transactions/${id}`,

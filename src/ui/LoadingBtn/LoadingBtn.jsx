@@ -6,6 +6,7 @@ export default function LoadingBtn({
   children,
   isLoading,
   click,
+  disabled,
   type = 'button',
   className,
   size,
@@ -13,8 +14,8 @@ export default function LoadingBtn({
   return (
     <button
       type={type}
-      className={clsx(css.btn, className, isLoading ? '' : 'btn-pr-effect')}
-      disabled={isLoading}
+      className={clsx(css.btn, className, isLoading ? css.disabled : 'btn-pr-effect')}
+      disabled={isLoading || disabled}
       onClick={click}
     >
       {isLoading ? <Loader size={size} /> : children}

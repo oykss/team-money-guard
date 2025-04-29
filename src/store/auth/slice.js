@@ -8,6 +8,7 @@ const initialState = {
   user: {
     name: null,
     email: null,
+    photo: null,
     balance: 0,
   },
   token: null,
@@ -70,12 +71,21 @@ const authSlice = createSlice({
         state.user.name = action.payload.data.name;
         state.user.email = action.payload.data.email;
         state.user.balance = action.payload.data.balance;
+        state.user.photo = action.payload.data.photo;
+      })
+      .addCase('auth/updateUserName/fulfilled', (state, action) => {
+        state.user.name = action.payload.data.name;
+      })
+      .addCase('auth/updateUserPhoto/fulfilled', (state, action) => {
+        state.user.photo = action.payload.data.photo;
       })
       .addMatcher(
         isAnyOf(
           action => action.type === 'auth/register/pending',
           action => action.type === 'auth/login/pending',
-          action => action.type === 'auth/logout/pending'
+          action => action.type === 'auth/logout/pending',
+          action => action.type === 'auth/updateUserName/pending',
+          action => action.type === 'auth/updateUserPhoto/pending'
         ),
         state => {
           state.isLoading = true;
@@ -86,9 +96,13 @@ const authSlice = createSlice({
           action => action.type === 'auth/register/rejected',
           action => action.type === 'auth/login/rejected',
           action => action.type === 'auth/logout/rejected',
+          action => action.type === 'auth/updateUserName/rejected',
+          action => action.type === 'auth/updateUserPhoto/rejected',
           action => action.type === 'auth/register/fulfilled',
           action => action.type === 'auth/login/fulfilled',
-          action => action.type === 'auth/logout/fulfilled'
+          action => action.type === 'auth/logout/fulfilled',
+          action => action.type === 'auth/updateUserName/fulfilled',
+          action => action.type === 'auth/updateUserPhoto/fulfilled'
         ),
         state => {
           state.isLoading = false;
@@ -104,4 +118,4 @@ const persistConfig = {
 };
 
 export const authReducer = persistReducer(persistConfig, authSlice.reducer);
-export const { setLoggedIn, setBalance } = authSlice.actions;
+export const { setLoggedIn, setBalance, setPhoto, setName } = authSlice.actions;

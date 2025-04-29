@@ -16,6 +16,10 @@
   flex-shrink: 0;
 
   &:disabled {
+    cursor: auto;
+  }
+
+  .disabled {
     cursor: progress;
   }
 

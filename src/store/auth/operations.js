@@ -55,9 +55,36 @@ export const currentUser = createAsyncThunk('user/current', async (_, thunkAPI) 
   }
 
   try {
-    const { data } = await api.get(API_PATHS.CURRENT);
+    const { data } = await api.get(API_PATHS.USER.CURRENT);
     return data;
   } catch (e) {
     return thunkAPI.rejectWithValue(e.message);
   }
 });
+
+export const updateUserName = createAsyncThunk(
+  'auth/updateUserName',
+  async (payload, thunkAPI) => {
+    try {
+      const { data } = await api.patch(API_PATHS.USER.NAME, payload);
+      return data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.message);
+    }
+  }
+);
+export const updateUserPhoto = createAsyncThunk(
+  'auth/updateUserPhoto',
+  async (formData, thunkAPI) => {
+    try {
+      const { data } = await api.patch(API_PATHS.USER.PHOTO, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      return data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.message);
+    }
+  }
+);

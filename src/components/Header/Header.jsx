@@ -1,20 +1,19 @@
 import { useState } from 'react';
 import { IoExitOutline } from 'react-icons/io5';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import logoSvg from '../../assets/logo.svg';
-import { selectUser } from '../../store/auth/selectors';
 import Container from '../../ui/Container/Container';
-import Skeleton from '../../ui/Skeleton/Skeleton';
+import Avatar from '../Avatar/Avatar';
 import ModalLogout from '../ModalLogout/ModalLogout';
+import ModalPatchUser from '../ModalPatchUser/ModalPatchUser';
 import { ROUTES } from './../../constants/index';
 import { useMediaPoints } from './../../hooks/useMediaPoints';
 import css from './Header.module.css';
 
 export default function Header() {
   const { isMobile } = useMediaPoints();
-  const [isOpen, setIsOpen] = useState(false);
-  const user = useSelector(selectUser);
+  const [isOpenLogout, setIsOpenLogout] = useState(false);
+  const [isOpenPatch, setIsOpenPatch] = useState(false);
 
   return (
     <>
@@ -25,13 +24,17 @@ export default function Header() {
           </Link>
 
           <div className={css.infoWrap}>
-            <p className={css.name}>
-              {user.name ? user.name : <Skeleton width="70px" height="24px" />}
-            </p>
             <button
               type="button"
               className="btn-pr-effect"
-              onClick={() => setIsOpen(prev => !prev)}
+              onClick={() => setIsOpenPatch(prev => !prev)}
+            >
+              <Avatar className={css.avatarHeader} />
+            </button>
+            <button
+              type="button"
+              className="btn-pr-effect"
+              onClick={() => setIsOpenLogout(prev => !prev)}
             >
               <IoExitOutline color="#ffffff99" size={24} />
               {!isMobile && <p>Exit</p>}
@@ -40,7 +43,8 @@ export default function Header() {
         </Container>
       </header>
 
-      {isOpen && <ModalLogout closeMenu={() => setIsOpen(false)} />}
+      {isOpenLogout && <ModalLogout closeMenu={() => setIsOpenLogout(false)} />}
+      {isOpenPatch && <ModalPatchUser closeMenu={() => setIsOpenPatch(false)} />}
     </>
   );
 }

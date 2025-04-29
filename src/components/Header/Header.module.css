@@ -16,7 +16,7 @@
   align-items: center;
   justify-content: space-between;
 
-  img {
+  a > img {
     width: 86px;
     height: auto;
 
@@ -32,22 +32,18 @@
   gap: 8px;
 
   @media (min-width: 768px) {
+    position: relative;
     gap: 24px;
 
-    .name {
-      position: relative;
-
-      &::after {
-        content: '';
-        position: absolute;
-        background-color: var(--white-600);
-        height: 30px;
-        width: 1px;
-        border-radius: 2px;
-        top: 50%;
-        right: -12px;
-        transform: translateY(-50%);
-      }
+    &::after {
+      content: '';
+      position: absolute;
+      width: 1px;
+      height: 30px;
+      background-color: var(--white-600);
+      top: 50%;
+      left: 44px;
+      transform: translateY(-50%);
     }
   }
 
@@ -62,4 +58,9 @@
     font-size: 16px;
     color: var(--white-600);
   }
+}
+
+.avatarHeader {
+  width: 32px;
+  height: 32px;
 }
