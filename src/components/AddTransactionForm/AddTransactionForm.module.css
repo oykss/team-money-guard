@@ -47,7 +47,7 @@
     margin-bottom: 40px;
 
     .label {
-      width: 170px;
+      width: 180px;
     }
 
     .wrap {
@@ -110,8 +110,24 @@
   }
 }
 
+.labelDate {
+  padding-right: 0;
+
+  input {
+    padding-right: 0;
+  }
+}
+
 .datePicker {
+  font-size: 18px;
   margin-left: 10px;
+}
+
+.iconDate {
+  margin-inline: 0 10px;
+  flex-shrink: 0;
+  padding: 1px;
+  height: 28px;
 }
 
 @keyframes fadeIn {

@@ -116,3 +116,58 @@ fieldset {
     transform: translateY(2px);
   }
 }
+
+.calendar {
+  background: linear-gradient(
+    180deg,
+    rgba(83, 61, 186),
+    rgba(80, 48, 154),
+    rgba(106, 70, 165),
+    rgba(133, 93, 175)
+  );
+  color: var(--white);
+  border: none;
+  font-family: var(--font-pr);
+  box-shadow: 0 4px 60px 0 rgba(0, 0, 0, 0.25);
+
+  & .react-datepicker__current-month {
+    color: var(--white);
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  & .react-datepicker__day-name {
+    color: var(--white-600);
+    font-weight: 500;
+  }
+
+  & .react-datepicker__day {
+    color: var(--white-600);
+    margin: 2px;
+    transition: background-color 200ms ease, border-radius 200ms ease, transform 50ms ease;
+
+    &:not([aria-disabled='true']):hover {
+      border-radius: 50%;
+      background-color: var(--form-color);
+    }
+
+    &:not([aria-disabled='true']):active {
+      transform: translateY(2px);
+    }
+  }
+
+  & .react-datepicker__day--today {
+    color: var(--yellow);
+    border-radius: 50%;
+  }
+
+  & .react-datepicker__day--selected {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: var(--white);
+    border-radius: 50%;
+  }
+
+  & .react-datepicker__header {
+    background: rgba(80, 48, 154);
+  }
+}

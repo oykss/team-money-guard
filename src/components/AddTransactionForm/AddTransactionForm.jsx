@@ -107,15 +107,16 @@ export default function AddTransactionForm({ handleClose }) {
             control={control}
             render={({ field }) => (
               <div className={css.wrap}>
-                <label className={css.label}>
+                <label className={clsx(css.label, css.labelDate)}>
                   <DatePicker
                     className={css.datePicker}
+                    calendarClassName="calendar"
                     selected={field.value}
                     onChange={field.onChange}
                     dateFormat="dd-MM-yyyy"
                   />
-                  <FaRegCalendarAlt className={clsx(css.icon, css.iconDate)} size={28} />
-                </label>{' '}
+                  <FaRegCalendarAlt className={clsx(css.icon, css.iconDate)} size={20} />
+                </label>
                 {errors.date && <span className={css.error}>{errors.date.message}</span>}
               </div>
             )}

@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import clsx from 'clsx';
 import DatePicker from 'react-datepicker';
 import { Controller, useForm } from 'react-hook-form';
-import { FaRegCalendarAlt, FaRegCommentDots } from 'react-icons/fa';
+import { FaMoneyBillWave, FaRegCalendarAlt, FaRegCommentDots } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
 import { customStyles } from '../../constants/select-styles.js';
@@ -95,6 +95,7 @@ export default function EditTransactionForm({ transaction, handleClose }) {
         <div className={css.inputWrap}>
           <div className={css.wrap}>
             <label className={css.label}>
+              <FaMoneyBillWave className={css.icon} size={28} />
               <input {...register('summ')} type="number" defaultValue={summ} />
             </label>
             {errors.summ && <span className={css.error}>{errors.summ.message}</span>}
@@ -104,14 +105,15 @@ export default function EditTransactionForm({ transaction, handleClose }) {
             control={control}
             render={({ field }) => (
               <div className={css.wrap}>
-                <label className={css.label}>
+                <label className={clsx(css.label, css.labelDate)}>
                   <DatePicker
                     className={css.datePicker}
+                    calendarClassName="calendar"
                     selected={field.value}
                     onChange={field.onChange}
                     dateFormat="dd-MM-yyyy"
                   />
-                  <FaRegCalendarAlt className={clsx(css.icon, css.iconDate)} size={28} />
+                  <FaRegCalendarAlt className={clsx(css.icon, css.iconDate)} size={20} />
                 </label>
               </div>
             )}
