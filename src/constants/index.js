@@ -12,11 +12,18 @@ export const API_PATHS = {
   REGISTER: '/register',
   REFRESH: '/refresh',
   LOGOUT: '/logout',
-  USER: { CURRENT: '/user/current', NAME: '/user/name', PHOTO: '/user/photo' },
+  USER: {
+    CURRENT: '/user/current',
+    NAME: '/user/name',
+    PHOTO: '/user/photo',
+    PATH: 'user',
+  },
   TRANSACTION: {
     PATH: 'transactions',
     PATH_ID: id => `/transactions/${id}`,
+    SUMMARY: date => `/transactions/summary?period=${date}`,
   },
+  CATEGORIES: '/categories',
 };
 
 export const CATEGORY = {

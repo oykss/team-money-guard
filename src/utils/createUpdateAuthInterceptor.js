@@ -25,8 +25,9 @@ export const createUpdateAuthInterceptor = (store, http) => async error => {
       const refreshResponse = await refreshTokenPromise;
 
       if (
-        paths.includes(API_PATHS.TRANSACTION.PATH) &&
-        METHODS.includes(config?.method)
+        (paths.includes(API_PATHS.TRANSACTION.PATH) &&
+          METHODS.includes(config?.method)) ||
+        (paths.includes(API_PATHS.USER.PATH) && config?.method === 'patch')
       ) {
         const newAccessToken = refreshResponse?.payload?.data?.accessToken;
 
