@@ -6,7 +6,6 @@ import {
   selectIsRefreshing,
   selectToken,
   selectTokenTimestamp,
-  selectWasLogout,
 } from '../../store/auth/selectors';
 import { setLoggedIn } from '../../store/auth/slice';
 import BackdropApp from '../../ui/BackdropApp/BackdropApp';
@@ -29,7 +28,6 @@ export default function App() {
   const isRefreshing = useSelector(selectIsRefreshing);
   const tokenTimestamp = useSelector(selectTokenTimestamp);
   const token = useSelector(selectToken);
-  const wasLogout = useSelector(selectWasLogout);
 
   useEffect(() => {
     if (token && tokenTimestamp > Date.now()) {
@@ -38,8 +36,8 @@ export default function App() {
       return;
     }
 
-    if (!wasLogout) dispatch(currentUser());
-  }, [dispatch, token, tokenTimestamp, wasLogout]);
+    dispatch(currentUser());
+  }, [dispatch, token, tokenTimestamp]);
 
   return isRefreshing ? (
     <BackdropApp />

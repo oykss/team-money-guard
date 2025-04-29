@@ -9,5 +9,3 @@ export const selectIsLoading = state => state.auth.isLoading;
 export const selectTokenTimestamp = state => state.auth.tokenTimestamp;
 
 export const selectToken = state => state.auth.token;
-
-export const selectWasLogout = state => state.auth.wasLogout;

@@ -50,6 +50,10 @@ export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
 });
 
 export const currentUser = createAsyncThunk('user/current', async (_, thunkAPI) => {
+  if (!api.defaults.headers.common['Authorization']) {
+    return thunkAPI.rejectWithValue('No token provided');
+  }
+
   try {
     const { data } = await api.get(API_PATHS.CURRENT);
     return data;
