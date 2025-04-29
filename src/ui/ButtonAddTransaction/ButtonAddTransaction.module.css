@@ -16,7 +16,7 @@
   }
   @media (min-width: 1280px) {
     position: absolute;
-    bottom: 0;
-    right: 0;
+    bottom: 40;
+    right: 40;
   }
 }
