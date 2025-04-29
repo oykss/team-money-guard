@@ -22,16 +22,18 @@ export default function DashboardPage() {
   return (
     <section className={css.section}>
       <Header />
-      <Container className={css.container}>
-        <div className={css.userBarContainer}>
-          <div className={css.navAndBalCont}>
-            <Navigation />
-            {!isMobile && <Balance />}
+      <div className={css.wrapper}>
+        <Container className={css.container}>
+          <div className={css.userBarContainer}>
+            <div className={css.navAndBalCont}>
+              <Navigation />
+              {!isMobile && <Balance />}
+            </div>
+            {!isMobile && <CurrencyTab />}
           </div>
-          {!isMobile && <CurrencyTab />}
-        </div>
-        <Outlet />
-      </Container>
+          <Outlet />
+        </Container>
+      </div>
     </section>
   );
 }

@@ -11,6 +11,7 @@
 
   @media (min-width: 1280px) {
     padding-block: 46px 20px;
+    overflow-y: scroll;
   }
 }
 

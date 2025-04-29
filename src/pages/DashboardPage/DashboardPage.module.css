@@ -32,6 +32,15 @@
   }
 }
 
+.wrapper {
+  @media (min-width: 1280px) {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -48,6 +57,7 @@
     flex-direction: row;
     gap: 70px;
     padding-left: 0;
+    position: relative;
   }
 }
 

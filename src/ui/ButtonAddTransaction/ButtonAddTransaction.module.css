@@ -14,4 +14,9 @@
     bottom: 40px;
     right: 40px;
   }
+  @media (min-width: 1280px) {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
 }
